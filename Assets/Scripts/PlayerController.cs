@@ -45,33 +45,33 @@ public class PlayerController : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        rb.AddForce(Vector2.up * -.08f, ForceMode2D.Force);
+        // rb.AddForce(Vector2.up * -.08f, ForceMode2D.Force);
 
-        float throttle = vertical;
+        float throttle = vertical * 20;
 
-        car.transform.position = new Vector3(car.transform.position.x + horizontal * speed, car.transform.position.y, 0);
-        rb.AddForce(Vector2.up * throttle, ForceMode2D.Force);
+        //car.transform.position = new Vector3(car.transform.position.x + horizontal * speed, car.transform.position.y, 0);
+        rb.AddRelativeForce(Vector2.up * throttle, ForceMode2D.Force);
 
-        // if(car.transform.rotation != rotation) car.transform.rotation = Quaternion.RotateTowards(car.transform.rotation, rotation, step);
+
+        // if(car.transform.rotation != rotation) car.transform.rotation = Quaternion.RotateTowards(car.transform.rotation, rotation, speed);
 
         if (horizontal > 0)
         {
-            if (rb.rotation > -10) rb.rotation -= 0.5f;
+            if (rb.rotation > -40)
+            {
+                rb.rotation -= 0.5f;
+            }
             // Vector3 newDirection = Vector3.RotateTowards(car.transform.position, rotLeftV, step, 1f);
             // car.transform.rotation = Quaternion.LookRotation(newDirection);
         }
         if (horizontal < 0)
         {
-            if (rb.rotation < 10) rb.rotation += 0.5f;
+            if (rb.rotation < 40) rb.rotation += 0.5f;
             // Vector3 newDirection = Vector3.RotateTowards(car.transform.position, rotRightV, step, 1f);
             // car.transform.rotation = Quaternion.LookRotation(newDirection);
         }
 
         if (car.transform.position.x < -10) car.transform.position = new Vector3(-10, car.transform.position.y, 0);
         if (car.transform.position.x > 10) car.transform.position = new Vector3(10, car.transform.position.y, 0);
-
-        if (car.transform.position.y > 4) car.transform.position = new Vector3(car.transform.position.x, 4, 0);
-        if (car.transform.position.y < -4) car.transform.position = new Vector3(car.transform.position.x, -4, 0);
-
     }
 }
