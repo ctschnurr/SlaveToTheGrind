@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         // rb.AddForce(Vector2.up * -.08f, ForceMode2D.Force);
 
-        float throttle = vertical * 20;
+        float throttle = vertical * 10;
 
         //car.transform.position = new Vector3(car.transform.position.x + horizontal * speed, car.transform.position.y, 0);
         rb.AddRelativeForce(Vector2.up * throttle, ForceMode2D.Force);
@@ -59,14 +59,14 @@ public class PlayerController : MonoBehaviour
         {
             if (rb.rotation > -40)
             {
-                rb.rotation -= 0.5f;
+                rb.rotation -= 0.2f;
             }
             // Vector3 newDirection = Vector3.RotateTowards(car.transform.position, rotLeftV, step, 1f);
             // car.transform.rotation = Quaternion.LookRotation(newDirection);
         }
         if (horizontal < 0)
         {
-            if (rb.rotation < 40) rb.rotation += 0.5f;
+            if (rb.rotation < 40) rb.rotation += 0.2f;
             // Vector3 newDirection = Vector3.RotateTowards(car.transform.position, rotRightV, step, 1f);
             // car.transform.rotation = Quaternion.LookRotation(newDirection);
         }
