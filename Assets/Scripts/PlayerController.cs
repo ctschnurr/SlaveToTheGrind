@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Racer
 {
     GameObject car;
-    float speed = 10f;
 
     Quaternion rotation;
     Quaternion rotLeft;
@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     public float boostDelay = 0.25f;
     float boostDelayReset = 0.25f;
 
-    Rigidbody2D rb;
     bool boosted = false;
 
     // Start is called before the first frame update
@@ -30,7 +29,6 @@ public class PlayerController : MonoBehaviour
     {
         car = transform.gameObject;
         rb = GetComponent<Rigidbody2D>();
-        speed = Time.deltaTime;
 
         rotation = car.transform.localRotation;
         rotLeft = rotation;
@@ -43,6 +41,8 @@ public class PlayerController : MonoBehaviour
         rotLeftV.y -= 5;
         rotRightV = rotationV;
         rotRightV.y += 5;
+
+        racer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        float throttle = vertical * 10 + boost;
+        float throttle = (vertical * speed) + boost;
 
         if (boosted)
         {
@@ -65,12 +65,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
             else boostDelay -= Time.deltaTime;
-
         }
 
-        // rb.AddForce(Vector2.up * -.08f, ForceMode2D.Force);
-
-        //car.transform.position = new Vector3(car.transform.position.x + horizontal * speed, car.transform.position.y, 0);
         rb.AddRelativeForce(Vector2.up * throttle, ForceMode2D.Force);
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -78,7 +74,6 @@ public class PlayerController : MonoBehaviour
             boosted = true;
             boost = boostReset;
         }
-        // if(car.transform.rotation != rotation) car.transform.rotation = Quaternion.RotateTowards(car.transform.rotation, rotation, speed);
 
         if (horizontal > 0)
         {
@@ -86,20 +81,12 @@ public class PlayerController : MonoBehaviour
             {
                 rb.rotation -= 0.2f;
             }
-            // Vector3 newDirection = Vector3.RotateTowards(car.transform.position, rotLeftV, step, 1f);
-            // car.transform.rotation = Quaternion.LookRotation(newDirection);
         }
-
 
         if (horizontal < 0)
         {
             if (rb.rotation < 50) rb.rotation += 0.2f;
-            // Vector3 newDirection = Vector3.RotateTowards(car.transform.position, rotRightV, step, 1f);
-            // car.transform.rotation = Quaternion.LookRotation(newDirection);
         }
-
-        // if (car.transform.position.x < -10) car.transform.position = new Vector3(-10, car.transform.position.y, 0);
-        // if (car.transform.position.x > 10) car.transform.position = new Vector3(10, car.transform.position.y, 0);
     }
 
 }
