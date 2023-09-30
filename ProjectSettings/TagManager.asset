@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Obstacle
   - Racer
+  - Wall
+  - Explosion
   layers:
   - Default
   - TransparentFX

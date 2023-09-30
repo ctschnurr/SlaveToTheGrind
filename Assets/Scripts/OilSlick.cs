@@ -16,23 +16,12 @@ public class OilSlick : Obstacle
         
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag == "Racer")
         {
-            Debug.Log(other.gameObject.name + " was slicked!");
             Racer racer = other.gameObject.GetComponent<Racer>();
             racer.OilSlicked();
-        }
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Racer")
-        {
-            Racer racer = other.gameObject.GetComponent<Racer>();
-            racer.OilSlicked();
-            Debug.Log(other.gameObject.name + " was unslicked!");
         }
     }
 }

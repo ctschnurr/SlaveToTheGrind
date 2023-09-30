@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
+using static Globals;
 
 public class PlayerController : Racer
 {
@@ -17,12 +18,9 @@ public class PlayerController : Racer
     Vector3 rotRightV;
 
     float horizontal;
-    public float boost;
-    float boostReset = 25f;
-    public float boostDelay = 0.25f;
-    float boostDelayReset = 0.25f;
 
-    bool boosted = false;
+    float throttle;
+    public float velocity;
 
     // Start is called before the first frame update
     void Start()
@@ -43,50 +41,44 @@ public class PlayerController : Racer
         rotRightV.y += 5;
 
         racer = gameObject.GetComponent<SpriteRenderer>();
+
+        maxHealth = 25;
+        health = maxHealth;
+
+        speed = baseSpeed * Time.deltaTime;
+        speedMax = baseSpeed * Time.deltaTime;
+        turnSpeed = baseTurnSpeed * Time.deltaTime;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        velocity = rb.velocity.magnitude;
+
         horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        float throttle = (vertical * speed) + boost;
+        throttle = (vertical * speed) + boost;
 
-        if (boosted)
+        if(!dead)
         {
-            if (boostDelay <= 0)
+            rb.AddRelativeForce(Vector2.up * throttle, ForceMode2D.Force);
+
+            if (horizontal > 0)
             {
-                boost -= 0.1f;
-                if (boost <= 0)
-                {
-                    boosted = false;
-                    boostDelay = boostDelayReset;
-                }
+                if (rb.rotation > -50) rb.rotation -= turnSpeed;
             }
-            else boostDelay -= Time.deltaTime;
-        }
 
-        rb.AddRelativeForce(Vector2.up * throttle, ForceMode2D.Force);
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            boosted = true;
-            boost = boostReset;
-        }
-
-        if (horizontal > 0)
-        {
-            if (rb.rotation > -50)
+            if (horizontal < 0)
             {
-                rb.rotation -= 0.2f;
+                if (rb.rotation < 50) rb.rotation += turnSpeed;
             }
         }
+    }
 
-        if (horizontal < 0)
-        {
-            if (rb.rotation < 50) rb.rotation += 0.2f;
-        }
+    public int GetHealth()
+    {
+        return health;
     }
 
 }

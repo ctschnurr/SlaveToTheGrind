@@ -2,32 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using static Constants;
+using static Globals;
 
 public class Racer : MonoBehaviour
 {
-    protected enum Effect
+    public enum Effect
     {
         idle,
         damaged,
-        oilSlick
+        oilSlick,
+        dead
     }
 
     // damage blink
-    protected float delayA = 2;
-    protected float delayB = 0f;
-    protected float delayBreset = 0.15f;
-    protected int flashCount = 7;
+    protected float damageBlinkTimer = 0f;
+    protected float damageBlinkTimerReset = 0.15f;
 
-    protected Effect effect = Effect.idle;
+    protected float oilSlickTimer;
+    protected float oilSlickTimerReset;
+
+    protected int flashCount = 7;
+    protected int maxHealth;
+    protected int health;
+
+    protected float boost = 0f;
+    float boostReset = 50f;
+    float boostDelay = 0.15f;
+    float boostDelayReset = 0.15f;
+    bool boosted = false;
+
+    public Effect effect = Effect.idle;
 
     protected SpriteRenderer racer;
     protected Rigidbody2D rb;
 
-    protected float speed = 10f;
-    protected float speedMax = 10f;
+    public float speed;
+    protected float turnSpeed;
+    public float speedMax;
 
-    protected bool oilSlicked = false;
+    public bool oilSlicked = false;
+    protected bool dead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +50,7 @@ public class Racer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         switch (effect)
         {
@@ -45,13 +59,13 @@ public class Racer : MonoBehaviour
                 break;
 
             case Effect.damaged:
-                delayB -= Time.deltaTime;
-                if (delayB <= 0 && flashCount > 0)
+                damageBlinkTimer -= Time.deltaTime;
+                if (damageBlinkTimer <= 0 && flashCount > 0)
                 {
                     if (racer.enabled) racer.enabled = false;
                     else racer.enabled = true;
 
-                    delayB = delayBreset;
+                    damageBlinkTimer = damageBlinkTimerReset;
                     flashCount--;
                 }
                 if (flashCount <= 0)
@@ -63,35 +77,97 @@ public class Racer : MonoBehaviour
                 break;
 
             case Effect.oilSlick:
-                delayB -= Time.deltaTime;
-                if(delayB <= 0)
+                oilSlickTimer -= Time.deltaTime;
+                if (oilSlickTimer <= 0)
                 {
-
+                    OilSlicked();
+                    oilSlickTimer = 0;
                 }
                 break;
+
+            case Effect.dead:
+                damageBlinkTimer -= Time.deltaTime;
+                if (damageBlinkTimer <= 0)
+                {
+                    if (racer.enabled) racer.enabled = false;
+                    else racer.enabled = true;
+
+                    damageBlinkTimer = damageBlinkTimerReset;
+                }
+                break;
+        }
+
+        if (boosted)
+        {
+            if (boostDelay <= 0)
+            {
+                boost -= 0.1f;
+                if (boost <= 0)
+                {
+                    boosted = false;
+                    boostDelay = boostDelayReset;
+                    boost = 0;
+                }
+            }
+            else boostDelay -= Time.deltaTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            boosted = true;
+            boost = boostReset;
         }
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Obstacle")
+        if(effect != Effect.damaged)
         {
-            switch (collision.gameObject.name)
+            if (collision.gameObject.tag == "Obstacle")
             {
-                case "Cone":
-                    effect = Effect.damaged;
-                    break;
+                switch (collision.gameObject.name)
+                {
+                    case "Cone":
 
-                case "Burning Barrel":
+                        break;
 
-                    break;
+                    case "Burning Barrel":
+
+                        break;
+                }
+
             }
 
+            if (collision.gameObject.tag == "Racer")
+            {
+                effect = Effect.damaged;
+                TakeHealth(5);
+            }
+
+            if (collision.gameObject.tag == "Wall")
+            {
+                effect = Effect.damaged;
+                TakeHealth(2);
+            }
+
+            if (collision.gameObject.tag == "Explosion")
+            {
+                Vector3 direction = transform.position - collision.gameObject.transform.position;
+                rb.AddForce(direction * 50, ForceMode2D.Impulse);
+                effect = Effect.damaged;
+                TakeHealth(10);
+            }
         }
+    }
 
-        if (collision.gameObject.tag == "Racer")
+    protected void TakeHealth(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
         {
-
+            health = 0;
+            effect = Effect.dead;
+            dead = true;
         }
     }
 
@@ -101,7 +177,7 @@ public class Racer : MonoBehaviour
         {
             speed = speed * oilSlickPenalty;
             effect = Effect.oilSlick;
-            delayB = oilSlickDelay;
+            oilSlickTimer = oilSlickDelay;
             oilSlicked = true;
         }
         else
