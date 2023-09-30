@@ -72,7 +72,6 @@ public class TrackManager : MonoBehaviour
 
         int place;
         place = ranking.IndexOf(player1);
-        Debug.Log("Ranking:" + ranking[0].name + ranking[1].name + ranking[2].name + ranking[3].name);
         place++;
         return place;
     }

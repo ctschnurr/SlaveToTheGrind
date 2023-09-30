@@ -22,13 +22,13 @@ public class Obstacle : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Racer")
+        if(collision.gameObject.tag == "Racer" || collision.gameObject.name == "Bullet" || collision.gameObject.tag == "Explosion")
         {
-            HitMe(collision.gameObject, collision.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude);
+            HitMe(collision.gameObject);
         }
     }
 
-    public virtual void HitMe(GameObject car, float force)
+    public virtual void HitMe(GameObject car)
     {
 
     }

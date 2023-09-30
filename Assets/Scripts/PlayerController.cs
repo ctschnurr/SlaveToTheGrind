@@ -48,6 +48,8 @@ public class PlayerController : Racer
         speed = baseSpeed * Time.deltaTime;
         speedMax = baseSpeed * Time.deltaTime;
         turnSpeed = baseTurnSpeed * Time.deltaTime;
+
+        type = RacerType.player;
     }
 
     // Update is called once per frame

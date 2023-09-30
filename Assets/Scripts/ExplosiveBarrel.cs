@@ -33,14 +33,12 @@ public class ExplosiveBarrel : Obstacle
     {
         
     }
-    public override void HitMe(GameObject car, float force)
+    public override void HitMe(GameObject car)
     {
         Vector3 direction = transform.position - car.transform.position;
-        rb.AddForce(direction * (force * 6), ForceMode2D.Impulse);
+        rb.AddForce(direction * 5, ForceMode2D.Impulse);
         //car.GetComponent<Rigidbody2D>().AddForce(-direction * (force * 10), ForceMode2D.Impulse);
 
-        barrel.enabled = false;
-        circleCollider.enabled = false;
         Instantiate(explosion, startPos, transform.rotation);
         Destroy(gameObject);
     }

@@ -8,6 +8,7 @@ TagManager:
   - Racer
   - Wall
   - Explosion
+  - Weapon
   layers:
   - Default
   - TransparentFX

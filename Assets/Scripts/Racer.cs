@@ -14,6 +14,16 @@ public class Racer : MonoBehaviour
         dead
     }
 
+    protected enum RacerType
+    {
+        player,
+        enemy
+    }
+
+    protected RacerType type;
+    public GameObject bullet;
+    public GameObject firePos;
+
     // damage blink
     protected float damageBlinkTimer = 0f;
     protected float damageBlinkTimerReset = 0.15f;
@@ -46,7 +56,7 @@ public class Racer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -112,10 +122,18 @@ public class Racer : MonoBehaviour
             else boostDelay -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if(type == RacerType.player)
         {
-            boosted = true;
-            boost = boostReset;
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                boosted = true;
+                boost = boostReset;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Instantiate(bullet, firePos.transform.position, transform.localRotation);
+            }
         }
     }
 
@@ -123,31 +141,27 @@ public class Racer : MonoBehaviour
     {
         if(effect != Effect.damaged)
         {
-            if (collision.gameObject.tag == "Obstacle")
+            if (collision.gameObject.tag == "Weapon")
             {
                 switch (collision.gameObject.name)
                 {
-                    case "Cone":
-
-                        break;
-
-                    case "Burning Barrel":
-
+                    case "Bullet":
+                        effect = Effect.damaged;
+                        TakeHealth(2);
                         break;
                 }
-
             }
 
             if (collision.gameObject.tag == "Racer")
             {
                 effect = Effect.damaged;
-                TakeHealth(5);
+                TakeHealth(10);
             }
 
             if (collision.gameObject.tag == "Wall")
             {
                 effect = Effect.damaged;
-                TakeHealth(2);
+                TakeHealth(5);
             }
 
             if (collision.gameObject.tag == "Explosion")
@@ -155,7 +169,7 @@ public class Racer : MonoBehaviour
                 Vector3 direction = transform.position - collision.gameObject.transform.position;
                 rb.AddForce(direction * 50, ForceMode2D.Impulse);
                 effect = Effect.damaged;
-                TakeHealth(10);
+                TakeHealth(15);
             }
         }
     }

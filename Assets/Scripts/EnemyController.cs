@@ -19,6 +19,8 @@ public class EnemyController : Racer
 
         speed = baseSpeed * Time.deltaTime;
         speedMax = baseSpeed * Time.deltaTime;
+
+        type = RacerType.enemy;
     }
 
     // Update is called once per frame

@@ -33,10 +33,10 @@ public class Cone : Obstacle
         cone = gameObject.GetComponent<SpriteRenderer>();
     }
 
-    public override void HitMe(GameObject car, float force)
+    public override void HitMe(GameObject car)
     {
         Vector3 direction = transform.position - car.transform.position;
-        rb.AddForce(direction * (force * 6), ForceMode2D.Impulse);
+        rb.AddForce(direction * 5, ForceMode2D.Impulse);
         state = State.hit;
     }
 
