@@ -21,6 +21,7 @@ public class EnemyController : Racer
         speedMax = baseSpeed * Time.deltaTime;
 
         type = RacerType.enemy;
+        name = "Enemy";
     }
 
     // Update is called once per frame

@@ -22,6 +22,7 @@ public class Racer : MonoBehaviour
 
     protected RacerType type;
     public GameObject bullet;
+    public GameObject missle;
     public GameObject firePos;
 
     // damage blink
@@ -34,6 +35,9 @@ public class Racer : MonoBehaviour
     protected int flashCount = 7;
     protected int maxHealth;
     protected int health;
+    protected string name;
+
+    protected Racer defeatedBy;
 
     protected float boost = 0f;
     float boostReset = 50f;
@@ -132,8 +136,14 @@ public class Racer : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Instantiate(bullet, firePos.transform.position, transform.localRotation);
+                Instantiate(bullet, firePos.transform.position, transform.localRotation, transform);
             }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                GameObject thisMissle = Instantiate(missle, firePos.transform.position, transform.localRotation, transform);
+                // Physics.IgnoreCollision(thisMissle.GetComponent<Collider>(), GetComponent<Collider>(), true);
+            }
+
         }
     }
 
@@ -146,6 +156,7 @@ public class Racer : MonoBehaviour
                 switch (collision.gameObject.name)
                 {
                     case "Bullet":
+                        defeatedBy = collision.gameObject.GetComponentInParent<Racer>();
                         effect = Effect.damaged;
                         TakeHealth(2);
                         break;

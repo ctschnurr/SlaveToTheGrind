@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour
     protected enum Behavior
     {
         bullet,
-        rocket,
+        missle,
         mine
     }
     public Weapon()

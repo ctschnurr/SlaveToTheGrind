@@ -50,6 +50,7 @@ public class PlayerController : Racer
         turnSpeed = baseTurnSpeed * Time.deltaTime;
 
         type = RacerType.player;
+        name = "Player";
     }
 
     // Update is called once per frame
