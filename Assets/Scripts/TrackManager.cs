@@ -7,6 +7,8 @@ using UnityEngine;
 public class TrackManager : MonoBehaviour
 {
     public List<Transform> obstacleSpawnPoints;
+    public static List<Transform> enemyWaypoints;
+    GameObject waypointFolder;
     static List<GameObject> racers;
     static List<GameObject> racersCopy;
     static List<GameObject> ranking;
@@ -23,7 +25,21 @@ public class TrackManager : MonoBehaviour
     void Awake()
     {
         obstacleSpawnPoints = new List<Transform>();
+
         waypoint = GameObject.Find("TrackManager/Waypoints/waypoint");
+
+        waypointFolder = GameObject.Find("Waypoints");
+
+        int numberOfWaypoints = waypointFolder.transform.childCount;
+        enemyWaypoints = new List<Transform>();
+
+        for (int i = 0; i < numberOfWaypoints; i++)
+        {
+            Transform tempTransform = waypointFolder.transform.GetChild(i);
+
+            enemyWaypoints.Add(tempTransform);
+        }
+
 
         // will likely substantiate racers in the future
         player1 = GameObject.Find("PlayerRacer");
@@ -74,5 +90,10 @@ public class TrackManager : MonoBehaviour
         place = ranking.IndexOf(player1);
         place++;
         return place;
+    }
+
+    public static List<Transform> GetWaypoints()
+    {
+        return enemyWaypoints;
     }
 }

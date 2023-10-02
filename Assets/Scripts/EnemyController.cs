@@ -5,12 +5,16 @@ using static Globals;
 
 public class EnemyController : Racer
 {
-    GameObject waypoint;
+    Transform waypoint;
+    public List<Transform> enemyWaypoints;
+
+    public float angle;
 
     // Start is called before the first frame update
     void Start()
     {
-        waypoint = GameObject.Find("TrackManager/Waypoints/waypoint");
+        enemyWaypoints = TrackManager.GetWaypoints();
+        waypoint = enemyWaypoints[0];
         rb = GetComponent<Rigidbody2D>();
         racer = gameObject.GetComponent<SpriteRenderer>();
 
@@ -19,6 +23,8 @@ public class EnemyController : Racer
 
         speed = baseSpeed;
         speedMax = baseSpeed;
+
+        turnSpeed = baseTurnSpeed;
 
         type = RacerType.enemy;
         racerName = "Enemy";
@@ -29,12 +35,22 @@ public class EnemyController : Racer
     {
         if (!dead)
         {
+            Vector3 targetDirection = waypoint.transform.position - transform.localPosition;
+            Quaternion tempQuaternion = Quaternion.LookRotation(Vector3.forward, targetDirection);
+
+            float angle = Vector3.Angle((waypoint.transform.position - transform.position), transform.up);
+
             rb.AddRelativeForce(Vector3.up * speed * Time.deltaTime, ForceMode2D.Force);
+            if (angle > 10f) transform.localRotation = Quaternion.Lerp(transform.localRotation, tempQuaternion, 5f * Time.deltaTime);
 
-            Vector3 targetDirection = waypoint.transform.position - transform.position;
-            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, 3, 1f);
-
-            transform.rotation = Quaternion.LookRotation(Vector3.forward, newDirection);
+            if (Vector3.Distance(waypoint.position, transform.position) < 10) waypoint = NextWaypoint(waypoint);
         }
+    }
+
+    Transform NextWaypoint(Transform input)
+    {
+        enemyWaypoints.Remove(input);
+
+        return enemyWaypoints[0];
     }
 }

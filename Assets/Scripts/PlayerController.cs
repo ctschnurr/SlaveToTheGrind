@@ -22,9 +22,7 @@ public class PlayerController : Racer
     float pCamFloat = 10;
 
     float horizontal;
-
-    float throttle;
-    public float velocity;
+    public Transform waypoint;
 
     // Start is called before the first frame update
     void Start()
@@ -63,8 +61,6 @@ public class PlayerController : Racer
     {
         pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.5f);
 
-        velocity = rb.velocity.magnitude;
-
         horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
@@ -82,6 +78,7 @@ public class PlayerController : Racer
                 if (rb.rotation < 50) rb.rotation += turnSpeed * Time.deltaTime;
             }
         }
+
     }
 
     public int GetHealth()
