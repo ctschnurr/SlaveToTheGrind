@@ -13,6 +13,10 @@ public class ScreenManager : MonoBehaviour
     GameObject HUD;
     TextMeshProUGUI playerHealth;
     TextMeshProUGUI playerRanking;
+    TextMeshProUGUI bulletStats;
+    TextMeshProUGUI missleStats;
+    TextMeshProUGUI mineStats;
+
     PlayerController playerController;
     int rank = 0;
 
@@ -24,6 +28,9 @@ public class ScreenManager : MonoBehaviour
         HUD = GameObject.Find("ScreenManager/HUD");
         playerHealth = GameObject.Find("ScreenManager/HUD/playerHealth").GetComponent<TextMeshProUGUI>();
         playerRanking = GameObject.Find("ScreenManager/HUD/playerRanking").GetComponent<TextMeshProUGUI>();
+        bulletStats = GameObject.Find("ScreenManager/HUD/bulletStats").GetComponent<TextMeshProUGUI>();
+        missleStats = GameObject.Find("ScreenManager/HUD/missleStats").GetComponent<TextMeshProUGUI>();
+        mineStats = GameObject.Find("ScreenManager/HUD/mineStats").GetComponent<TextMeshProUGUI>();
 
         playerController = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
     }
@@ -33,6 +40,19 @@ public class ScreenManager : MonoBehaviour
     {
         int health = playerController.GetHealth();
         playerHealth.text = "Health: " + health;
+
+        float[] bulletInfo = playerController.GetBulletInfo();
+        string tempString = bulletInfo[1].ToString("0.00");
+        bulletStats.text = "Bullets: " + bulletInfo[0] + "\nCooldown: " + tempString;
+
+        float[] missleInfo = playerController.GetMissleInfo();
+        tempString = missleInfo[1].ToString("0.00");
+        missleStats.text = "Missles: " + missleInfo[0] + "\nCooldown: " + tempString;
+
+        float[] mineInfo = playerController.GetMineInfo();
+        tempString = mineInfo[1].ToString("0.00");
+        mineStats.text = "Mines: " + mineInfo[0] + "\nCooldown: " + tempString;
+
         rank = TrackManager.GetPlace();
         UpdateRank(rank);
     }

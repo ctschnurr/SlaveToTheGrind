@@ -14,16 +14,35 @@ public class Racer : MonoBehaviour
         dead
     }
 
-    protected enum RacerType
+    public enum RacerType
     {
         player,
         enemy
     }
 
-    protected RacerType type;
+    public RacerType type;
+
     public GameObject bullet;
+    protected float bulletTimer;
+    protected float bulletTimerReset = .5f;
+    protected bool canFireBullet = true;
+    protected int bulletAmmo = 99;
+
     public GameObject missle;
+    protected float missleTimer;
+    protected float missleTimerReset = 1.5f;
+    protected bool canFireMissile = true;
+    protected int missleAmmo = 10;
+
+    public GameObject mine;
+    protected float mineTimer;
+    protected float mineTimerReset = 1f;
+    protected bool canDropMine = true;
+    protected int mineAmmo = 10;
+
     public GameObject firePos;
+    public GameObject dropPos;
+
 
     // damage blink
     protected float damageBlinkTimer = 0f;
@@ -35,26 +54,26 @@ public class Racer : MonoBehaviour
     protected int flashCount = 7;
     protected int maxHealth;
     protected int health;
-    protected string name;
+    protected string racerName;
 
     protected Racer defeatedBy;
 
     protected float boost = 0f;
-    float boostReset = 50f;
-    float boostDelay = 0.15f;
-    float boostDelayReset = 0.15f;
-    bool boosted = false;
+    protected float boostReset = 1000f;
+    protected float boostDelay = 1f;
+    protected float boostDelayReset = 0.15f;
+    protected bool boosted = false;
 
     public Effect effect = Effect.idle;
 
     protected SpriteRenderer racer;
     protected Rigidbody2D rb;
 
-    public float speed;
+    protected float speed;
     protected float turnSpeed;
-    public float speedMax;
+    protected float speedMax;
 
-    public bool oilSlicked = false;
+    protected bool oilSlicked = false;
     protected bool dead = false;
 
     // Start is called before the first frame update
@@ -115,8 +134,8 @@ public class Racer : MonoBehaviour
         {
             if (boostDelay <= 0)
             {
-                boost -= 0.1f;
-                if (boost <= 0)
+                boost -= boost * Time.deltaTime;
+                if (boost <= 10)
                 {
                     boosted = false;
                     boostDelay = boostDelayReset;
@@ -134,16 +153,57 @@ public class Racer : MonoBehaviour
                 boost = boostReset;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && canFireBullet && bulletAmmo > 0)
             {
                 Instantiate(bullet, firePos.transform.position, transform.localRotation, transform);
+                bulletAmmo--;
+                canFireBullet = false;
+                bulletTimer = bulletTimerReset;
             }
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) && canFireMissile && missleAmmo > 0)
             {
-                GameObject thisMissle = Instantiate(missle, firePos.transform.position, transform.localRotation, transform);
-                // Physics.IgnoreCollision(thisMissle.GetComponent<Collider>(), GetComponent<Collider>(), true);
+                Instantiate(missle, firePos.transform.position, transform.localRotation, transform);
+                missleAmmo--;
+                canFireMissile = false;
+                missleTimer = missleTimerReset;
+            }
+            if (Input.GetKeyDown(KeyCode.E) && canDropMine && mineAmmo > 0)
+            {
+                Instantiate(mine, dropPos.transform.position, transform.localRotation, transform);
+                mineAmmo--;
+                canDropMine = false;
+                mineTimer = mineTimerReset;
             }
 
+            if (!canFireBullet)
+            {
+                bulletTimer -= Time.deltaTime;
+                if(bulletTimer <=0)
+                {
+                    bulletTimer = 0;
+                    canFireBullet = true;
+                }
+            }
+
+            if (!canFireMissile)
+            {
+                missleTimer -= Time.deltaTime;
+                if (missleTimer <= 0)
+                {
+                    missleTimer = 0;
+                    canFireMissile = true;
+                }
+            }
+
+            if (!canDropMine)
+            {
+                mineTimer -= Time.deltaTime;
+                if (mineTimer <= 0)
+                {
+                    mineTimer = 0;
+                    canDropMine = true;
+                }
+            }
         }
     }
 
@@ -165,6 +225,7 @@ public class Racer : MonoBehaviour
 
             if (collision.gameObject.tag == "Racer")
             {
+                defeatedBy = collision.gameObject.GetComponentInParent<Racer>();
                 effect = Effect.damaged;
                 TakeHealth(10);
             }
@@ -177,6 +238,7 @@ public class Racer : MonoBehaviour
 
             if (collision.gameObject.tag == "Explosion")
             {
+                if(collision.transform.parent != null) defeatedBy = collision.gameObject.GetComponentInParent<Racer>();
                 Vector3 direction = transform.position - collision.gameObject.transform.position;
                 rb.AddForce(direction * 50, ForceMode2D.Impulse);
                 effect = Effect.damaged;
@@ -192,6 +254,7 @@ public class Racer : MonoBehaviour
         {
             health = 0;
             effect = Effect.dead;
+            if(defeatedBy != null) Debug.Log(name + " was defeated by " + defeatedBy.name);
             dead = true;
         }
     }

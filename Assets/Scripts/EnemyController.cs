@@ -17,11 +17,11 @@ public class EnemyController : Racer
         maxHealth = 25;
         health = maxHealth;
 
-        speed = baseSpeed * Time.deltaTime;
-        speedMax = baseSpeed * Time.deltaTime;
+        speed = baseSpeed;
+        speedMax = baseSpeed;
 
         type = RacerType.enemy;
-        name = "Enemy";
+        racerName = "Enemy";
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class EnemyController : Racer
     {
         if (!dead)
         {
-            rb.AddRelativeForce(Vector3.up * speed, ForceMode2D.Force);
+            rb.AddRelativeForce(Vector3.up * speed * Time.deltaTime, ForceMode2D.Force);
 
             Vector3 targetDirection = waypoint.transform.position - transform.position;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, 3, 1f);

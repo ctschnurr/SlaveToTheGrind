@@ -25,7 +25,6 @@ public class ExplosiveBarrel : Obstacle
         barrel = gameObject.GetComponent<SpriteRenderer>();
 
         startPos = gameObject.transform.position;
-        circleCollider = gameObject.GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
