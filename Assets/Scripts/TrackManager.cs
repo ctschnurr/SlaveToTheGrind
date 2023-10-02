@@ -7,8 +7,8 @@ using UnityEngine;
 public class TrackManager : MonoBehaviour
 {
     public List<Transform> obstacleSpawnPoints;
-    public static List<Transform> enemyWaypoints;
-    GameObject waypointFolder;
+    public static List<GameObject> enemyWaypoints;
+    static GameObject waypointFolder;
     static List<GameObject> racers;
     static List<GameObject> racersCopy;
     static List<GameObject> ranking;
@@ -19,27 +19,14 @@ public class TrackManager : MonoBehaviour
 
     static GameObject ranker;
 
-    static GameObject waypoint; // will have to update this as the track grows
+    static GameObject finishLine; // will have to update this as the track grows
 
     // Start is called before the first frame update
     void Awake()
     {
         obstacleSpawnPoints = new List<Transform>();
 
-        waypoint = GameObject.Find("TrackManager/Waypoints/waypoint");
-
-        waypointFolder = GameObject.Find("Waypoints");
-
-        int numberOfWaypoints = waypointFolder.transform.childCount;
-        enemyWaypoints = new List<Transform>();
-
-        for (int i = 0; i < numberOfWaypoints; i++)
-        {
-            Transform tempTransform = waypointFolder.transform.GetChild(i);
-
-            enemyWaypoints.Add(tempTransform);
-        }
-
+        SetupTrack();
 
         // will likely substantiate racers in the future
         player1 = GameObject.Find("PlayerRacer");
@@ -63,6 +50,52 @@ public class TrackManager : MonoBehaviour
     {
 
     }
+
+    public static void SetupTrack()
+    {
+        waypointFolder = GameObject.Find("Waypoints");
+
+        int numberOfWaypoints = waypointFolder.transform.childCount;
+        enemyWaypoints = new List<GameObject>();
+
+        for (int i = 0; i < numberOfWaypoints; i++)
+        {
+            Transform tempTransform = waypointFolder.transform.GetChild(i);
+            enemyWaypoints.Add(tempTransform.gameObject);
+        }
+
+        finishLine = enemyWaypoints[numberOfWaypoints - 1];
+        enemyWaypoints[0].name = "FirstPoint";
+
+        foreach (GameObject waypoint in enemyWaypoints)
+        {
+            int point = enemyWaypoints.IndexOf(waypoint);
+            if(point != enemyWaypoints.Count - 1)
+            {
+                Waypoint tempWaypoint = waypoint.GetComponent<Waypoint>();
+                GameObject nextWaypoint = enemyWaypoints[point + 1];
+
+                int choices = waypoint.transform.childCount;
+                if (choices == 0)
+                {
+                    tempWaypoint.nextWaypoint = nextWaypoint;
+                }
+                else
+                {
+                    tempWaypoint.nextWaypoint = null;
+                    for (int j = 0; j < choices; j++)
+                    {
+                        Transform tempChild = waypoint.transform.GetChild(j);
+                        //GameObject childObject = tempChild.GetComponent<GameObject>();
+                        Waypoint childWaypoint = tempChild.transform.GetComponent<Waypoint>();
+                        childWaypoint.nextWaypoint = nextWaypoint;
+                    }
+                }
+            }
+
+
+        }
+    }
     public static int GetPlace()
     {
         racersCopy = new List<GameObject>(racers);
@@ -74,7 +107,7 @@ public class TrackManager : MonoBehaviour
             float closest = Mathf.Infinity;
             foreach (GameObject racer in racersCopy)
             {
-                float distanceToEnd = Vector2.Distance(racer.transform.position, new Vector2(racer.transform.position.x, waypoint.transform.position.y));
+                float distanceToEnd = Vector2.Distance(racer.transform.position, new Vector2(racer.transform.position.x, finishLine.transform.position.y));
                 if (distanceToEnd < closest)
                 {
                     ranker = racer;
@@ -92,8 +125,22 @@ public class TrackManager : MonoBehaviour
         return place;
     }
 
-    public static List<Transform> GetWaypoints()
+    public static GameObject SendNextWaypoint(GameObject last)
     {
-        return enemyWaypoints;
+        if (last != enemyWaypoints[enemyWaypoints.Count - 1])
+        {
+            Waypoint tempWaypoint = last.GetComponent<Waypoint>();
+            GameObject tempObject = tempWaypoint.nextWaypoint;
+            int choices = last.transform.childCount;
+
+            if (choices > 0)
+            {
+                Transform tempTransform = last.transform.GetChild(Random.Range(0, choices));
+                return tempTransform.gameObject;
+            }
+            else return tempObject;
+        }
+        else return null;
+
     }
 }

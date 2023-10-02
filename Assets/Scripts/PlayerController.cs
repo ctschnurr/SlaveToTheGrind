@@ -64,7 +64,7 @@ public class PlayerController : Racer
         horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        if(!dead)
+        if(effect != Effect.dead)
         {
             rb.AddRelativeForce(Vector2.up * vertical * (speed + boost) * Time.deltaTime, ForceMode2D.Force);
 

@@ -11,7 +11,8 @@ public class Racer : MonoBehaviour
         idle,
         damaged,
         oilSlick,
-        dead
+        dead,
+        finished
     }
 
     public enum RacerType
@@ -74,7 +75,6 @@ public class Racer : MonoBehaviour
     protected float speedMax;
 
     protected bool oilSlicked = false;
-    protected bool dead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -209,7 +209,7 @@ public class Racer : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if(effect != Effect.damaged)
+        if(effect != Effect.damaged && effect != Effect.finished)
         {
             if (collision.gameObject.tag == "Weapon")
             {
@@ -255,7 +255,6 @@ public class Racer : MonoBehaviour
             health = 0;
             effect = Effect.dead;
             if(defeatedBy != null) Debug.Log(name + " was defeated by " + defeatedBy.name);
-            dead = true;
         }
     }
 
