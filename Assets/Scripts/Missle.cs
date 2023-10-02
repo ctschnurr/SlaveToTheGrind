@@ -9,12 +9,14 @@ public class Missle : Weapon
     public GameObject explosion;
     public float speed = missleSpeed;
     Vector3 forward;
-    void Start()
+    void Awake()
     {
         gameObject.name = "Missle";
         rb = gameObject.GetComponent<Rigidbody2D>();
         forward = transform.forward;
         forward.y = 1;
+        owner = transform.parent.GetComponent<Racer>();
+        transform.parent = null;
     }
 
     // Update is called once per frame
@@ -25,9 +27,9 @@ public class Missle : Weapon
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform != transform.parent)
+        if(collision.transform != owner.transform)
         {
-            Instantiate(explosion, transform.position, transform.rotation);
+            Instantiate(explosion, transform.position, transform.rotation, owner.transform);
             Destroy(gameObject);
         }
     }

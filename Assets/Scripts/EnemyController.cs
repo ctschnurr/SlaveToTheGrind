@@ -7,6 +7,7 @@ public class EnemyController : Racer
 {
     GameObject waypoint;
     public List<GameObject> enemyWaypoints;
+    public List<GameObject> racers;
 
     public float angle;
 
@@ -27,6 +28,8 @@ public class EnemyController : Racer
 
         type = RacerType.enemy;
         racerName = "Enemy";
+
+        racers = TrackManager.GetRacers();
     }
 
     // Update is called once per frame
@@ -45,6 +48,38 @@ public class EnemyController : Racer
             if (Vector3.Distance(waypoint.transform.position, transform.position) < 10) waypoint = NextWaypoint(waypoint);
 
             if (waypoint == null) effect = Effect.finished;
+
+            foreach (GameObject racer in racers)
+            {
+                if (racer != gameObject)
+                {
+                    float distance = Vector3.Distance(racer.transform.position, transform.position);
+
+                    float lookForward = Vector3.Angle(racer.transform.position - transform.position, transform.up);
+                    if (lookForward < 5f && distance < 12)
+                    {
+                        int fireChance = Random.Range(1, 10 - gameLevel);
+
+                        if(fireChance == 1)
+                        {
+                            if (missleAmmo > 0 && distance > 5) Fire(Weapon_State.missle);
+                            else Fire(Weapon_State.bullet);
+                        }
+                    }
+
+                    float lookBack = Vector3.Angle(racer.transform.position - transform.position, transform.up);
+                    if (lookBack > 170f && distance < 12)
+                    {
+                        int fireChance = Random.Range(1, 10 - gameLevel);
+                        if (fireChance == 1)
+                        {
+                            if (mineAmmo > 0 && distance > 3) Fire(Weapon_State.mine);
+                        }
+                    }
+
+                }
+
+            }
         }
     }
 

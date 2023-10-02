@@ -18,14 +18,16 @@ public class Mine : Weapon
         gameObject.name = "Mine";
         gameObject.tag = "Weapon";
         rb = gameObject.GetComponent<Rigidbody2D>();
+        owner = transform.parent.GetComponent<Racer>();
+        transform.parent = null;
     }
 
     // Update is called once per frame
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform != transform.parent)
+        if (collision.transform != owner.transform)
         {
-            Instantiate(explosion, transform.position, transform.rotation, transform.parent);
+            Instantiate(explosion, transform.position, transform.rotation, owner.transform);
             Destroy(gameObject);
         }
     }

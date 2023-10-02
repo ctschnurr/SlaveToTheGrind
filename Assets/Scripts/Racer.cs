@@ -15,6 +15,13 @@ public class Racer : MonoBehaviour
         finished
     }
 
+    public enum Weapon_State
+    {
+        bullet,
+        missle,
+        mine
+    }
+
     public enum RacerType
     {
         player,
@@ -145,7 +152,37 @@ public class Racer : MonoBehaviour
             else boostDelay -= Time.deltaTime;
         }
 
-        if(type == RacerType.player)
+        if (!canFireBullet)
+        {
+            bulletTimer -= Time.deltaTime;
+            if (bulletTimer <= 0)
+            {
+                bulletTimer = 0;
+                canFireBullet = true;
+            }
+        }
+
+        if (!canFireMissile)
+        {
+            missleTimer -= Time.deltaTime;
+            if (missleTimer <= 0)
+            {
+                missleTimer = 0;
+                canFireMissile = true;
+            }
+        }
+
+        if (!canDropMine)
+        {
+            mineTimer -= Time.deltaTime;
+            if (mineTimer <= 0)
+            {
+                mineTimer = 0;
+                canDropMine = true;
+            }
+        }
+
+        if (type == RacerType.player)
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
@@ -153,57 +190,45 @@ public class Racer : MonoBehaviour
                 boost = boostReset;
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && canFireBullet && bulletAmmo > 0)
-            {
-                Instantiate(bullet, firePos.transform.position, transform.localRotation, transform);
-                bulletAmmo--;
-                canFireBullet = false;
-                bulletTimer = bulletTimerReset;
-            }
-            if (Input.GetKeyDown(KeyCode.F) && canFireMissile && missleAmmo > 0)
-            {
-                Instantiate(missle, firePos.transform.position, transform.localRotation, transform);
-                missleAmmo--;
-                canFireMissile = false;
-                missleTimer = missleTimerReset;
-            }
-            if (Input.GetKeyDown(KeyCode.E) && canDropMine && mineAmmo > 0)
-            {
-                Instantiate(mine, dropPos.transform.position, transform.localRotation, transform);
-                mineAmmo--;
-                canDropMine = false;
-                mineTimer = mineTimerReset;
-            }
+            if (Input.GetKeyDown(KeyCode.Space)) Fire(Weapon_State.bullet);
+            if (Input.GetKeyDown(KeyCode.F)) Fire(Weapon_State.missle);
+            if (Input.GetKeyDown(KeyCode.E)) Fire(Weapon_State.mine);
+        }
+    }
 
-            if (!canFireBullet)
-            {
-                bulletTimer -= Time.deltaTime;
-                if(bulletTimer <=0)
+    protected void Fire(Weapon_State input)
+    {
+        switch (input)
+        {
+            case Weapon_State.bullet:
+                if (canFireBullet && bulletAmmo > 0)
                 {
-                    bulletTimer = 0;
-                    canFireBullet = true;
+                    Instantiate(bullet, firePos.transform.position, transform.localRotation, transform);
+                    bulletAmmo--;
+                    canFireBullet = false;
+                    bulletTimer = bulletTimerReset;
                 }
-            }
+                break;
 
-            if (!canFireMissile)
-            {
-                missleTimer -= Time.deltaTime;
-                if (missleTimer <= 0)
+            case Weapon_State.missle:
+                if (canFireMissile && missleAmmo > 0)
                 {
-                    missleTimer = 0;
-                    canFireMissile = true;
+                    Instantiate(missle, firePos.transform.position, transform.localRotation, transform);
+                    missleAmmo--;
+                    canFireMissile = false;
+                    missleTimer = missleTimerReset;
                 }
-            }
+                break;
 
-            if (!canDropMine)
-            {
-                mineTimer -= Time.deltaTime;
-                if (mineTimer <= 0)
+            case Weapon_State.mine:
+                if (canDropMine && mineAmmo > 0)
                 {
-                    mineTimer = 0;
-                    canDropMine = true;
+                    Instantiate(mine, dropPos.transform.position, transform.localRotation, transform);
+                    mineAmmo--;
+                    canDropMine = false;
+                    mineTimer = mineTimerReset;
                 }
-            }
+                break;
         }
     }
 
@@ -216,7 +241,7 @@ public class Racer : MonoBehaviour
                 switch (collision.gameObject.name)
                 {
                     case "Bullet":
-                        defeatedBy = collision.gameObject.GetComponentInParent<Racer>();
+                        defeatedBy = collision.gameObject.GetComponent<Weapon>().owner;
                         effect = Effect.damaged;
                         TakeHealth(2);
                         break;
@@ -225,7 +250,7 @@ public class Racer : MonoBehaviour
 
             if (collision.gameObject.tag == "Racer")
             {
-                defeatedBy = collision.gameObject.GetComponentInParent<Racer>();
+                defeatedBy = collision.gameObject.GetComponent<Racer>();
                 effect = Effect.damaged;
                 TakeHealth(10);
             }
@@ -238,7 +263,7 @@ public class Racer : MonoBehaviour
 
             if (collision.gameObject.tag == "Explosion")
             {
-                if(collision.transform.parent != null) defeatedBy = collision.gameObject.GetComponentInParent<Racer>();
+                if(collision.gameObject.GetComponent<Weapon>().owner != null) defeatedBy = collision.gameObject.GetComponentInParent<Racer>();
                 Vector3 direction = transform.position - collision.gameObject.transform.position;
                 rb.AddForce(direction * 50, ForceMode2D.Impulse);
                 effect = Effect.damaged;

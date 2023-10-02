@@ -125,6 +125,11 @@ public class TrackManager : MonoBehaviour
         return place;
     }
 
+    public static List<GameObject> GetRacers()
+    {
+        return racers;
+    }
+
     public static GameObject SendNextWaypoint(GameObject last)
     {
         if (last != enemyWaypoints[enemyWaypoints.Count - 1])

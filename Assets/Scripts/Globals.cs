@@ -11,7 +11,9 @@ public class Globals : MonoBehaviour
     public const float baseTurnSpeed = 50;
 
     public const float bulletSpeed = baseSpeed * 2;
-    public const float missleSpeed = baseSpeed * 1.2f;
+    public const float missleSpeed = 250;
+
+    public const int gameLevel = 1; // this will need to be in GameManager so it can be updated with level complete
 
     // Start is called before the first frame update
     void Start()

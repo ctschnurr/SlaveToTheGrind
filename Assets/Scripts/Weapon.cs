@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     protected int spawnX;
     protected int spawnY;
     protected Rigidbody2D rb;
+    public Racer owner;
 
     protected enum Behavior
     {

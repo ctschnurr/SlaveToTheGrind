@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explosion : MonoBehaviour
+public class Explosion : Weapon
 {
     float expandSpeed = 7f;
     float fadeSpeed = .5f;
@@ -15,6 +15,9 @@ public class Explosion : MonoBehaviour
         fadeSpeed = fadeSpeed * Time.deltaTime;
 
         scaleChange = new Vector3(expandSpeed, expandSpeed, expandSpeed);
+        owner = null;
+        if (transform.parent != null) owner = transform.parent.GetComponent<Racer>();
+        transform.parent = null;
     }
 
     // Update is called once per frame
@@ -29,5 +32,13 @@ public class Explosion : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        gameObject.GetComponent<Collider2D>().enabled = false;
+        Vector3 direction = transform.position - collision.gameObject.transform.position;
+        Rigidbody2D colRb = collision.gameObject.GetComponent<Rigidbody2D>();
+        if(collision.gameObject.tag != "Wall") colRb.AddForce(direction, ForceMode2D.Impulse);
     }
 }
