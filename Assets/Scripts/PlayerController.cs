@@ -25,7 +25,7 @@ public class PlayerController : Racer
     public Transform waypoint;
 
     // Start is called before the first frame update
-    void Start()
+    public override void SetupRacer()
     {
         car = transform.gameObject;
         rb = GetComponent<Rigidbody2D>();
@@ -54,31 +54,36 @@ public class PlayerController : Racer
 
         type = RacerType.player;
         racerName = "Player";
+
+        ready = true;
+        finishLine = TrackManager.GetFinishline();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.75f);
-
-        horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        if(effect != Effect.dead)
+        if(GameManager.state == GameManager.GameState.active && effect != Effect.finished)
         {
-            rb.AddRelativeForce(Vector2.up * vertical * (speed + boost) * Time.deltaTime, ForceMode2D.Force);
+            pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.75f);
 
-            if (horizontal > 0)
-            {
-                if (rb.rotation > -65) rb.rotation -= turnSpeed * Time.deltaTime;
-            }
+            horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
 
-            if (horizontal < 0)
+            if (effect != Effect.dead)
             {
-                if (rb.rotation < 65) rb.rotation += turnSpeed * Time.deltaTime;
+                rb.AddRelativeForce(Vector2.up * vertical * (speed + boost) * Time.deltaTime, ForceMode2D.Force);
+
+                if (horizontal > 0)
+                {
+                    if (rb.rotation > -65) rb.rotation -= turnSpeed * Time.deltaTime;
+                }
+
+                if (horizontal < 0)
+                {
+                    if (rb.rotation < 65) rb.rotation += turnSpeed * Time.deltaTime;
+                }
             }
         }
-
     }
 
     public int GetHealth()

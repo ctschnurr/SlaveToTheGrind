@@ -27,6 +27,7 @@ public class Racer : MonoBehaviour
         player,
         enemy
     }
+    protected bool ready = false;
 
     public RacerType type;
 
@@ -89,6 +90,11 @@ public class Racer : MonoBehaviour
 
     protected bool oilSlicked = false;
 
+    public float finishLine;
+
+    public delegate void FinishedAction();
+    public static event FinishedAction OnFinished;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,6 +104,13 @@ public class Racer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float myY = transform.position.y;
+        if (myY >= finishLine)
+        {
+            Debug.Log("Finished?");
+            Finished();
+        }
+
         switch (effect)
         {
             case Effect.idle:
@@ -198,7 +211,7 @@ public class Racer : MonoBehaviour
             }
         }
 
-        if (type == RacerType.player)
+        if (type == RacerType.player && effect != Effect.finished)
         {
             if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
             {
@@ -329,6 +342,19 @@ public class Racer : MonoBehaviour
             speed = speedMax;
             effect = Effect.idle;
             oilSlicked = false;
+        }
+    }
+
+    public virtual void SetupRacer()
+    {
+
+    }
+
+    public void Finished()
+    {
+        if (OnFinished != null)
+        {
+            OnFinished();
         }
     }
 }

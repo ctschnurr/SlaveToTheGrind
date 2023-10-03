@@ -10,22 +10,29 @@ public class ScreenManager : MonoBehaviour
         HUD
     }
 
-    GameObject HUD;
-    TextMeshProUGUI playerHealth;
-    TextMeshProUGUI playerRanking;
-    TextMeshProUGUI boostStats;
-    TextMeshProUGUI bulletStats;
-    TextMeshProUGUI missleStats;
-    TextMeshProUGUI mineStats;
-    TextMeshProUGUI moneyText;
+    static GameObject HUD;
+    static TextMeshProUGUI playerHealth;
+    static TextMeshProUGUI playerRanking;
+    static TextMeshProUGUI boostStats;
+    static TextMeshProUGUI bulletStats;
+    static TextMeshProUGUI missleStats;
+    static TextMeshProUGUI mineStats;
+    static TextMeshProUGUI moneyText;
+    static TextMeshProUGUI countDownText;
 
-    PlayerController playerController;
+    static PlayerController playerController;
     int rank = 0;
 
     string place = " ";
 
+    static bool ready = false;
+    static int countDown = 3;
+    static bool countDownActive = false;
+    static float timer = 0;
+    static float timerReset = 1;
+
     // Start is called before the first frame update
-    void Start()
+    public static void SetupScreens()
     {
         HUD = GameObject.Find("ScreenManager/HUD");
         playerHealth = GameObject.Find("ScreenManager/HUD/playerHealth").GetComponent<TextMeshProUGUI>();
@@ -35,40 +42,74 @@ public class ScreenManager : MonoBehaviour
         missleStats = GameObject.Find("ScreenManager/HUD/missleStats").GetComponent<TextMeshProUGUI>();
         mineStats = GameObject.Find("ScreenManager/HUD/mineStats").GetComponent<TextMeshProUGUI>();
         moneyText = GameObject.Find("ScreenManager/HUD/money").GetComponent<TextMeshProUGUI>();
-
+        countDownText = GameObject.Find("ScreenManager/HUD/countDown").GetComponent<TextMeshProUGUI>();
+        countDownText.text = " ";
 
         playerController = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
+
+        ready = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        int health = playerController.GetHealth();
-        playerHealth.text = "Health: " + health;
+        if(ready)
+        {
+            int health = playerController.GetHealth();
+            playerHealth.text = "Health: " + health;
 
-        float[] boostInfo = playerController.GetBoostInfo();
-        string tempString = boostInfo[1].ToString("0.00");
-        string tempStringB = boostInfo[0].ToString("0.00");
-        if (tempStringB == "0.00") tempStringB = "READY";
-        boostStats.text = "Boost: " + tempStringB + "\nCooldown: " + tempString;
+            float[] boostInfo = playerController.GetBoostInfo();
+            string tempString = boostInfo[1].ToString("0.00");
+            string tempStringB = boostInfo[0].ToString("0.00");
+            if (tempStringB == "0.00") tempStringB = "READY";
+            boostStats.text = "Boost: " + tempStringB + "\nCooldown: " + tempString;
 
-        float[] bulletInfo = playerController.GetBulletInfo();
-        tempString = bulletInfo[1].ToString("0.00");
-        bulletStats.text = "Bullets: " + bulletInfo[0] + "\nCooldown: " + tempString;
+            float[] bulletInfo = playerController.GetBulletInfo();
+            tempString = bulletInfo[1].ToString("0.00");
+            bulletStats.text = "Bullets: " + bulletInfo[0] + "\nCooldown: " + tempString;
 
-        float[] missleInfo = playerController.GetMissleInfo();
-        tempString = missleInfo[1].ToString("0.00");
-        missleStats.text = "Missles: " + missleInfo[0] + "\nCooldown: " + tempString;
+            float[] missleInfo = playerController.GetMissleInfo();
+            tempString = missleInfo[1].ToString("0.00");
+            missleStats.text = "Missles: " + missleInfo[0] + "\nCooldown: " + tempString;
 
-        float[] mineInfo = playerController.GetMineInfo();
-        tempString = mineInfo[1].ToString("0.00");
-        mineStats.text = "Mines: " + mineInfo[0] + "\nCooldown: " + tempString;
+            float[] mineInfo = playerController.GetMineInfo();
+            tempString = mineInfo[1].ToString("0.00");
+            mineStats.text = "Mines: " + mineInfo[0] + "\nCooldown: " + tempString;
 
-        int money = playerController.GetMoney();
-        moneyText.text = "$" + money;
+            int money = playerController.GetMoney();
+            moneyText.text = "$" + money;
 
-        rank = TrackManager.GetPlace();
-        UpdateRank(rank);
+            rank = TrackManager.GetPlace();
+            UpdateRank(rank);
+        }
+
+        if(countDownActive)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                if(countDown > 0)
+                {
+                    countDownText.text = countDown.ToString();
+                    timer = timerReset;
+                    countDown--;
+                }
+                else if(countDown == 0)
+                {
+                    countDownText.text = "GO!";
+                    timer = timerReset;
+                    countDown--;
+
+                    GameManager.state = GameManager.GameState.active;
+                }
+                else if(countDown == -1)
+                {
+                    countDownText.text = " ";
+                    countDownActive = false;
+                    timer = timerReset;
+                }
+            }
+        }
     }
 
     void UpdateRank(int input)
@@ -93,5 +134,12 @@ public class ScreenManager : MonoBehaviour
         }
 
         playerRanking.text = place;
+    }
+
+    public static void CountDown()
+    {
+        countDownActive = true;
+        countDown = 3;
+        timer = timerReset;
     }
 }

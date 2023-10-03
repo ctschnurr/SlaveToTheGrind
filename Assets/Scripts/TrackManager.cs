@@ -13,9 +13,9 @@ public class TrackManager : MonoBehaviour
     static List<GameObject> racersCopy;
     static List<GameObject> ranking;
     static GameObject player1;
-    public GameObject player2;
-    public GameObject player3;
-    public GameObject player4;
+    static GameObject player2;
+    static GameObject player3;
+    static GameObject player4;
 
     static GameObject ranker;
 
@@ -24,9 +24,18 @@ public class TrackManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        obstacleSpawnPoints = new List<Transform>();
 
-        SetupTrack();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public static void SetupTrack()
+    {
+        // obstacleSpawnPoints = new List<Transform>();
 
         // will likely substantiate racers in the future
         player1 = GameObject.Find("PlayerRacer");
@@ -43,16 +52,7 @@ public class TrackManager : MonoBehaviour
         racers.Add(player4);
 
         ranking = new List<GameObject>(racers);
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public static void SetupTrack()
-    {
         waypointFolder = GameObject.Find("Waypoints");
 
         int numberOfWaypoints = waypointFolder.transform.childCount;
@@ -92,8 +92,12 @@ public class TrackManager : MonoBehaviour
                     }
                 }
             }
+        }
 
-
+        foreach (GameObject racer in racers)
+        {
+            Racer temp = racer.GetComponent<Racer>();
+            temp.SetupRacer();
         }
     }
     public static int GetPlace()
@@ -147,5 +151,10 @@ public class TrackManager : MonoBehaviour
         }
         else return null;
 
+    }
+
+    public static float GetFinishline()
+    {
+        return finishLine.transform.position.y;
     }
 }

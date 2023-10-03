@@ -12,7 +12,7 @@ public class EnemyController : Racer
     public float angle;
 
     // Start is called before the first frame update
-    void Start()
+    public override void SetupRacer()
     {
         waypoint = GameObject.Find("FirstPoint");
         rb = GetComponent<Rigidbody2D>();
@@ -30,12 +30,14 @@ public class EnemyController : Racer
         racerName = "Enemy";
 
         racers = TrackManager.GetRacers();
+
+        finishLine = TrackManager.GetFinishline();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (effect != Effect.dead && effect != Effect.finished)
+        if (effect != Effect.dead && effect != Effect.finished && GameManager.state == GameManager.GameState.active)
         {
             Vector3 targetDirection = waypoint.transform.position - transform.localPosition;
             Quaternion tempQuaternion = Quaternion.LookRotation(Vector3.forward, targetDirection);
@@ -47,7 +49,7 @@ public class EnemyController : Racer
 
             if (Vector3.Distance(waypoint.transform.position, transform.position) < 10) waypoint = NextWaypoint(waypoint);
 
-            if (waypoint == null) effect = Effect.finished;
+            // if (waypoint == null) effect = Effect.finished;
 
             foreach (GameObject racer in racers)
             {
@@ -89,7 +91,7 @@ public class EnemyController : Racer
     GameObject NextWaypoint(GameObject input)
     {
         GameObject nextWaypoint = TrackManager.SendNextWaypoint(input);
-
-        return nextWaypoint;
+        if(nextWaypoint == null) return input;
+        else return nextWaypoint;
     }
 }
