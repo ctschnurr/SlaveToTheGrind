@@ -45,7 +45,7 @@ public class PlayerController : Racer
 
         racer = gameObject.GetComponent<SpriteRenderer>();
 
-        maxHealth = 25;
+        maxHealth = 50;
         health = maxHealth;
 
         speed = baseSpeed;
@@ -59,7 +59,7 @@ public class PlayerController : Racer
     // Update is called once per frame
     void FixedUpdate()
     {
-        pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.5f);
+        pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.75f);
 
         horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -70,12 +70,12 @@ public class PlayerController : Racer
 
             if (horizontal > 0)
             {
-                if (rb.rotation > -50) rb.rotation -= turnSpeed * Time.deltaTime;
+                if (rb.rotation > -65) rb.rotation -= turnSpeed * Time.deltaTime;
             }
 
             if (horizontal < 0)
             {
-                if (rb.rotation < 50) rb.rotation += turnSpeed * Time.deltaTime;
+                if (rb.rotation < 65) rb.rotation += turnSpeed * Time.deltaTime;
             }
         }
 
@@ -84,6 +84,15 @@ public class PlayerController : Racer
     public int GetHealth()
     {
         return health;
+    }
+    public float[] GetBoostInfo()
+    {
+        float[] sendMe;
+        sendMe = new float[2];
+        sendMe[0] = boost;
+        sendMe[1] = boostTimer;
+
+        return sendMe;
     }
 
     public float[] GetBulletInfo()
@@ -114,6 +123,11 @@ public class PlayerController : Racer
         sendMe[1] = mineTimer;
 
         return sendMe;
+    }
+
+    public int GetMoney()
+    {
+        return moneyThisRound;
     }
 
 }

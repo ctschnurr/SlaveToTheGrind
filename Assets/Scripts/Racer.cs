@@ -65,17 +65,23 @@ public class Racer : MonoBehaviour
     protected string racerName;
 
     protected Racer defeatedBy;
+    protected int totalMoney;
+    protected int moneyThisRound;
 
     protected float boost = 0f;
     protected float boostReset = 1000f;
-    protected float boostDelay = 1f;
+    protected float boostDelay = 0.15f;
     protected float boostDelayReset = 0.15f;
     protected bool boosted = false;
+    protected float boostTimer;
+    protected float boostTimerReset = 1.5f;
+    protected bool canBoost = true;
 
     public Effect effect = Effect.idle;
 
     protected SpriteRenderer racer;
     protected Rigidbody2D rb;
+    protected float repairSkill = 1;
 
     protected float speed;
     protected float turnSpeed;
@@ -152,6 +158,16 @@ public class Racer : MonoBehaviour
             else boostDelay -= Time.deltaTime;
         }
 
+        if (!canBoost)
+        {
+            boostTimer -= Time.deltaTime;
+            if (boostTimer <= 0)
+            {
+                boostTimer = 0;
+                canBoost = true;
+            }
+        }
+
         if (!canFireBullet)
         {
             bulletTimer -= Time.deltaTime;
@@ -184,8 +200,10 @@ public class Racer : MonoBehaviour
 
         if (type == RacerType.player)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
             {
+                canBoost = false;
+                boostTimer = boostTimerReset;
                 boosted = true;
                 boost = boostReset;
             }
@@ -243,7 +261,7 @@ public class Racer : MonoBehaviour
                     case "Bullet":
                         defeatedBy = collision.gameObject.GetComponent<Weapon>().owner;
                         effect = Effect.damaged;
-                        TakeHealth(2);
+                        TakeHealth(5);
                         break;
                 }
             }
@@ -252,13 +270,13 @@ public class Racer : MonoBehaviour
             {
                 defeatedBy = collision.gameObject.GetComponent<Racer>();
                 effect = Effect.damaged;
-                TakeHealth(10);
+                TakeHealth(2);
             }
 
             if (collision.gameObject.tag == "Wall")
             {
                 effect = Effect.damaged;
-                TakeHealth(5);
+                TakeHealth(2);
             }
 
             if (collision.gameObject.tag == "Explosion")
@@ -281,6 +299,20 @@ public class Racer : MonoBehaviour
             effect = Effect.dead;
             if(defeatedBy != null) Debug.Log(name + " was defeated by " + defeatedBy.name);
         }
+    }
+
+    public void AddHealth(int value)
+    {
+        float tempConvert = (float)value;
+        tempConvert *= repairSkill;
+        int amountToRepair = (int)tempConvert;
+        health += amountToRepair;
+        if (health > maxHealth) health = maxHealth;
+    }
+
+    public void AddMoney(int value)
+    {
+        moneyThisRound += value;
     }
 
     public void OilSlicked()

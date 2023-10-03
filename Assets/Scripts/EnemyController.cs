@@ -18,7 +18,7 @@ public class EnemyController : Racer
         rb = GetComponent<Rigidbody2D>();
         racer = gameObject.GetComponent<SpriteRenderer>();
 
-        maxHealth = 25;
+        maxHealth = 50;
         health = maxHealth;
 
         speed = baseSpeed;
@@ -54,6 +54,9 @@ public class EnemyController : Racer
                 if (racer != gameObject)
                 {
                     float distance = Vector3.Distance(racer.transform.position, transform.position);
+
+                    float dontCrash = Vector3.Angle(racer.transform.position - transform.position, transform.up);
+                    if (dontCrash < 60 && distance < 3) rb.AddRelativeForce(-(transform.position - racer.transform.position) * 5 * Time.deltaTime, ForceMode2D.Force);
 
                     float lookForward = Vector3.Angle(racer.transform.position - transform.position, transform.up);
                     if (lookForward < 5f && distance < 12)

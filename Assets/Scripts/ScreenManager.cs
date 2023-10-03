@@ -13,9 +13,11 @@ public class ScreenManager : MonoBehaviour
     GameObject HUD;
     TextMeshProUGUI playerHealth;
     TextMeshProUGUI playerRanking;
+    TextMeshProUGUI boostStats;
     TextMeshProUGUI bulletStats;
     TextMeshProUGUI missleStats;
     TextMeshProUGUI mineStats;
+    TextMeshProUGUI moneyText;
 
     PlayerController playerController;
     int rank = 0;
@@ -28,9 +30,12 @@ public class ScreenManager : MonoBehaviour
         HUD = GameObject.Find("ScreenManager/HUD");
         playerHealth = GameObject.Find("ScreenManager/HUD/playerHealth").GetComponent<TextMeshProUGUI>();
         playerRanking = GameObject.Find("ScreenManager/HUD/playerRanking").GetComponent<TextMeshProUGUI>();
+        boostStats = GameObject.Find("ScreenManager/HUD/boostStats").GetComponent<TextMeshProUGUI>();
         bulletStats = GameObject.Find("ScreenManager/HUD/bulletStats").GetComponent<TextMeshProUGUI>();
         missleStats = GameObject.Find("ScreenManager/HUD/missleStats").GetComponent<TextMeshProUGUI>();
         mineStats = GameObject.Find("ScreenManager/HUD/mineStats").GetComponent<TextMeshProUGUI>();
+        moneyText = GameObject.Find("ScreenManager/HUD/money").GetComponent<TextMeshProUGUI>();
+
 
         playerController = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
     }
@@ -41,8 +46,14 @@ public class ScreenManager : MonoBehaviour
         int health = playerController.GetHealth();
         playerHealth.text = "Health: " + health;
 
+        float[] boostInfo = playerController.GetBoostInfo();
+        string tempString = boostInfo[1].ToString("0.00");
+        string tempStringB = boostInfo[0].ToString("0.00");
+        if (tempStringB == "0.00") tempStringB = "READY";
+        boostStats.text = "Boost: " + tempStringB + "\nCooldown: " + tempString;
+
         float[] bulletInfo = playerController.GetBulletInfo();
-        string tempString = bulletInfo[1].ToString("0.00");
+        tempString = bulletInfo[1].ToString("0.00");
         bulletStats.text = "Bullets: " + bulletInfo[0] + "\nCooldown: " + tempString;
 
         float[] missleInfo = playerController.GetMissleInfo();
@@ -52,6 +63,9 @@ public class ScreenManager : MonoBehaviour
         float[] mineInfo = playerController.GetMineInfo();
         tempString = mineInfo[1].ToString("0.00");
         mineStats.text = "Mines: " + mineInfo[0] + "\nCooldown: " + tempString;
+
+        int money = playerController.GetMoney();
+        moneyText.text = "$" + money;
 
         rank = TrackManager.GetPlace();
         UpdateRank(rank);
