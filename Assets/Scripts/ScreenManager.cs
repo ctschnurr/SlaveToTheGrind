@@ -57,20 +57,21 @@ public class ScreenManager : MonoBehaviour
             float[] boostInfo = playerController.GetBoostInfo();
             string tempString = boostInfo[1].ToString("0.00");
             string tempStringB = boostInfo[0].ToString("0.00");
-            if (tempStringB == "0.00") tempStringB = "READY";
-            boostStats.text = "Boost: " + tempStringB + "\nCooldown: " + tempString;
+            if (tempString == "0.00" && tempStringB == "0.00") tempStringB = "READY";
+            else if (tempStringB == "0.00" && tempString != "0.00") tempStringB = "CHARGING";
+            boostStats.text = "Boost: " + tempStringB;
 
             float[] bulletInfo = playerController.GetBulletInfo();
             tempString = bulletInfo[1].ToString("0.00");
-            bulletStats.text = "Bullets: " + bulletInfo[0] + "\nCooldown: " + tempString;
+            bulletStats.text = "Bullets: " + bulletInfo[0] + " : " + tempString;
 
             float[] missleInfo = playerController.GetMissleInfo();
             tempString = missleInfo[1].ToString("0.00");
-            missleStats.text = "Missles: " + missleInfo[0] + "\nCooldown: " + tempString;
+            missleStats.text = "Missles: " + missleInfo[0] + " : " + tempString;
 
             float[] mineInfo = playerController.GetMineInfo();
             tempString = mineInfo[1].ToString("0.00");
-            mineStats.text = "Mines: " + mineInfo[0] + "\nCooldown: " + tempString;
+            mineStats.text = "Mines: " + mineInfo[0] + " : " + tempString;
 
             int money = playerController.GetMoney();
             moneyText.text = "$" + money;
@@ -84,6 +85,9 @@ public class ScreenManager : MonoBehaviour
     {
         switch (input)
         {
+            case 0:
+                place = " ";
+                break;
             case 1:
                 place = "1ST";
                 break;

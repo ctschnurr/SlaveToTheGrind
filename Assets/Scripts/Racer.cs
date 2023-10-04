@@ -10,20 +10,18 @@ public class Racer : MonoBehaviour
     public enum State
     {
         idle,
-        damaged,
-        oilSlick,
         dead,
         finished
     }
 
-    protected State state = State.idle;
+    public State state = State.idle;
     public enum RacerType
     {
         player,
         enemy
     }
     
-    public RacerType type;
+    protected RacerType type;
 
     public enum Weapon_Select
     {
@@ -56,10 +54,12 @@ public class Racer : MonoBehaviour
     protected bool canDropMine = true;
     protected int mineAmmo = 10;
 
+    protected bool damaged = false;
     protected float damageBlinkTimer = 0f;
     protected float damageBlinkTimerReset = 0.15f;
     protected int flashCount = 7;
 
+    protected bool oilSlicked = false;
     protected float oilSlickTimer;
     protected float oilSlickTimerReset;
 
@@ -78,14 +78,13 @@ public class Racer : MonoBehaviour
     protected float boostDelay = 0.15f;
     protected float boostDelayReset = 0.15f;
     protected float boostTimer;
-    protected float boostTimerReset = 1.5f;
+    protected float boostTimerReset = 5f;
     protected bool canBoost = true;
+    protected bool boostRecharge = false;
 
     protected float speed;
     protected float turnSpeed;
     protected float speedMax;
-
-    protected bool oilSlicked = false;
 
     public float finishLine;
 
@@ -112,33 +111,6 @@ public class Racer : MonoBehaviour
 
                 break;
 
-            case State.damaged:
-                damageBlinkTimer -= Time.deltaTime;
-                if (damageBlinkTimer <= 0 && flashCount > 0)
-                {
-                    if (racer.enabled) racer.enabled = false;
-                    else racer.enabled = true;
-
-                    damageBlinkTimer = damageBlinkTimerReset;
-                    flashCount--;
-                }
-                if (flashCount <= 0)
-                {
-                    if (!racer.enabled) racer.enabled = true;
-                    state = State.idle;
-                    flashCount = 7;
-                }
-                break;
-
-            case State.oilSlick:
-                oilSlickTimer -= Time.deltaTime;
-                if (oilSlickTimer <= 0)
-                {
-                    OilSlicked();
-                    oilSlickTimer = 0;
-                }
-                break;
-
             case State.dead:
                 damageBlinkTimer -= Time.deltaTime;
                 if (damageBlinkTimer <= 0)
@@ -151,6 +123,35 @@ public class Racer : MonoBehaviour
                 break;
         }
 
+        if (damaged)
+        {
+            damageBlinkTimer -= Time.deltaTime;
+            if (damageBlinkTimer <= 0 && flashCount > 0)
+            {
+                if (racer.enabled) racer.enabled = false;
+                else racer.enabled = true;
+
+                damageBlinkTimer = damageBlinkTimerReset;
+                flashCount--;
+            }
+            if (flashCount <= 0)
+            {
+                if (!racer.enabled) racer.enabled = true;
+                damaged = false;
+                flashCount = 7;
+            }
+        }
+
+        if(oilSlicked)
+        {
+            oilSlickTimer -= Time.deltaTime;
+            if (oilSlickTimer <= 0)
+            {
+                OilSlicked();
+                oilSlickTimer = 0;
+            }
+        }
+
         if (boosted)
         {
             if (boostDelay <= 0)
@@ -161,18 +162,21 @@ public class Racer : MonoBehaviour
                     boosted = false;
                     boostDelay = boostDelayReset;
                     boost = 0;
+                    boostTimer = boostTimerReset;
+                    boostRecharge = true;
                 }
             }
             else boostDelay -= Time.deltaTime;
         }
 
-        if (!canBoost)
+        if (boostRecharge)
         {
             boostTimer -= Time.deltaTime;
             if (boostTimer <= 0)
             {
                 boostTimer = 0;
                 canBoost = true;
+                boostRecharge = false;
             }
         }
 
@@ -245,7 +249,7 @@ public class Racer : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if(state != State.damaged && state != State.finished)
+        if(!damaged && state != State.finished)
         {
             if (collision.gameObject.tag == "Weapon")
             {
@@ -253,7 +257,7 @@ public class Racer : MonoBehaviour
                 {
                     case "Bullet":
                         defeatedBy = collision.gameObject.GetComponent<Weapon>().owner;
-                        state = State.damaged;
+                        damaged = true;
                         TakeHealth(5);
                         break;
                 }
@@ -261,14 +265,17 @@ public class Racer : MonoBehaviour
 
             if (collision.gameObject.tag == "Racer")
             {
+                Vector3 direction = transform.position - collision.gameObject.transform.position;
+                rb.AddForce(direction * 5, ForceMode2D.Impulse);
+
                 defeatedBy = collision.gameObject.GetComponent<Racer>();
-                state = State.damaged;
+                damaged = true;
                 TakeHealth(2);
             }
 
             if (collision.gameObject.tag == "Wall")
             {
-                state = State.damaged;
+                damaged = true;
                 TakeHealth(2);
             }
 
@@ -276,8 +283,8 @@ public class Racer : MonoBehaviour
             {
                 if(collision.gameObject.GetComponent<Weapon>().owner != null) defeatedBy = collision.gameObject.GetComponentInParent<Racer>();
                 Vector3 direction = transform.position - collision.gameObject.transform.position;
-                rb.AddForce(direction * 50, ForceMode2D.Impulse);
-                state = State.damaged;
+                rb.AddForce(direction * 20, ForceMode2D.Impulse);
+                damaged = true;
                 TakeHealth(15);
             }
         }
@@ -313,14 +320,13 @@ public class Racer : MonoBehaviour
         if(!oilSlicked)
         {
             speed = speed * oilSlickPenalty;
-            state = State.oilSlick;
+            oilSlicked = true;
             oilSlickTimer = oilSlickDelay;
             oilSlicked = true;
         }
         else
         {
             speed = speedMax;
-            state = State.idle;
             oilSlicked = false;
         }
     }

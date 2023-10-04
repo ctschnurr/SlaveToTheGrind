@@ -60,11 +60,11 @@ public class PlayerController : Racer
 
     public override void Update()
     {
-        RaceManager.State raceState = RaceManager.GetState();
+        base.Update();
 
+        RaceManager.State raceState = RaceManager.GetState();
         if (raceState == RaceManager.State.racing && state != State.finished && state != State.dead)
         {
-            base.Update();
             if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
             {
                 canBoost = false;

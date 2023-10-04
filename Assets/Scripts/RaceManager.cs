@@ -149,6 +149,11 @@ public class RaceManager : MonoBehaviour
         int place;
         place = ranking.IndexOf(player1);
         place++;
+
+        Racer playerRacer = player1.GetComponent<Racer>();
+        Racer.State playerState = playerRacer.GetState();
+        if (playerState == Racer.State.finished || playerState == Racer.State.dead) place = 0;
+
         return place;
     }
     public static List<GameObject> GetRacers()
