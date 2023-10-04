@@ -6,8 +6,6 @@ using UnityEngine.XR;
 public class Obstacle : MonoBehaviour
 {
     // Start is called before the first frame update
-    protected int spawnX;
-    protected int spawnY;
     protected Rigidbody2D rb;
     public Obstacle()
     {

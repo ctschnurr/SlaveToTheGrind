@@ -4444,12 +4444,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  firePos: {fileID: 474805962}
+  dropPos: {fileID: 474805961}
   bullet: {fileID: 4857060732955135597, guid: 261798200b887fc44bc10b9425acb14b, type: 3}
   missle: {fileID: 3549999017848108696, guid: 384ac33350f279c49b2d9c36daafc240, type: 3}
   mine: {fileID: 4012078459000498706, guid: 21ef3cc057fcd4a40bae77f0b2cabdc4, type: 3}
-  firePos: {fileID: 474805962}
-  dropPos: {fileID: 474805961}
-  effect: 0
   finishLine: 0
   enemyWaypoints: []
   racers: []
@@ -4500,7 +4499,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 829c14c8bdc6fc94087424348b091c3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleSpawnPoints: []
+--- !u!1 &504737628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 504737629}
+  - component: {fileID: 504737630}
+  m_Layer: 0
+  m_Name: waypoint (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &504737629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504737628}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1, y: 147.5, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1155954493}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &504737630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504737628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c15c0c95284de47932c0560389655d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextWaypoint: {fileID: 0}
+  waypointType: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4628,6 +4672,52 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &533833712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 533833713}
+  - component: {fileID: 533833714}
+  m_Layer: 0
+  m_Name: waypoint (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &533833713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533833712}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1, y: 112, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1155954493}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &533833714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533833712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35c15c0c95284de47932c0560389655d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextWaypoint: {fileID: 0}
+  waypointType: 0
 --- !u!1 &560306489
 GameObject:
   m_ObjectHideFlags: 0
@@ -4760,12 +4850,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  firePos: {fileID: 755552352}
+  dropPos: {fileID: 755552351}
   bullet: {fileID: 4857060732955135597, guid: 261798200b887fc44bc10b9425acb14b, type: 3}
   missle: {fileID: 3549999017848108696, guid: 384ac33350f279c49b2d9c36daafc240, type: 3}
   mine: {fileID: 4012078459000498706, guid: 21ef3cc057fcd4a40bae77f0b2cabdc4, type: 3}
-  firePos: {fileID: 755552352}
-  dropPos: {fileID: 755552351}
-  effect: 0
   finishLine: 0
   enemyWaypoints: []
   racers: []
@@ -5371,6 +5460,8 @@ Transform:
   m_Children:
   - {fileID: 2046709348}
   - {fileID: 1739743694}
+  - {fileID: 533833713}
+  - {fileID: 504737629}
   m_Father: {fileID: 490090260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1170634507
@@ -5482,6 +5573,50 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1278090145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1278090146}
+  - component: {fileID: 1278090147}
+  m_Layer: 0
+  m_Name: RaceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1278090146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278090145}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 887.1703, y: 266.49252, z: -3.523258}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1278090147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278090145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d1d42d2b74eb142b486d97c2b9fcb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1295466328
 GameObject:
   m_ObjectHideFlags: 0
@@ -71350,12 +71485,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  firePos: {fileID: 1878111060}
+  dropPos: {fileID: 1878111059}
   bullet: {fileID: 4857060732955135597, guid: 261798200b887fc44bc10b9425acb14b, type: 3}
   missle: {fileID: 3549999017848108696, guid: 384ac33350f279c49b2d9c36daafc240, type: 3}
   mine: {fileID: 4012078459000498706, guid: 21ef3cc057fcd4a40bae77f0b2cabdc4, type: 3}
-  firePos: {fileID: 1878111060}
-  dropPos: {fileID: 1878111059}
-  effect: 0
   finishLine: 0
   enemyWaypoints: []
   racers: []
@@ -71867,9 +72001,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1794496504}
+  - {fileID: 490090260}
+  - {fileID: 1278090146}
   - {fileID: 519420032}
   - {fileID: 1455130936}
-  - {fileID: 490090260}
   - {fileID: 1097947669}
   - {fileID: 808093175}
   - {fileID: 108460066241743066}

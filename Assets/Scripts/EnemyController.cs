@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GameManager;
 using static Globals;
 
 public class EnemyController : Racer
@@ -29,7 +30,7 @@ public class EnemyController : Racer
         type = RacerType.enemy;
         racerName = "Enemy";
 
-        racers = TrackManager.GetRacers();
+        racers = RaceManager.GetRacers();
 
         finishLine = TrackManager.GetFinishline();
     }
@@ -37,7 +38,9 @@ public class EnemyController : Racer
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (effect != Effect.dead && effect != Effect.finished && GameManager.state == GameManager.GameState.active)
+        RaceManager.State raceState = RaceManager.GetState();
+
+        if (raceState == RaceManager.State.racing && state != State.finished && state != State.dead)
         {
             Vector3 targetDirection = waypoint.transform.position - transform.localPosition;
             Quaternion tempQuaternion = Quaternion.LookRotation(Vector3.forward, targetDirection);
@@ -67,8 +70,8 @@ public class EnemyController : Racer
 
                         if(fireChance == 1)
                         {
-                            if (missleAmmo > 0 && distance > 5) Fire(Weapon_State.missle);
-                            else Fire(Weapon_State.bullet);
+                            if (missleAmmo > 0 && distance > 5) Fire(Weapon_Select.missle);
+                            else Fire(Weapon_Select.bullet);
                         }
                     }
 
@@ -78,7 +81,7 @@ public class EnemyController : Racer
                         int fireChance = Random.Range(1, 10 - gameLevel);
                         if (fireChance == 1)
                         {
-                            if (mineAmmo > 0 && distance > 3) Fire(Weapon_State.mine);
+                            if (mineAmmo > 0 && distance > 3) Fire(Weapon_Select.mine);
                         }
                     }
 

@@ -4,31 +4,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    float timer;
-    float timerReset;
-
-    public enum GameState
-    {
-        inactive,
-        active
-    }
-
-    public static GameState state = GameState.inactive;
     // Start is called before the first frame update
     void Start()
     {
         TrackManager.SetupTrack();
+        RaceManager.SetupRace();
         ScreenManager.SetupScreens();
-        ScreenManager.CountDown();
+        RaceManager.StartRace();
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer -= Time.deltaTime;
-        if (timer <= 0)
-        {
-            timer = 0;
-        }
+
     }
 }

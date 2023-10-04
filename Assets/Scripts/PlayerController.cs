@@ -55,21 +55,44 @@ public class PlayerController : Racer
         type = RacerType.player;
         racerName = "Player";
 
-        ready = true;
         finishLine = TrackManager.GetFinishline();
+    }
+
+    public override void Update()
+    {
+        RaceManager.State raceState = RaceManager.GetState();
+
+        if (raceState == RaceManager.State.racing && state != State.finished && state != State.dead)
+        {
+            base.Update();
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
+            {
+                canBoost = false;
+                boostTimer = boostTimerReset;
+                boosted = true;
+                boost = boostReset;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space)) Fire(Weapon_Select.bullet);
+            if (Input.GetKeyDown(KeyCode.F)) Fire(Weapon_Select.missle);
+            if (Input.GetKeyDown(KeyCode.E)) Fire(Weapon_Select.mine);
+
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(GameManager.state == GameManager.GameState.active && effect != Effect.finished)
+        RaceManager.State raceState = RaceManager.GetState();
+
+        if(raceState == RaceManager.State.racing && state != State.finished && state != State.dead)
         {
             pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.75f);
 
             horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 
-            if (effect != Effect.dead)
+            if (state != State.dead)
             {
                 rb.AddRelativeForce(Vector2.up * vertical * (speed + boost) * Time.deltaTime, ForceMode2D.Force);
 

@@ -26,10 +26,6 @@ public class ScreenManager : MonoBehaviour
     string place = " ";
 
     static bool ready = false;
-    static int countDown = 3;
-    static bool countDownActive = false;
-    static float timer = 0;
-    static float timerReset = 1;
 
     // Start is called before the first frame update
     public static void SetupScreens()
@@ -79,36 +75,8 @@ public class ScreenManager : MonoBehaviour
             int money = playerController.GetMoney();
             moneyText.text = "$" + money;
 
-            rank = TrackManager.GetPlace();
+            rank = RaceManager.GetPlace();
             UpdateRank(rank);
-        }
-
-        if(countDownActive)
-        {
-            timer -= Time.deltaTime;
-            if (timer <= 0)
-            {
-                if(countDown > 0)
-                {
-                    countDownText.text = countDown.ToString();
-                    timer = timerReset;
-                    countDown--;
-                }
-                else if(countDown == 0)
-                {
-                    countDownText.text = "GO!";
-                    timer = timerReset;
-                    countDown--;
-
-                    GameManager.state = GameManager.GameState.active;
-                }
-                else if(countDown == -1)
-                {
-                    countDownText.text = " ";
-                    countDownActive = false;
-                    timer = timerReset;
-                }
-            }
         }
     }
 
@@ -136,10 +104,8 @@ public class ScreenManager : MonoBehaviour
         playerRanking.text = place;
     }
 
-    public static void CountDown()
+    public static void CountDown(string countDown)
     {
-        countDownActive = true;
-        countDown = 3;
-        timer = timerReset;
+        countDownText.text = countDown;
     }
 }
