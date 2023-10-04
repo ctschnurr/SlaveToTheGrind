@@ -78,6 +78,14 @@ public class PlayerController : Racer
             if (Input.GetKeyDown(KeyCode.E)) Fire(Weapon_Select.mine);
 
         }
+
+        if (raceState == RaceManager.State.racing)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameManager.Pause();
+            }
+        }
     }
 
     // Update is called once per frame

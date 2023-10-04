@@ -12,7 +12,7 @@ public class RaceManager : MonoBehaviour
         done
     }
 
-    protected static State state = State.prep;
+    public static State state = State.prep;
 
     static List<Racer> finishers;
 
@@ -68,6 +68,7 @@ public class RaceManager : MonoBehaviour
                         timer = timerReset;
 
                         state = State.racing;
+                        countDown = 3;
                     }
                 }
                 break;
@@ -82,8 +83,17 @@ public class RaceManager : MonoBehaviour
                 }
                 if(checkForFinishers.Count == racers.Count)
                 {
+                    List<GameObject> racersCopy = new List<GameObject>(racers);
+                    foreach (GameObject racer in racersCopy)
+                    {
+                        Racer checkRacer = racer.GetComponent<Racer>();
+                        bool finishedCheck = finishers.Contains(checkRacer);
+
+                        if (!finishedCheck) finishers.Add(checkRacer);
+                    }
+
                     state = State.done;
-                    Debug.Log("Race has concluded.");
+                    ScreenManager.SetScreen(ScreenManager.Screen.endRace);
                 }
                 break;
 
@@ -169,8 +179,12 @@ public class RaceManager : MonoBehaviour
     public static void FinishQueue(Racer finisher)
     {
         string name = finisher.GetName();
-        Debug.Log(name + " Finished!");
 
         finishers.Add(finisher);
+    }
+
+    public static List<Racer> GetRankings()
+    {
+        return finishers;
     }
 }
