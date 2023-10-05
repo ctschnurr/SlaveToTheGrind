@@ -10,7 +10,6 @@ public class PlayerController : Racer
 {
     GameObject car;
 
-    Quaternion rotation;
     Quaternion rotLeft;
     Quaternion rotRight;
 
@@ -27,14 +26,16 @@ public class PlayerController : Racer
     // Start is called before the first frame update
     public override void SetupRacer()
     {
+        startPosition = transform.position;
+
         car = transform.gameObject;
         rb = GetComponent<Rigidbody2D>();
         pCam = transform.Find("playerCam").GetComponent<CinemachineVirtualCamera>();
 
-        rotation = car.transform.localRotation;
-        rotLeft = rotation;
+        startRotation = car.transform.rotation;
+        rotLeft = startRotation;
         rotLeft.z -= .1f;
-        rotRight = rotation;
+        rotRight = startRotation;
         rotRight.z += .1f;
 
         rotationV = car.transform.position;
@@ -56,6 +57,12 @@ public class PlayerController : Racer
         racerName = "Player";
 
         finishLine = TrackManager.GetFinishline();
+    }
+
+    public override void ResetRacer()
+    {
+        base.ResetRacer();
+        pCam.gameObject.transform.rotation = startRotation;
     }
 
     public override void Update()

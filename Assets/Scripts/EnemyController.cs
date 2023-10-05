@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 using static GameManager;
 using static Globals;
 
@@ -15,6 +16,9 @@ public class EnemyController : Racer
     // Start is called before the first frame update
     public override void SetupRacer()
     {
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+
         waypoint = GameObject.Find("FirstPoint");
         rb = GetComponent<Rigidbody2D>();
         racer = gameObject.GetComponent<SpriteRenderer>();
@@ -33,6 +37,12 @@ public class EnemyController : Racer
         racers = RaceManager.GetRacers();
 
         finishLine = TrackManager.GetFinishline();
+    }
+
+    public override void ResetRacer()
+    {
+        TrackManager.SendNextWaypoint(null);
+        base.ResetRacer();
     }
 
     // Update is called once per frame

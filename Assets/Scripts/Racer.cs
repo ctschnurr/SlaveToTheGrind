@@ -30,8 +30,29 @@ public class Racer : MonoBehaviour
         mine
     }
 
+    // Racer stats
+
+    protected string racerName;
+    protected int health;
+    protected int maxHealth;
+    protected int totalMoney;
+
+    protected float repairSkill = 1;
+
+    protected Vector3 startPosition;
+    protected Quaternion startRotation;
     protected SpriteRenderer racer;
     protected Rigidbody2D rb;
+
+    protected Racer defeatedBy;
+    protected int moneyThisRound;
+
+    public float finishLine;
+    protected float speed;
+    protected float turnSpeed;
+    protected float speedMax;
+
+    // Weapon and ability related variables:
 
     public GameObject firePos;
     public GameObject dropPos;
@@ -41,18 +62,21 @@ public class Racer : MonoBehaviour
     protected float bulletTimerReset = .5f;
     protected bool canFireBullet = true;
     protected int bulletAmmo = 99;
+    protected int bulletAmmoMax = 99;
 
     public GameObject missle;
     protected float missleTimer;
     protected float missleTimerReset = 1.5f;
     protected bool canFireMissile = true;
     protected int missleAmmo = 10;
+    protected int missleAmmoMax = 10;
 
     public GameObject mine;
     protected float mineTimer;
     protected float mineTimerReset = 1f;
     protected bool canDropMine = true;
     protected int mineAmmo = 10;
+    protected int mineAmmoMax = 10;
 
     protected bool damaged = false;
     protected float damageBlinkTimer = 0f;
@@ -62,15 +86,6 @@ public class Racer : MonoBehaviour
     protected bool oilSlicked = false;
     protected float oilSlickTimer;
     protected float oilSlickTimerReset;
-
-    protected string racerName;
-    protected int health;
-    protected int maxHealth;
-    protected int totalMoney;
-    protected float repairSkill = 1;
-
-    protected Racer defeatedBy;
-    protected int moneyThisRound;
 
     protected bool boosted = false;
     protected float boost = 0f;
@@ -82,19 +97,18 @@ public class Racer : MonoBehaviour
     protected bool canBoost = true;
     protected bool boostRecharge = false;
 
-    protected float speed;
-    protected float turnSpeed;
-    protected float speedMax;
-
-    public float finishLine;
-
     public delegate void FinishedAction(Racer racer);
     public static event FinishedAction OnFinished;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void ResetRacer()
     {
-
+        rb.velocity = Vector3.zero;
+        if (!racer.enabled) racer.enabled = true;
+        transform.position = startPosition;
+        transform.rotation = startRotation;
+        state = State.idle;
+        health = maxHealth;
     }
 
     // Update is called once per frame
@@ -102,6 +116,7 @@ public class Racer : MonoBehaviour
     {
         if (transform.position.y >= finishLine && state != State.finished)
         {
+            state = State.finished;
             Finished();
         }
 
@@ -297,7 +312,7 @@ public class Racer : MonoBehaviour
         {
             health = 0;
             state = State.dead;
-            if(defeatedBy != null) Debug.Log(name + " was defeated by " + defeatedBy.name);
+            if (defeatedBy != null) Debug.Log(name + " was defeated by " + defeatedBy.name);
         }
     }
 
@@ -350,7 +365,6 @@ public class Racer : MonoBehaviour
         if (OnFinished != null)
         {
             OnFinished(this);
-            state = State.finished;
         }
     }
 }

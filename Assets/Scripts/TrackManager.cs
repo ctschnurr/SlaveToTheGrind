@@ -12,10 +12,6 @@ public class TrackManager : MonoBehaviour
     static GameObject finishLine; // will have to update this as the track grows
 
     // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -37,7 +33,6 @@ public class TrackManager : MonoBehaviour
         }
 
         finishLine = enemyWaypoints[numberOfWaypoints - 1];
-
 
         foreach (GameObject waypoint in enemyWaypoints)
         {
@@ -68,6 +63,7 @@ public class TrackManager : MonoBehaviour
 
     public static GameObject SendNextWaypoint(GameObject last)
     {
+        if (last == null) return enemyWaypoints[0];
         if (last != enemyWaypoints[enemyWaypoints.Count - 1])
         {
             Waypoint tempWaypoint = last.GetComponent<Waypoint>();

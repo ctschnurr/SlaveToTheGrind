@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
-        RaceManager.state = RaceManager.State.prep;
+        RaceManager.ResetRace();
+        ScreenManager.SetScreen(ScreenManager.Screen.startRace);
         Time.timeScale = 1;
     }
 

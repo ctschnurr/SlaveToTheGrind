@@ -106,6 +106,7 @@ public class RaceManager : MonoBehaviour
     public static void SetupRace()
     {
         finishers = new List<Racer>();
+
         finishLine = TrackManager.GetFinishline();
 
         // will likely substantiate racers in the future
@@ -114,12 +115,13 @@ public class RaceManager : MonoBehaviour
         player3 = GameObject.Find("EnemyRacer2");
         player4 = GameObject.Find("EnemyRacer3");
 
-        racers = new List<GameObject>();
-
-        racers.Add(player1);
-        racers.Add(player2);
-        racers.Add(player3);
-        racers.Add(player4);
+        racers = new List<GameObject>
+        {
+            player1,
+            player2,
+            player3,
+            player4
+        };
 
         ranking = new List<GameObject>(racers);
 
@@ -127,6 +129,18 @@ public class RaceManager : MonoBehaviour
         {
             Racer temp = racer.GetComponent<Racer>();
             temp.SetupRacer();
+        }
+    }
+
+    public static void ResetRace()
+    {
+        state = State.prep;
+        finishers = new List<Racer>();
+        ranking = new List<GameObject>(racers);
+        foreach(GameObject racerGO in racers)
+        {
+            Racer racer = racerGO.GetComponent<Racer>();
+            racer.ResetRacer();
         }
     }
 
@@ -178,8 +192,7 @@ public class RaceManager : MonoBehaviour
 
     public static void FinishQueue(Racer finisher)
     {
-        string name = finisher.GetName();
-
+        Debug.Log(finisher.name);
         finishers.Add(finisher);
     }
 
