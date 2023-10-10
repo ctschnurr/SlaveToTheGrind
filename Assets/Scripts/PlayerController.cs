@@ -102,7 +102,7 @@ public class PlayerController : Racer
 
         if(raceState == RaceManager.State.racing && state != State.finished && state != State.dead)
         {
-            pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.75f);
+            pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.1f);
 
             horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
