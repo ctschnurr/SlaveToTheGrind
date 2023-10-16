@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     static bool paused = false;
+    static string playerName = "Ratt";
     // Start is called before the first frame update
     void Start()
     {
         TrackManager.SetupTrack();
-        RaceManager.SetupRace();
+        RaceManager.SetupRacers();
         ScreenManager.SetupScreens();
     }
 
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         RaceManager.ResetRace();
-        ScreenManager.SetScreen(ScreenManager.Screen.startRace);
+        ScreenManager.SetScreen(ScreenManager.Screen.HUD);
         Time.timeScale = 1;
     }
 
@@ -52,5 +53,15 @@ public class GameManager : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void ShowUpgrades()
+    {
+        ScreenManager.SetScreen(ScreenManager.Screen.upgrades);
+    }
+
+    public static string GetPlayerName()
+    {
+        return playerName;
     }
 }

@@ -103,7 +103,7 @@ public class RaceManager : MonoBehaviour
         }
     }
 
-    public static void SetupRace()
+    public static void SetupRacers()
     {
         finishers = new List<Racer>();
 
@@ -142,6 +142,8 @@ public class RaceManager : MonoBehaviour
             Racer racer = racerGO.GetComponent<Racer>();
             racer.ResetRacer();
         }
+
+        state = State.countdown;
     }
 
     public static void StartRace()

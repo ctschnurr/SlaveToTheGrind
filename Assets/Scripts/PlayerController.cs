@@ -10,39 +10,27 @@ public class PlayerController : Racer
 {
     GameObject car;
 
-    Quaternion rotLeft;
-    Quaternion rotRight;
-
-    Vector3 rotationV;
-    Vector3 rotLeftV;
-    Vector3 rotRightV;
-
     CinemachineVirtualCamera pCam;
     float pCamFloat = 10;
 
     float horizontal;
     public Transform waypoint;
 
+    private int speechSkill;
+
     // Start is called before the first frame update
     public override void SetupRacer()
     {
-        startPosition = transform.position;
+        type = RacerType.player;
+        racerName = GameManager.GetPlayerName();
 
-        car = transform.gameObject;
         rb = GetComponent<Rigidbody2D>();
         pCam = transform.Find("playerCam").GetComponent<CinemachineVirtualCamera>();
 
-        startRotation = car.transform.rotation;
-        rotLeft = startRotation;
-        rotLeft.z -= .1f;
-        rotRight = startRotation;
-        rotRight.z += .1f;
+        car = transform.gameObject;
 
-        rotationV = car.transform.position;
-        rotLeftV = rotationV;
-        rotLeftV.y -= 5;
-        rotRightV = rotationV;
-        rotRightV.y += 5;
+        startPosition = transform.position;
+        startRotation = transform.rotation;
 
         racer = gameObject.GetComponent<SpriteRenderer>();
 
@@ -53,10 +41,15 @@ public class PlayerController : Racer
         speedMax = baseSpeed;
         turnSpeed = baseTurnSpeed;
 
-        type = RacerType.player;
-        racerName = "Player";
-
         finishLine = TrackManager.GetFinishline();
+
+        totalMoney = 700;
+    }
+
+    public void UpdateRacer()
+    {
+        speedMax = baseSpeed + engineUpgradeLevel * 0.15f;
+        speed = speedMax;
     }
 
     public override void ResetRacer()
@@ -170,7 +163,41 @@ public class PlayerController : Racer
 
     public int GetMoney()
     {
-        return moneyThisRound;
+        return totalMoney;
+    }
+
+    public int GetEngineLevel()
+    {
+        return engineUpgradeLevel;
+    }
+    public void SetEngineLevel(int set)
+    {
+        engineUpgradeLevel = set;
+    }
+
+    public int GetArmourLevel()
+    {
+        return armourUpgradeLevel;
+    }
+
+    public void SetArmourLevel(int set)
+    {
+        armourUpgradeLevel = set;
+    }
+
+    public int GetRepairSkill()
+    {
+        return repairSkill;
+    }
+
+    public int GetSpeechSkill()
+    {
+        return speechSkill;
+    }
+
+    public void SpendMoney(int spent)
+    {
+        totalMoney -= spent;
     }
 
 }

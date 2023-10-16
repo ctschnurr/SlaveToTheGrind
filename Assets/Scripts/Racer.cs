@@ -29,15 +29,18 @@ public class Racer : MonoBehaviour
         missle,
         mine
     }
+    // Upgradables
 
+    protected int engineUpgradeLevel = 0;
+    protected int armourUpgradeLevel = 0;
+
+    protected int repairSkill = 1;
     // Racer stats
 
     protected string racerName;
     protected int health;
     protected int maxHealth;
     protected int totalMoney;
-
-    protected float repairSkill = 1;
 
     protected Vector3 startPosition;
     protected Quaternion startRotation;
@@ -100,7 +103,13 @@ public class Racer : MonoBehaviour
     public delegate void FinishedAction(Racer racer);
     public static event FinishedAction OnFinished;
 
+    protected string[] enemyNames = new string[] {"Rattigan", "Ratley", "Ratmore", "Ratty", "Ratman", "RatWoman"};
     // Start is called before the first frame update
+
+    public void Start()
+    {
+        
+    }
     public virtual void ResetRacer()
     {
         rb.velocity = Vector3.zero;
