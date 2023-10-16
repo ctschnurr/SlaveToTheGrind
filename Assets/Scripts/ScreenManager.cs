@@ -15,6 +15,7 @@ public class ScreenManager : MonoBehaviour
         HUD,
         startRace,
         endRace,
+        earnings,
         upgrades,
         pause
     }
@@ -84,7 +85,10 @@ public class ScreenManager : MonoBehaviour
     static TextMeshProUGUI moneyText;
     static TextMeshProUGUI countDownText;
 
-    static GameObject endRaceScreen;
+    static GameObject raceResultsScreen;
+    static GameObject earningsScreen;
+    static TextMeshProUGUI earningsText;
+    static string earningsReport;
 
     static TextMeshProUGUI rank1;
     static TextMeshProUGUI rank2;
@@ -162,20 +166,23 @@ public class ScreenManager : MonoBehaviour
         // ---
 
 
-        // END Race Screen
-        endRaceScreen = GameObject.Find("ScreenManager/endRace");
+        // END Race Sequence
+        raceResultsScreen = GameObject.Find("ScreenManager/RaceResults");
+        earningsScreen = GameObject.Find("ScreenManager/Earnings");
 
-        rank1 = GameObject.Find("ScreenManager/endRace/rank1").GetComponent<TextMeshProUGUI>();
-        rank2 = GameObject.Find("ScreenManager/endRace/rank2").GetComponent<TextMeshProUGUI>();
-        rank3 = GameObject.Find("ScreenManager/endRace/rank3").GetComponent<TextMeshProUGUI>();
-        rank4 = GameObject.Find("ScreenManager/endRace/rank4").GetComponent<TextMeshProUGUI>();
+        earningsText = GameObject.Find("ScreenManager/RaceResults/earningsText").GetComponent<TextMeshProUGUI>();
+
+        rank1 = GameObject.Find("ScreenManager/RaceResults/rank1").GetComponent<TextMeshProUGUI>();
+        rank2 = GameObject.Find("ScreenManager/RaceResults/rank2").GetComponent<TextMeshProUGUI>();
+        rank3 = GameObject.Find("ScreenManager/RaceResults/rank3").GetComponent<TextMeshProUGUI>();
+        rank4 = GameObject.Find("ScreenManager/RaceResults/rank4").GetComponent<TextMeshProUGUI>();
 
         ranks = new List<TextMeshProUGUI> { rank1, rank2, rank3, rank4 };
         // ---
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, instructionsScreen, upgradesScreen, HUD, endRaceScreen, pauseScreen, carUpgradesScreen, racerUpgradesScreen, ammoShopScreen };
+        screensList = new List<GameObject> { titleScreen, instructionsScreen, upgradesScreen, HUD, raceResultsScreen, pauseScreen, carUpgradesScreen, racerUpgradesScreen, ammoShopScreen };
 
         ClearScreens();
         
@@ -280,8 +287,13 @@ public class ScreenManager : MonoBehaviour
                 break;
 
             case Screen.endRace:
-                if (!endRaceScreen.activeSelf) endRaceScreen.SetActive(true);
+                if (!raceResultsScreen.activeSelf) raceResultsScreen.SetActive(true);
                 SetupEndRaceScreen();
+                SetupEarningsScreen();
+                break;
+
+            case Screen.earnings:
+                if (!earningsScreen.activeSelf) earningsScreen.SetActive(true);
                 break;
 
             case Screen.pause:
@@ -323,9 +335,15 @@ public class ScreenManager : MonoBehaviour
 
             Racer racer = racers[i];
             Racer.State racerState = racer.GetState();
-            if (racerState == Racer.State.finished) ranks[i].text = place + " - " + racer.name;
-            else if (racerState == Racer.State.dead) ranks[i].text = "DNF - " + racer.name;
+            string racerName = racer.GetName();
+            if (racerState == Racer.State.finished) ranks[i].text = place + " - " + racerName;
+            else if (racerState == Racer.State.dead) ranks[i].text = "DNF - " + racerName;
         }
+    }
+
+    protected static void SetupEarningsScreen()
+    {
+
     }
 
     public static void UpdateUpgradeIcons()

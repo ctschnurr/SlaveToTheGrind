@@ -30,6 +30,8 @@ public class RaceManager : MonoBehaviour
     static float timer = 1;
     static float timerReset = 1;
 
+    static float playerPlace;
+
     // Start is called before the first frame update
     void Start()
     {

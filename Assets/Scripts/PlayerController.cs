@@ -37,18 +37,16 @@ public class PlayerController : Racer
         maxHealth = 50;
         health = maxHealth;
 
-        speed = baseSpeed;
         speedMax = baseSpeed;
+        speed = speedMax;
         turnSpeed = baseTurnSpeed;
 
         finishLine = TrackManager.GetFinishline();
-
-        totalMoney = 700;
     }
 
     public void UpdateRacer()
     {
-        speedMax = baseSpeed + engineUpgradeLevel * 0.15f;
+        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.15f));
         speed = speedMax;
     }
 
@@ -56,6 +54,7 @@ public class PlayerController : Racer
     {
         base.ResetRacer();
         pCam.gameObject.transform.rotation = startRotation;
+        defeatedBy = null;
     }
 
     public override void Update()

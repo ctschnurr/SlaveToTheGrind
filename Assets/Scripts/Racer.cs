@@ -118,6 +118,7 @@ public class Racer : MonoBehaviour
         transform.rotation = startRotation;
         state = State.idle;
         health = maxHealth;
+        defeatedBy = null;
     }
 
     // Update is called once per frame

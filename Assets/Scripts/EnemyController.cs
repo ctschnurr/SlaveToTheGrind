@@ -13,9 +13,15 @@ public class EnemyController : Racer
 
     public float angle;
 
+    private static int levelCounter = 0;
+
     // Start is called before the first frame update
     public override void SetupRacer()
     {
+        int pickName = Random.Range(0, enemyNames.Length - 1);
+        racerName = enemyNames[pickName];
+        type = RacerType.enemy;
+
         startPosition = transform.position;
         startRotation = transform.rotation;
 
@@ -26,13 +32,13 @@ public class EnemyController : Racer
         maxHealth = 50;
         health = maxHealth;
 
-        speed = baseSpeed;
-        speedMax = baseSpeed;
+        engineUpgradeLevel = levelCounter;
+        levelCounter++;
+
+        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.15f));
+        speed = speedMax;
 
         turnSpeed = baseTurnSpeed;
-
-        type = RacerType.enemy;
-        racerName = "Enemy";
 
         racers = RaceManager.GetRacers();
 

@@ -15,15 +15,10 @@ public class Globals : MonoBehaviour
 
     public const int gameLevel = 1; // this will need to be in GameManager so it can be updated with level complete
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public const int firstPlaceReward = 150;
+    public const int secondPlaceReward = 125;
+    public const int thirdPlaceReward = 100;
+    public const int fourthPlaceReward = 75;
+    public const int participationReward = 50;
+    public const int eliminationReward = 50;
 }
