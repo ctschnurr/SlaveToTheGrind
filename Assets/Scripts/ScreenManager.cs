@@ -170,7 +170,7 @@ public class ScreenManager : MonoBehaviour
         raceResultsScreen = GameObject.Find("ScreenManager/RaceResults");
         earningsScreen = GameObject.Find("ScreenManager/Earnings");
 
-        earningsText = GameObject.Find("ScreenManager/RaceResults/earningsText").GetComponent<TextMeshProUGUI>();
+        earningsText = GameObject.Find("ScreenManager/Earnings/EarningsText").GetComponent<TextMeshProUGUI>();
 
         rank1 = GameObject.Find("ScreenManager/RaceResults/rank1").GetComponent<TextMeshProUGUI>();
         rank2 = GameObject.Find("ScreenManager/RaceResults/rank2").GetComponent<TextMeshProUGUI>();
@@ -182,7 +182,7 @@ public class ScreenManager : MonoBehaviour
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, instructionsScreen, upgradesScreen, HUD, raceResultsScreen, pauseScreen, carUpgradesScreen, racerUpgradesScreen, ammoShopScreen };
+        screensList = new List<GameObject> { titleScreen, instructionsScreen, upgradesScreen, HUD, raceResultsScreen, earningsScreen, pauseScreen, carUpgradesScreen, racerUpgradesScreen, ammoShopScreen };
 
         ClearScreens();
         
@@ -341,9 +341,17 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
+    public void GoToEarnings()
+    {
+        SetScreen(Screen.earnings);
+    }
+
     protected static void SetupEarningsScreen()
     {
-
+        earningsReport = "First Place! $50\n";
+        earningsReport += "Defeated dufus! +$50\n";
+        
+        earningsText.text = earningsReport;
     }
 
     public static void UpdateUpgradeIcons()

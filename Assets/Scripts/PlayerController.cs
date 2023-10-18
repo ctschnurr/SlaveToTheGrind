@@ -18,6 +18,8 @@ public class PlayerController : Racer
 
     private int speechSkill;
 
+    public delegate void PlayerDiedAction();
+    public static event PlayerDiedAction OnPlayerDied;
     // Start is called before the first frame update
     public override void SetupRacer()
     {
@@ -85,6 +87,12 @@ public class PlayerController : Racer
                 GameManager.Pause();
             }
         }
+    }
+
+    protected override void TakeHealth(int damage)
+    {
+        base.TakeHealth(damage);
+        if (health <= 0) PlayerDied();
     }
 
     // Update is called once per frame
@@ -197,6 +205,14 @@ public class PlayerController : Racer
     public void SpendMoney(int spent)
     {
         totalMoney -= spent;
+    }
+
+    public void PlayerDied()
+    {
+        if (OnPlayerDied != null)
+        {
+            OnPlayerDied();
+        }
     }
 
 }

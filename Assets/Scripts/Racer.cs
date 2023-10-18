@@ -315,7 +315,7 @@ public class Racer : MonoBehaviour
         }
     }
 
-    protected void TakeHealth(int damage)
+    protected virtual void TakeHealth(int damage)
     {
         health -= damage;
         if (health <= 0)
