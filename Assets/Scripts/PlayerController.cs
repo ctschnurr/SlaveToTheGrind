@@ -24,7 +24,7 @@ public class PlayerController : Racer
     public override void SetupRacer()
     {
         type = RacerType.player;
-        racerName = GameManager.GetPlayerName();
+        racerName  = "PlayeRat";
 
         rb = GetComponent<Rigidbody2D>();
         pCam = transform.Find("playerCam").GetComponent<CinemachineVirtualCamera>();
@@ -44,17 +44,20 @@ public class PlayerController : Racer
         turnSpeed = baseTurnSpeed;
 
         finishLine = TrackManager.GetFinishline();
+
+        totalMoney = 1000;
     }
 
     public void UpdateRacer()
     {
-        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.15f));
+        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.1f));
         speed = speedMax;
     }
 
     public override void ResetRacer()
     {
         base.ResetRacer();
+        UpdateRacer();
         pCam.gameObject.transform.rotation = startRotation;
         defeatedBy = null;
     }

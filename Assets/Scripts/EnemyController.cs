@@ -47,8 +47,9 @@ public class EnemyController : Racer
 
     public override void ResetRacer()
     {
-        TrackManager.SendNextWaypoint(null);
+        //TrackManager.SendNextWaypoint(null);
         base.ResetRacer();
+        waypoint = GameObject.Find("FirstPoint");
     }
 
     // Update is called once per frame

@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     static bool paused = false;
-    static string playerName = "Ratt";
+    static bool firstRace = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,14 +24,15 @@ public class GameManager : MonoBehaviour
 
     public void StartRace()
     {
-        ScreenManager.SetScreen(ScreenManager.Screen.HUD);
-        RaceManager.StartRace();
+            ScreenManager.SetScreen(ScreenManager.Screen.HUD);
+            RaceManager.StartRace();
+            firstRace = false;
     }
 
     public void Restart()
     {
         RaceManager.ResetRace();
-        ScreenManager.SetScreen(ScreenManager.Screen.HUD);
+        ScreenManager.SetScreen(ScreenManager.Screen.instructions);
         Time.timeScale = 1;
     }
 
@@ -58,10 +60,5 @@ public class GameManager : MonoBehaviour
     public void ShowUpgrades()
     {
         ScreenManager.SetScreen(ScreenManager.Screen.upgrades);
-    }
-
-    public static string GetPlayerName()
-    {
-        return playerName;
     }
 }

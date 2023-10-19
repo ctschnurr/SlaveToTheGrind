@@ -118,6 +118,7 @@ public class Racer : MonoBehaviour
         transform.rotation = startRotation;
         state = State.idle;
         health = maxHealth;
+        moneyThisRound = 0;
         defeatedBy = null;
     }
 
@@ -376,5 +377,14 @@ public class Racer : MonoBehaviour
         {
             OnFinished(this);
         }
+    }
+    public int GetCurrentRaceEarnings()
+    {
+        return moneyThisRound;
+    }
+
+    public void PayRacer()
+    {
+        totalMoney += moneyThisRound;
     }
 }

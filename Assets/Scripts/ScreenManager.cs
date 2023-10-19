@@ -65,6 +65,7 @@ public class ScreenManager : MonoBehaviour
     //
 
     static Screen currentScreen = Screen.title;
+    static Screen lastScreen = Screen.title;
 
     static List<GameObject> screensList;
 
@@ -220,7 +221,7 @@ public class ScreenManager : MonoBehaviour
             tempString = mineInfo[1].ToString("0.00");
             mineStats.text = "Mines: " + mineInfo[0] + " : " + tempString;
 
-            int money = playerController.GetMoney();
+            int money = playerController.GetCurrentRaceEarnings();
             moneyText.text = "$" + money;
 
             rank = RaceManager.GetPlace();
@@ -300,6 +301,9 @@ public class ScreenManager : MonoBehaviour
                 if (!pauseScreen.activeSelf) pauseScreen.SetActive(true);
                 break;
         }
+
+        lastScreen = currentScreen;
+        currentScreen = screen;
     }
 
     static void ClearScreens()
@@ -341,13 +345,9 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
-    public void GoToEarnings()
-    {
-        SetScreen(Screen.earnings);
-    }
-
     protected static void SetupEarningsScreen()
     {
+        playerController.PayRacer();
         earningsReport = "First Place! $50\n";
         earningsReport += "Defeated dufus! +$50\n";
         
@@ -473,6 +473,20 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
+    // Button Functions
+    public void GoToInstructions()
+    {
+        SetScreen(Screen.instructions);
+    }
+    public void GoToEarnings()
+    {
+        SetScreen(Screen.earnings);
+    }
+
+    public void GoToUpgrades()
+    {
+        SetScreen(Screen.upgrades);
+    }
     public void ShowCarUpgradesScreen()
     {
         if (racerUpgradesScreen.activeSelf) racerUpgradesScreen.SetActive(false);

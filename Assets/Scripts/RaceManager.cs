@@ -145,8 +145,6 @@ public class RaceManager : MonoBehaviour
             Racer racer = racerGO.GetComponent<Racer>();
             racer.ResetRacer();
         }
-
-        state = State.countdown;
     }
 
     public static void StartRace()
@@ -202,13 +200,13 @@ public class RaceManager : MonoBehaviour
 
     public static void PlayerDead()
     {
-        foreach(GameObject racer in racers)
-        {
-            Racer checkRacer = racer.GetComponent<Racer>();
-            bool finishedCheck = finishers.Contains(checkRacer);
-
-            if (!finishedCheck) finishers.Add(checkRacer);
-        }
+        // foreach(GameObject racer in racers)
+        // {
+        //     Racer checkRacer = racer.GetComponent<Racer>();
+        //     bool finishedCheck = finishers.Contains(checkRacer);
+        // 
+        //     if (!finishedCheck) finishers.Add(checkRacer);
+        // }
     }
 
     public static List<Racer> GetRankings()
