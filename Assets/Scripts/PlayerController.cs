@@ -59,7 +59,6 @@ public class PlayerController : Racer
         base.ResetRacer();
         UpdateRacer();
         pCam.gameObject.transform.rotation = startRotation;
-        defeatedBy = null;
     }
 
     public override void Update()
@@ -92,9 +91,9 @@ public class PlayerController : Racer
         }
     }
 
-    protected override void TakeHealth(int damage)
+    protected override void TakeHealth(int damage, Collision2D collision)
     {
-        base.TakeHealth(damage);
+        base.TakeHealth(damage, collision);
         if (health <= 0) PlayerDied();
     }
 

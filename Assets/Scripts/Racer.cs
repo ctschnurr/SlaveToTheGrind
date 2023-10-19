@@ -47,7 +47,7 @@ public class Racer : MonoBehaviour
     protected SpriteRenderer racer;
     protected Rigidbody2D rb;
 
-    protected Racer defeatedBy;
+    static protected List<Racer> defeated = new List<Racer>();
     protected int moneyThisRound;
 
     public float finishLine;
@@ -103,7 +103,7 @@ public class Racer : MonoBehaviour
     public delegate void FinishedAction(Racer racer);
     public static event FinishedAction OnFinished;
 
-    protected string[] enemyNames = new string[] {"Rattigan", "Ratley", "Ratmore", "Ratty", "Ratman", "RatWoman"};
+    protected string[] enemyNames = new string[] {"Rattigan", "Ratley", "Ratmore", "Ratty", "Ratman", "RatWoman", "Ratsputin"};
     // Start is called before the first frame update
 
     public void Start()
@@ -119,7 +119,7 @@ public class Racer : MonoBehaviour
         state = State.idle;
         health = maxHealth;
         moneyThisRound = 0;
-        defeatedBy = null;
+        if(defeated != null) defeated.Clear();
     }
 
     // Update is called once per frame
@@ -282,9 +282,8 @@ public class Racer : MonoBehaviour
                 switch (collision.gameObject.name)
                 {
                     case "Bullet":
-                        defeatedBy = collision.gameObject.GetComponent<Weapon>().owner;
                         damaged = true;
-                        TakeHealth(5);
+                        TakeHealth(5, collision);
                         break;
                 }
             }
@@ -294,36 +293,41 @@ public class Racer : MonoBehaviour
                 Vector3 direction = transform.position - collision.gameObject.transform.position;
                 rb.AddForce(direction * 5, ForceMode2D.Impulse);
 
-                defeatedBy = collision.gameObject.GetComponent<Racer>();
                 damaged = true;
-                TakeHealth(2);
+                TakeHealth(2, collision);
             }
 
             if (collision.gameObject.tag == "Wall")
             {
                 damaged = true;
-                TakeHealth(2);
+                TakeHealth(2, collision);
             }
 
             if (collision.gameObject.tag == "Explosion")
             {
-                if(collision.gameObject.GetComponent<Weapon>().owner != null) defeatedBy = collision.gameObject.GetComponentInParent<Racer>();
                 Vector3 direction = transform.position - collision.gameObject.transform.position;
                 rb.AddForce(direction * 20, ForceMode2D.Impulse);
                 damaged = true;
-                TakeHealth(15);
+                TakeHealth(15, collision);
             }
         }
     }
 
-    protected virtual void TakeHealth(int damage)
+    protected virtual void TakeHealth(int damage, Collision2D collision)
     {
         health -= damage;
         if (health <= 0)
         {
             health = 0;
             state = State.dead;
-            if (defeatedBy != null) Debug.Log(name + " was defeated by " + defeatedBy.name);
+            Racer defeatedBy = collision.gameObject.GetComponent<Weapon>().owner;
+            if(defeatedBy != null)
+            {
+                if (defeatedBy.type == RacerType.player)
+                {
+                    defeated.Add(this);
+                }
+            }
         }
     }
 
@@ -339,6 +343,11 @@ public class Racer : MonoBehaviour
     public void AddMoney(int value)
     {
         moneyThisRound += value;
+    }
+
+    public int GetEarnings()
+    {
+        return moneyThisRound;
     }
 
     public void OilSlicked()
@@ -366,6 +375,11 @@ public class Racer : MonoBehaviour
     {
         return state;
     }
+
+    public RacerType GetRacerType()
+    {
+        return type;
+    }
     public virtual void SetupRacer()
     {
 
@@ -383,8 +397,13 @@ public class Racer : MonoBehaviour
         return moneyThisRound;
     }
 
-    public void PayRacer()
+    public List<Racer> GetDefeated()
     {
-        totalMoney += moneyThisRound;
+        return defeated;
+    }
+
+    public void PayRacer(int earnings)
+    {
+        totalMoney += earnings;
     }
 }

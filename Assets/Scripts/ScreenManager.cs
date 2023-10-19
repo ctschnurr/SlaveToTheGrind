@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Windows;
+using static Globals;
 
 public class ScreenManager : MonoBehaviour
 {
@@ -347,11 +348,70 @@ public class ScreenManager : MonoBehaviour
 
     protected static void SetupEarningsScreen()
     {
-        playerController.PayRacer();
-        earningsReport = "First Place! $50\n";
-        earningsReport += "Defeated dufus! +$50\n";
-        
+        Racer.State racerState = playerController.GetState();
+        int raceEarnings = 0;
+
+        int place = -1;
+        if (racerState != Racer.State.dead)
+        {
+            List<Racer> finishers = RaceManager.GetRankings();
+            place = finishers.IndexOf(playerController);
+        }
+
+        switch (place)
+        {
+            case 0:
+                earningsReport = "First Place! +$" + firstPlaceReward + "\n";
+                raceEarnings += firstPlaceReward;
+                break;
+
+            case 1:
+                earningsReport = "Second Place! +$" + secondPlaceReward + "\n";
+                raceEarnings += secondPlaceReward;
+                break;
+
+            case 2:
+                earningsReport = "Third Place! +$" + thirdPlaceReward + "\n";
+                raceEarnings += thirdPlaceReward;
+                break;
+
+            case 3:
+                earningsReport = "Fourth Place! +$" + fourthPlaceReward + "\n";
+                raceEarnings += fourthPlaceReward;
+                break;
+
+            default:
+                earningsReport = "Participation Reward! +$" + participationReward + "\n";
+                raceEarnings += participationReward;
+                break;
+        }
+
+        int moneyThisRace = playerController.GetEarnings();
+
+        if(moneyThisRace > 0)
+        {
+            earningsReport += "Money Collected! +$" + moneyThisRace + "\n";
+            raceEarnings += moneyThisRace;
+        }
+
+        List<Racer> defeated = playerController.GetDefeated();
+
+        if(defeated != null)
+        {
+            if (defeated.Count > 0)
+            {
+                foreach (Racer racer in defeated)
+                {
+                    earningsReport += "Defeated " + racer.GetName() + "! +$" + eliminationReward + "\n";
+                    raceEarnings += eliminationReward;
+                }
+            }
+        }
+
+        earningsReport += "\nTotal Earnings: $" + raceEarnings;
+
         earningsText.text = earningsReport;
+        playerController.PayRacer(raceEarnings);
     }
 
     public static void UpdateUpgradeIcons()

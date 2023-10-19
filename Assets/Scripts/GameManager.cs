@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     static bool paused = false;
-    static bool firstRace = true;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +25,6 @@ public class GameManager : MonoBehaviour
     {
             ScreenManager.SetScreen(ScreenManager.Screen.HUD);
             RaceManager.StartRace();
-            firstRace = false;
     }
 
     public void Restart()
