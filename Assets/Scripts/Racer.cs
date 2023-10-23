@@ -275,16 +275,20 @@ public class Racer : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
+        Weapon weapon = collision.gameObject.GetComponent<Weapon>();
         if(!damaged && state != State.finished)
         {
-            if (collision.gameObject.tag == "Weapon")
+            if (weapon != null && weapon.owner != null && weapon.owner != this)
             {
-                switch (collision.gameObject.name)
+                if (collision.gameObject.tag == "Weapon")
                 {
-                    case "Bullet":
-                        damaged = true;
-                        TakeHealth(5, collision);
-                        break;
+                    switch (collision.gameObject.name)
+                    {
+                        case "Bullet":
+                            damaged = true;
+                            TakeHealth(5, collision);
+                            break;
+                    }
                 }
             }
 

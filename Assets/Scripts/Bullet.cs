@@ -12,8 +12,8 @@ public class Bullet : Weapon
     {
         gameObject.name = "Bullet";
         rb = gameObject.GetComponent<Rigidbody2D>();
-        forward = transform.forward;
-        forward.y = 1;
+        //forward = transform.forward;
+        //forward.y = 1;
         owner = transform.parent.GetComponent<Racer>();
         transform.parent = null;
     }

@@ -13,8 +13,8 @@ public class Missle : Weapon
     {
         gameObject.name = "Missle";
         rb = gameObject.GetComponent<Rigidbody2D>();
-        forward = transform.forward;
-        forward.y = 1;
+        //forward = transform.forward;
+        //forward.y = 1;
         owner = transform.parent.GetComponent<Racer>();
         transform.parent = null;
     }
