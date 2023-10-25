@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.UI;
+using TMPro;
 using static Globals;
 
 public class Racer : MonoBehaviour
@@ -14,7 +16,9 @@ public class Racer : MonoBehaviour
         finished
     }
 
-    public State state = State.idle;
+    private State _racerState = State.idle;
+    public State RacerState { get; set; }
+
     public enum RacerType
     {
         player,
@@ -46,6 +50,9 @@ public class Racer : MonoBehaviour
     protected Quaternion startRotation;
     protected SpriteRenderer racer;
     protected Rigidbody2D rb;
+    protected GameObject spriteCanvas;
+    protected Slider healthBar;
+    protected TextMeshProUGUI spriteName;
 
     static protected List<Racer> defeated = new List<Racer>();
     protected int moneyThisRound;
@@ -103,12 +110,14 @@ public class Racer : MonoBehaviour
     public delegate void FinishedAction(Racer racer);
     public static event FinishedAction OnFinished;
 
-    protected string[] enemyNames = new string[] {"Rattigan", "Ratley", "Ratmore", "Ratty", "Ratman", "RatWoman", "Ratsputin"};
+
+
+    protected List<string> enemyNames = new List<string> {"Rattigan", "Ratley", "Ratmore", "Ratty", "Ratman", "RatWoman", "Ratsputin"};
     // Start is called before the first frame update
 
     public void Start()
     {
-        
+
     }
     public virtual void ResetRacer()
     {
@@ -116,22 +125,25 @@ public class Racer : MonoBehaviour
         if (!racer.enabled) racer.enabled = true;
         transform.position = startPosition;
         transform.rotation = startRotation;
-        state = State.idle;
+        RacerState = State.idle;
         health = maxHealth;
         moneyThisRound = 0;
         if(defeated != null) defeated.Clear();
+
+        healthBar.maxValue = maxHealth;
+        healthBar.value = maxHealth;
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        if (transform.position.y >= finishLine && state != State.finished)
+        if (transform.position.y >= finishLine && RacerState != State.finished)
         {
-            state = State.finished;
+            RacerState = State.finished;
             Finished();
         }
 
-        switch (state)
+        switch (RacerState)
         {
             case State.idle:
 
@@ -276,7 +288,7 @@ public class Racer : MonoBehaviour
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         Weapon weapon = collision.gameObject.GetComponent<Weapon>();
-        if(!damaged && state != State.finished)
+        if(!damaged && RacerState != State.finished)
         {
             if (weapon != null && weapon.owner != null && weapon.owner != this)
             {
@@ -323,11 +335,12 @@ public class Racer : MonoBehaviour
         if (health <= 0)
         {
             health = 0;
-            state = State.dead;
-            Racer defeatedBy = collision.gameObject.GetComponent<Weapon>().owner;
+            RacerState = State.dead;
+            Racer defeatedBy = null;
+            if (collision.gameObject.tag == "Weapon") defeatedBy = collision.gameObject.GetComponent<Weapon>().owner;
             if(defeatedBy != null)
             {
-                if (defeatedBy.type == RacerType.player)
+                if (defeatedBy.type == RacerType.player && defeatedBy != this)
                 {
                     defeated.Add(this);
                 }
@@ -375,10 +388,10 @@ public class Racer : MonoBehaviour
         return racerName;
     }
 
-    public State GetState()
-    {
-        return state;
-    }
+    // public State GetState()
+    // {
+    //     return state;
+    // }
 
     public RacerType GetRacerType()
     {
@@ -386,7 +399,21 @@ public class Racer : MonoBehaviour
     }
     public virtual void SetupRacer()
     {
+        spriteCanvas = transform.Find("Canvas").gameObject;
+        healthBar = transform.Find("Canvas/HealthBar").GetComponent<Slider>();
+        spriteName = transform.Find("Canvas/SpriteName").GetComponent<TextMeshProUGUI>();
 
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+
+        rb = transform.GetComponent<Rigidbody2D>();
+        racer = transform.Find("RacerSprite").GetComponent<SpriteRenderer>();
+
+        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.15f));
+        speed = speedMax;
+        turnSpeed = baseTurnSpeed;
+
+        finishLine = TrackManager.GetFinishline();
     }
 
     public void Finished()

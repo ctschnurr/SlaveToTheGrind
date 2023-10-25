@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR;
 using static Globals;
 using Cinemachine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class PlayerController : Racer
 {
@@ -23,35 +25,32 @@ public class PlayerController : Racer
     // Start is called before the first frame update
     public override void SetupRacer()
     {
+        base.SetupRacer();
+
         type = RacerType.player;
         racerName  = "PlayeRat";
+        spriteName.text = racerName;
 
-        rb = GetComponent<Rigidbody2D>();
         pCam = transform.Find("playerCam").GetComponent<CinemachineVirtualCamera>();
 
         car = transform.gameObject;
 
-        startPosition = transform.position;
-        startRotation = transform.rotation;
-
-        racer = gameObject.GetComponent<SpriteRenderer>();
-
         maxHealth = 50;
         health = maxHealth;
 
-        speedMax = baseSpeed;
-        speed = speedMax;
-        turnSpeed = baseTurnSpeed;
-
-        finishLine = TrackManager.GetFinishline();
-
         totalMoney = 1000;
+
+        healthBar.maxValue = maxHealth;
+        healthBar.value = maxHealth;
     }
 
     public void UpdateRacer()
     {
         speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.1f));
         speed = speedMax;
+
+        healthBar.maxValue = maxHealth;
+        healthBar.value = maxHealth;
     }
 
     public override void ResetRacer()
@@ -66,7 +65,7 @@ public class PlayerController : Racer
         base.Update();
 
         RaceManager.State raceState = RaceManager.GetState();
-        if (raceState == RaceManager.State.racing && state != State.finished && state != State.dead)
+        if (raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
         {
             if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
             {
@@ -89,6 +88,9 @@ public class PlayerController : Racer
                 GameManager.Pause();
             }
         }
+
+        healthBar.value = health;
+        spriteCanvas.transform.rotation = startRotation;
     }
 
     protected override void TakeHealth(int damage, Collision2D collision)
@@ -102,14 +104,14 @@ public class PlayerController : Racer
     {
         RaceManager.State raceState = RaceManager.GetState();
 
-        if(raceState == RaceManager.State.racing && state != State.finished && state != State.dead)
+        if(raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
         {
             pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.1f);
 
             horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 
-            if (state != State.dead)
+            if (RacerState != State.dead)
             {
                 rb.AddRelativeForce(Vector2.up * vertical * (speed + boost) * Time.deltaTime, ForceMode2D.Force);
 

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Windows;
 using static GameManager;
 using static Globals;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class EnemyController : Racer
 {
@@ -18,16 +20,18 @@ public class EnemyController : Racer
     // Start is called before the first frame update
     public override void SetupRacer()
     {
-        int pickName = Random.Range(0, enemyNames.Length - 1);
-        racerName = enemyNames[pickName];
-        type = RacerType.enemy;
+        base.SetupRacer();
 
-        startPosition = transform.position;
-        startRotation = transform.rotation;
+        engineUpgradeLevel = levelCounter;
+        levelCounter++;
+
+        int pickName = Random.Range(0, enemyNames.Count);
+        racerName = enemyNames[pickName];
+        enemyNames.Remove(racerName);
+        type = RacerType.enemy;
+        spriteName.text = racerName;
 
         waypoint = GameObject.Find("FirstPoint");
-        rb = GetComponent<Rigidbody2D>();
-        racer = gameObject.GetComponent<SpriteRenderer>();
 
         maxHealth = 50;
         health = maxHealth;
@@ -37,12 +41,12 @@ public class EnemyController : Racer
 
         speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.15f));
         speed = speedMax;
-
         turnSpeed = baseTurnSpeed;
 
         racers = RaceManager.GetRacers();
 
-        finishLine = TrackManager.GetFinishline();
+        healthBar.maxValue = maxHealth;
+        healthBar.value = maxHealth;
     }
 
     public override void ResetRacer()
@@ -57,7 +61,7 @@ public class EnemyController : Racer
     {
         RaceManager.State raceState = RaceManager.GetState();
 
-        if (raceState == RaceManager.State.racing && state != State.finished && state != State.dead)
+        if (raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
         {
             Vector3 targetDirection = waypoint.transform.position - transform.localPosition;
             Quaternion tempQuaternion = Quaternion.LookRotation(Vector3.forward, targetDirection);
@@ -113,5 +117,13 @@ public class EnemyController : Racer
         GameObject nextWaypoint = TrackManager.SendNextWaypoint(input);
         if(nextWaypoint == null) return input;
         else return nextWaypoint;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+
+        healthBar.value = health;
+        spriteCanvas.transform.rotation = startRotation;
     }
 }

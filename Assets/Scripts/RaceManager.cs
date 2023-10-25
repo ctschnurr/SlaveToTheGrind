@@ -77,27 +77,27 @@ public class RaceManager : MonoBehaviour
                 break;
 
             case State.racing:
-                List<GameObject> checkForFinishers = new List<GameObject>();
-                foreach (GameObject racer in racers)
-                {
-                    Racer racer1 = racer.GetComponent<Racer>();
-                    Racer.State racerState = racer1.GetState();
-                    if (racerState == Racer.State.finished || racerState == Racer.State.dead) checkForFinishers.Add(racer);
-                }
-                if(checkForFinishers.Count == racers.Count)
-                {
-                    List<GameObject> racersCopy = new List<GameObject>(racers);
-                    foreach (GameObject racer in racersCopy)
-                    {
-                        Racer checkRacer = racer.GetComponent<Racer>();
-                        bool finishedCheck = finishers.Contains(checkRacer);
-
-                        if (!finishedCheck) finishers.Add(checkRacer);
-                    }
-
-                    state = State.done;
-                    ScreenManager.SetScreen(ScreenManager.Screen.endRace);
-                }
+                // List<GameObject> checkForFinishers = new List<GameObject>();
+                // foreach (GameObject racer in racers)
+                // {
+                //     Racer racer1 = racer.GetComponent<Racer>();
+                //     Racer.State racerState = racer1.RacerState;
+                //     if (racerState == Racer.State.finished || racerState == Racer.State.dead) checkForFinishers.Add(racer);
+                // }
+                // if(checkForFinishers.Count == racers.Count)
+                // {
+                //     List<GameObject> racersCopy = new List<GameObject>(racers);
+                //     foreach (GameObject racer in racersCopy)
+                //     {
+                //         Racer checkRacer = racer.GetComponent<Racer>();
+                //         bool finishedCheck = finishers.Contains(checkRacer);
+                // 
+                //         if (!finishedCheck) finishers.Add(checkRacer);
+                //     }
+                // 
+                //     state = State.done;
+                //     ScreenManager.SetScreen(ScreenManager.Screen.endRace);
+                // }
                 break;
 
             case State.done:
@@ -153,6 +153,22 @@ public class RaceManager : MonoBehaviour
     }
     public static int GetPlace()
     {
+        ranking = new List<GameObject>();
+        ranking = RankUs();
+
+        int place;
+        place = ranking.IndexOf(player1);
+        place++;
+
+        Racer playerRacer = player1.GetComponent<Racer>();
+        Racer.State playerState = playerRacer.RacerState;
+        if (playerState == Racer.State.finished || playerState == Racer.State.dead) place = 0;
+
+        return place;
+    }
+
+    public static List<GameObject> RankUs()
+    {
         List<GameObject> racersCopy = new List<GameObject>(racers);
         ranking = new List<GameObject>();
 
@@ -161,7 +177,7 @@ public class RaceManager : MonoBehaviour
             float closest = Mathf.Infinity;
             foreach (GameObject racer in racersCopy)
             {
-                float distanceToEnd = Vector2.Distance(racer.transform.position, new Vector2(racer.transform.position.x, finishLine));
+                float distanceToEnd = Vector2.Distance(racer.transform.position, new Vector2(racer.transform.position.x, finishLine + 50));
                 if (distanceToEnd < closest)
                 {
                     ranker = racer;
@@ -173,15 +189,7 @@ public class RaceManager : MonoBehaviour
             ranking.Add(ranker);
         }
 
-        int place;
-        place = ranking.IndexOf(player1);
-        place++;
-
-        Racer playerRacer = player1.GetComponent<Racer>();
-        Racer.State playerState = playerRacer.GetState();
-        if (playerState == Racer.State.finished || playerState == Racer.State.dead) place = 0;
-
-        return place;
+        return ranking;
     }
     public static List<GameObject> GetRacers()
     {
@@ -196,17 +204,47 @@ public class RaceManager : MonoBehaviour
     public static void FinishQueue(Racer finisher)
     {
         finishers.Add(finisher);
+
+        if (finisher.GetRacerType() == Racer.RacerType.player)
+        {
+            EndRace();
+            ScreenManager.SetScreen(ScreenManager.Screen.finish);
+        }
+
+    }
+
+    public static void EndRace()
+    {
+        ranking = new List<GameObject>();
+        ranking = RankUs();
+
+        foreach (GameObject racer in ranking)
+        {
+            Racer checkRacer = racer.GetComponent<Racer>();
+            if (checkRacer.RacerState != Racer.State.dead)
+            {
+                checkRacer.RacerState = Racer.State.finished;
+                bool finishedCheck = finishers.Contains(checkRacer);
+
+                if (!finishedCheck) finishers.Add(checkRacer);
+            }
+        }
+
+        foreach (GameObject racer in ranking)
+        {
+            Racer checkRacer = racer.GetComponent<Racer>();
+            bool finishedCheck = finishers.Contains(checkRacer);
+
+            if (!finishedCheck) finishers.Add(checkRacer);
+        }
+
+        state = State.done;
     }
 
     public static void PlayerDead()
     {
-        // foreach(GameObject racer in racers)
-        // {
-        //     Racer checkRacer = racer.GetComponent<Racer>();
-        //     bool finishedCheck = finishers.Contains(checkRacer);
-        // 
-        //     if (!finishedCheck) finishers.Add(checkRacer);
-        // }
+        EndRace();
+        ScreenManager.SetScreen(ScreenManager.Screen.defeat);
     }
 
     public static List<Racer> GetRankings()

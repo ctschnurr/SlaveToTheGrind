@@ -15,6 +15,8 @@ public class ScreenManager : MonoBehaviour
         loadSave,
         HUD,
         startRace,
+        finish,
+        defeat,
         endRace,
         earnings,
         upgrades,
@@ -65,8 +67,9 @@ public class ScreenManager : MonoBehaviour
 
     //
 
-    static Screen currentScreen = Screen.title;
     static Screen lastScreen = Screen.title;
+    static Screen currentScreen = Screen.title;
+    static Screen nextScreen = Screen.title;
 
     static List<GameObject> screensList;
 
@@ -87,6 +90,8 @@ public class ScreenManager : MonoBehaviour
     static TextMeshProUGUI moneyText;
     static TextMeshProUGUI countDownText;
 
+    static GameObject finishScreen;
+    static GameObject defeatScreen;
     static GameObject raceResultsScreen;
     static GameObject earningsScreen;
     static TextMeshProUGUI earningsText;
@@ -105,6 +110,9 @@ public class ScreenManager : MonoBehaviour
     string place = " ";
 
     static bool ready = false;
+
+    static bool timerOn = false;
+    static float timer = 0;
 
     // Start is called before the first frame update
     public static void SetupScreens()
@@ -169,6 +177,10 @@ public class ScreenManager : MonoBehaviour
 
 
         // END Race Sequence
+
+        finishScreen = GameObject.Find("ScreenManager/finishScreen");
+        defeatScreen = GameObject.Find("ScreenManager/defeatScreen");
+
         raceResultsScreen = GameObject.Find("ScreenManager/RaceResults");
         earningsScreen = GameObject.Find("ScreenManager/Earnings");
 
@@ -184,7 +196,7 @@ public class ScreenManager : MonoBehaviour
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, instructionsScreen, upgradesScreen, HUD, raceResultsScreen, earningsScreen, pauseScreen, carUpgradesScreen, racerUpgradesScreen, ammoShopScreen };
+        screensList = new List<GameObject> { titleScreen, instructionsScreen, upgradesScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, carUpgradesScreen, racerUpgradesScreen, ammoShopScreen };
 
         ClearScreens();
         
@@ -227,6 +239,16 @@ public class ScreenManager : MonoBehaviour
 
             rank = RaceManager.GetPlace();
             UpdateRank(rank);
+        }
+
+        if(timerOn)
+        {
+            timer -= Time.deltaTime;
+            if(timer <= 0)
+            {
+                SetScreen(nextScreen);
+                timerOn = false;
+            }
         }
     }
 
@@ -288,6 +310,20 @@ public class ScreenManager : MonoBehaviour
                 if (!HUD.activeSelf) HUD.SetActive(true);
                 break;
 
+            case Screen.finish:
+                if (!finishScreen.activeSelf) finishScreen.SetActive(true);
+                nextScreen = Screen.endRace;
+                timer = 3;
+                timerOn = true;
+                break;
+
+            case Screen.defeat:
+                if (!defeatScreen.activeSelf) defeatScreen.SetActive(true);
+                nextScreen = Screen.endRace;
+                timer = 3;
+                timerOn = true;
+                break;
+
             case Screen.endRace:
                 if (!raceResultsScreen.activeSelf) raceResultsScreen.SetActive(true);
                 SetupEndRaceScreen();
@@ -339,7 +375,7 @@ public class ScreenManager : MonoBehaviour
             }
 
             Racer racer = racers[i];
-            Racer.State racerState = racer.GetState();
+            Racer.State racerState = racer.RacerState;
             string racerName = racer.GetName();
             if (racerState == Racer.State.finished) ranks[i].text = place + " - " + racerName;
             else if (racerState == Racer.State.dead) ranks[i].text = "DNF - " + racerName;
@@ -348,7 +384,7 @@ public class ScreenManager : MonoBehaviour
 
     protected static void SetupEarningsScreen()
     {
-        Racer.State racerState = playerController.GetState();
+        Racer.State racerState = playerController.RacerState;
         int raceEarnings = 0;
 
         int place = -1;
