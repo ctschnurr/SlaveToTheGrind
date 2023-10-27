@@ -22,9 +22,6 @@ public class EnemyController : Racer
     {
         base.SetupRacer();
 
-        engineUpgradeLevel = levelCounter;
-        levelCounter++;
-
         int pickName = Random.Range(0, enemyNames.Count);
         racerName = enemyNames[pickName];
         enemyNames.Remove(racerName);
@@ -36,17 +33,24 @@ public class EnemyController : Racer
         maxHealth = 50;
         health = maxHealth;
 
-        engineUpgradeLevel = levelCounter;
-        levelCounter++;
+        boostMax = 1000f;
+        boost = 0;
 
-        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.15f));
+        engineUpgradeLevel = levelCounter;
+
+        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.1f));
         speed = speedMax;
         turnSpeed = baseTurnSpeed;
+
+        levelCounter++;
 
         racers = RaceManager.GetRacers();
 
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
+
+        boostBar.maxValue = boostTimerReset;
+        boostBar.value = boostTimerReset;
     }
 
     public override void ResetRacer()
@@ -61,15 +65,29 @@ public class EnemyController : Racer
     {
         RaceManager.State raceState = RaceManager.GetState();
 
-        if (raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
+        if (raceState != RaceManager.State.prep && raceState != RaceManager.State.countdown && RacerState != State.finished && RacerState != State.dead)
         {
+            float angle = Vector3.Angle((waypoint.transform.position - transform.position), transform.up);
+
+            rb.AddRelativeForce(Vector2.up * (speed + boost) * Time.deltaTime, ForceMode2D.Force);
+
             Vector3 targetDirection = waypoint.transform.position - transform.localPosition;
             Quaternion tempQuaternion = Quaternion.LookRotation(Vector3.forward, targetDirection);
 
-            float angle = Vector3.Angle((waypoint.transform.position - transform.position), transform.up);
+            float turn = 0;
 
-            rb.AddRelativeForce(Vector3.up * speed * Time.deltaTime, ForceMode2D.Force);
-            if (angle > 10f) transform.localRotation = Quaternion.Lerp(transform.localRotation, tempQuaternion, 5f * Time.deltaTime);
+            float direction = (transform.localRotation.z - tempQuaternion.z) * 10;
+            if (direction > 0.65) turn = 1;
+            if (direction < 0.65 && direction > -0.65) turn = 0;
+            if (direction < -0.65) turn = -1;
+
+            animator.SetFloat("Horizontal", turn);
+            animator.SetFloat("Vertical", rb.velocity.magnitude * 100);
+
+            if (angle > 10f)
+            {
+                transform.localRotation = Quaternion.Lerp(transform.localRotation, tempQuaternion, 3f * Time.deltaTime);
+            }
 
             if (Vector3.Distance(waypoint.transform.position, transform.position) < 10) waypoint = NextWaypoint(waypoint);
 
@@ -87,22 +105,52 @@ public class EnemyController : Racer
                     float lookForward = Vector3.Angle(racer.transform.position - transform.position, transform.up);
                     if (lookForward < 5f && distance < 12)
                     {
-                        int fireChance = Random.Range(1, 10 - gameLevel);
+                        int fireChance = Random.Range(1, 30 - gameLevel);
 
                         if(fireChance == 1)
                         {
-                            if (missleAmmo > 0 && distance > 5) Fire(Weapon_Select.missle);
-                            else Fire(Weapon_Select.bullet);
+                            if (canBoost)
+                            {
+                                canBoost = false;
+                                boostActivated = true;
+                                boost = boostMax;
+                            }
+                            else
+                            {
+                                if (missleAmmo > 0 && distance > 5) Fire(Weapon_Select.missle);
+                                else Fire(Weapon_Select.bullet);
+                            }
                         }
                     }
 
                     float lookBack = Vector3.Angle(racer.transform.position - transform.position, transform.up);
                     if (lookBack > 170f && distance < 12)
                     {
-                        int fireChance = Random.Range(1, 10 - gameLevel);
+                        int fireChance = Random.Range(1, 30 - (gameLevel * 2));
                         if (fireChance == 1)
                         {
-                            if (mineAmmo > 0 && distance > 3) Fire(Weapon_Select.mine);
+                            int choice = Random.Range(1, 3);
+                            switch (choice)
+                            {
+                                case 1:
+                                    if (mineAmmo > 0 && distance > 3) Fire(Weapon_Select.mine);
+                                    else if (canBoost)
+                                    {
+                                        canBoost = false;
+                                        boostActivated = true;
+                                        boost = boostMax;
+                                    }
+                                    break;
+
+                                case 2:
+                                    if (canBoost)
+                                    {
+                                        canBoost = false;
+                                        boostActivated = true;
+                                        boost = boostMax;
+                                    }
+                                    break;
+                            }
                         }
                     }
 
@@ -123,7 +171,21 @@ public class EnemyController : Racer
     {
         base.Update();
 
+        Vector3 targetDirection = waypoint.transform.position - transform.localPosition;
+        Quaternion tempQuaternion = Quaternion.LookRotation(Vector3.forward, targetDirection);
+
+        float turn = 0;
+
+        float direction = (transform.localRotation.z - tempQuaternion.z) * 10;
+        if (direction > 0.65) turn = 1;
+        if (direction < 0.65 && direction > -0.65) turn = 0;
+        if (direction < -0.65) turn = -1;
+
+        animator.SetFloat("Horizontal", turn);
+        animator.SetFloat("Vertical", rb.velocity.magnitude * 100);
+
         healthBar.value = health;
-        spriteCanvas.transform.rotation = startRotation;
+        boostBar.value = boostTimer;
+
     }
 }

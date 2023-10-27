@@ -81,14 +81,12 @@ public class ScreenManager : MonoBehaviour
     static GameObject ammoShopScreen;
 
     static GameObject HUD;
-    static TextMeshProUGUI playerHealth;
     static TextMeshProUGUI playerRanking;
-    static TextMeshProUGUI boostStats;
-    static TextMeshProUGUI bulletStats;
-    static TextMeshProUGUI missleStats;
-    static TextMeshProUGUI mineStats;
     static TextMeshProUGUI moneyText;
     static TextMeshProUGUI countDownText;
+    static Image bulletCooldown;
+    static Image missleCooldown;
+    static Image mineCooldown;
 
     static GameObject finishScreen;
     static GameObject defeatScreen;
@@ -164,15 +162,13 @@ public class ScreenManager : MonoBehaviour
         // HUD Objects
         HUD = GameObject.Find("ScreenManager/HUD");
         
-        playerHealth = GameObject.Find("ScreenManager/HUD/playerHealth").GetComponent<TextMeshProUGUI>();
         playerRanking = GameObject.Find("ScreenManager/HUD/playerRanking").GetComponent<TextMeshProUGUI>();
-        boostStats = GameObject.Find("ScreenManager/HUD/boostStats").GetComponent<TextMeshProUGUI>();
-        bulletStats = GameObject.Find("ScreenManager/HUD/bulletStats").GetComponent<TextMeshProUGUI>();
-        missleStats = GameObject.Find("ScreenManager/HUD/missleStats").GetComponent<TextMeshProUGUI>();
-        mineStats = GameObject.Find("ScreenManager/HUD/mineStats").GetComponent<TextMeshProUGUI>();
         moneyText = GameObject.Find("ScreenManager/HUD/money").GetComponent<TextMeshProUGUI>();
         countDownText = GameObject.Find("ScreenManager/HUD/countDown").GetComponent<TextMeshProUGUI>();
         countDownText.text = " ";
+        bulletCooldown = GameObject.Find("ScreenManager/HUD/BulletCooldown").GetComponent<Image>();
+        missleCooldown = GameObject.Find("ScreenManager/HUD/MissleCooldown").GetComponent<Image>();
+        mineCooldown = GameObject.Find("ScreenManager/HUD/MineCooldown").GetComponent<Image>();
         // ---
 
 
@@ -212,27 +208,17 @@ public class ScreenManager : MonoBehaviour
     {
         if(ready)
         {
-            int health = playerController.GetHealth();
-            playerHealth.text = "Health: " + health;
-
-            float[] boostInfo = playerController.GetBoostInfo();
-            string tempString = boostInfo[1].ToString("0.00");
-            string tempStringB = boostInfo[0].ToString("0.00");
-            if (tempString == "0.00" && tempStringB == "0.00") tempStringB = "READY";
-            else if (tempStringB == "0.00" && tempString != "0.00") tempStringB = "CHARGING";
-            boostStats.text = "Boost: " + tempStringB;
-
             float[] bulletInfo = playerController.GetBulletInfo();
-            tempString = bulletInfo[1].ToString("0.00");
-            bulletStats.text = "Bullets: " + bulletInfo[0] + " : " + tempString;
+            bulletCooldown.fillAmount = bulletInfo[1];
+            //bulletStats.text = "Bullets: " + bulletInfo[0] + " : " + tempString;
 
             float[] missleInfo = playerController.GetMissleInfo();
-            tempString = missleInfo[1].ToString("0.00");
-            missleStats.text = "Missles: " + missleInfo[0] + " : " + tempString;
+            missleCooldown.fillAmount = missleInfo[1];
+            //missleStats.text = "Missles: " + missleInfo[0] + " : " + tempString;
 
             float[] mineInfo = playerController.GetMineInfo();
-            tempString = mineInfo[1].ToString("0.00");
-            mineStats.text = "Mines: " + mineInfo[0] + " : " + tempString;
+            mineCooldown.fillAmount = mineInfo[1];
+            //mineStats.text = "Mines: " + mineInfo[0] + " : " + tempString;
 
             int money = playerController.GetCurrentRaceEarnings();
             moneyText.text = "$" + money;

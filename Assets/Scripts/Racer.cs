@@ -16,7 +16,8 @@ public class Racer : MonoBehaviour
         finished
     }
 
-    private State _racerState = State.idle;
+    public Animator animator;
+    protected State _racerState = State.idle;
     public State RacerState { get; set; }
 
     public enum RacerType
@@ -48,11 +49,12 @@ public class Racer : MonoBehaviour
 
     protected Vector3 startPosition;
     protected Quaternion startRotation;
-    protected SpriteRenderer racer;
+    protected GameObject racer;
     protected Rigidbody2D rb;
     protected GameObject spriteCanvas;
-    protected Slider healthBar;
     protected TextMeshProUGUI spriteName;
+    protected Slider healthBar;
+    protected Slider boostBar;
 
     static protected List<Racer> defeated = new List<Racer>();
     protected int moneyThisRound;
@@ -64,25 +66,27 @@ public class Racer : MonoBehaviour
 
     // Weapon and ability related variables:
 
-    public GameObject firePos;
+    public GameObject bulletFirePos;
+    public GameObject missleFirePos;
+
     public GameObject dropPos;
 
     public GameObject bullet;
-    protected float bulletTimer;
+    protected float bulletTimer = .5f;
     protected float bulletTimerReset = .5f;
     protected bool canFireBullet = true;
     protected int bulletAmmo = 99;
     protected int bulletAmmoMax = 99;
 
     public GameObject missle;
-    protected float missleTimer;
+    protected float missleTimer = 1.5f;
     protected float missleTimerReset = 1.5f;
     protected bool canFireMissile = true;
     protected int missleAmmo = 10;
     protected int missleAmmoMax = 10;
 
     public GameObject mine;
-    protected float mineTimer;
+    protected float mineTimer = 1f;
     protected float mineTimerReset = 1f;
     protected bool canDropMine = true;
     protected int mineAmmo = 10;
@@ -97,46 +101,71 @@ public class Racer : MonoBehaviour
     protected float oilSlickTimer;
     protected float oilSlickTimerReset;
 
-    protected bool boosted = false;
-    protected float boost = 0f;
-    protected float boostReset = 1000f;
-    protected float boostDelay = 0.15f;
-    protected float boostDelayReset = 0.15f;
-    protected float boostTimer;
-    protected float boostTimerReset = 5f;
+    protected bool boostActivated = false;
+    protected float boost;
+    protected float boostMax;
+    protected float boostTimer = 3f;
+    protected float boostTimerReset = 3f;
+    protected float boostRechargeTimer = 5f;
+    protected float boostRechargeTimerReset = 5f;
     protected bool canBoost = true;
     protected bool boostRecharge = false;
 
     public delegate void FinishedAction(Racer racer);
     public static event FinishedAction OnFinished;
 
-
-
-    protected List<string> enemyNames = new List<string> {"Rattigan", "Ratley", "Ratmore", "Ratty", "Ratman", "RatWoman", "Ratsputin"};
+    protected static List<string> enemyNames = new List<string> {"Rattigan", "Ratley", "Ratmore", "Ratty", "Ratso", "Ratsputin", "Rattitude", "Ratical"};
     // Start is called before the first frame update
 
     public void Start()
     {
 
     }
+
+    public virtual void SetupRacer()
+    {
+        spriteCanvas = transform.Find("Canvas").gameObject;
+        spriteName = transform.Find("Canvas/SpriteName").GetComponent<TextMeshProUGUI>();
+        healthBar = transform.Find("Canvas/HealthBar").GetComponent<Slider>();
+        boostBar = transform.Find("Canvas/BoostBar").GetComponent<Slider>();
+
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+
+        rb = transform.GetComponent<Rigidbody2D>();
+        racer = transform.Find("RacerSprite").gameObject;
+
+        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.15f));
+        speed = speedMax;
+        turnSpeed = baseTurnSpeed;
+
+        finishLine = TrackManager.GetFinishline();
+    }
     public virtual void ResetRacer()
     {
         rb.velocity = Vector3.zero;
-        if (!racer.enabled) racer.enabled = true;
+        if (!racer.activeSelf) racer.SetActive(true);
         transform.position = startPosition;
         transform.rotation = startRotation;
         RacerState = State.idle;
         health = maxHealth;
+        boost = boostMax;
         moneyThisRound = 0;
         if(defeated != null) defeated.Clear();
 
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
+
+        boostBar.maxValue = boostTimerReset;
+        boostBar.value = boostTimerReset;
+
+        racer.transform.position = startPosition;
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
+
         if (transform.position.y >= finishLine && RacerState != State.finished)
         {
             RacerState = State.finished;
@@ -153,8 +182,8 @@ public class Racer : MonoBehaviour
                 damageBlinkTimer -= Time.deltaTime;
                 if (damageBlinkTimer <= 0)
                 {
-                    if (racer.enabled) racer.enabled = false;
-                    else racer.enabled = true;
+                    if (racer.activeSelf) racer.SetActive(false);
+                    else racer.SetActive(true);
 
                     damageBlinkTimer = damageBlinkTimerReset;
                 }
@@ -166,15 +195,15 @@ public class Racer : MonoBehaviour
             damageBlinkTimer -= Time.deltaTime;
             if (damageBlinkTimer <= 0 && flashCount > 0)
             {
-                if (racer.enabled) racer.enabled = false;
-                else racer.enabled = true;
+                if (racer.activeSelf) racer.SetActive(false);
+                else racer.SetActive(true);
 
                 damageBlinkTimer = damageBlinkTimerReset;
                 flashCount--;
             }
             if (flashCount <= 0)
             {
-                if (!racer.enabled) racer.enabled = true;
+                if (!racer.activeSelf) racer.SetActive(true);
                 damaged = false;
                 flashCount = 7;
             }
@@ -190,63 +219,65 @@ public class Racer : MonoBehaviour
             }
         }
 
-        if (boosted)
+        if (boostActivated)
         {
-            if (boostDelay <= 0)
+            if (boostTimer <= 0)
             {
-                boost -= boost * Time.deltaTime;
-                if (boost <= 10)
-                {
-                    boosted = false;
-                    boostDelay = boostDelayReset;
-                    boost = 0;
-                    boostTimer = boostTimerReset;
-                    boostRecharge = true;
-                }
+                boostActivated = false;
+                boost = 0;
+                boostRecharge = true;
             }
-            else boostDelay -= Time.deltaTime;
+            else boostTimer -= Time.deltaTime;
         }
 
         if (boostRecharge)
         {
-            boostTimer -= Time.deltaTime;
-            if (boostTimer <= 0)
+            boostRechargeTimer -= Time.deltaTime;
+            if (boostRechargeTimer <= 0)
             {
-                boostTimer = 0;
-                canBoost = true;
-                boostRecharge = false;
+                boostTimer += Time.deltaTime;
+                if(boostTimer >= boostTimerReset)
+                {
+                    boostRecharge = false;
+                    boostRechargeTimer = boostRechargeTimerReset;
+                    boostTimer = boostTimerReset;
+                    canBoost = true;
+                }
             }
         }
 
         if (!canFireBullet)
         {
-            bulletTimer -= Time.deltaTime;
-            if (bulletTimer <= 0)
+            bulletTimer += Time.deltaTime;
+            if (bulletTimer >= bulletTimerReset)
             {
-                bulletTimer = 0;
+                bulletTimer = bulletTimerReset;
                 canFireBullet = true;
             }
         }
 
         if (!canFireMissile)
         {
-            missleTimer -= Time.deltaTime;
-            if (missleTimer <= 0)
+            missleTimer += Time.deltaTime;
+            if (missleTimer >= missleTimerReset)
             {
-                missleTimer = 0;
+                missleTimer = missleTimerReset;
                 canFireMissile = true;
             }
         }
 
         if (!canDropMine)
         {
-            mineTimer -= Time.deltaTime;
-            if (mineTimer <= 0)
+            mineTimer += Time.deltaTime;
+            if (mineTimer >= mineTimerReset)
             {
-                mineTimer = 0;
+                mineTimer = mineTimerReset;
                 canDropMine = true;
             }
         }
+
+        spriteCanvas.transform.rotation = startRotation;
+        spriteCanvas.transform.position = new Vector2(racer.transform.position.x, racer.transform.position.y - 1);
     }
 
     protected void Fire(Weapon_Select input)
@@ -256,20 +287,20 @@ public class Racer : MonoBehaviour
             case Weapon_Select.bullet:
                 if (canFireBullet && bulletAmmo > 0)
                 {
-                    Instantiate(bullet, firePos.transform.position, transform.localRotation, transform);
+                    Instantiate(bullet, bulletFirePos.transform.position, transform.localRotation, transform);
                     bulletAmmo--;
                     canFireBullet = false;
-                    bulletTimer = bulletTimerReset;
+                    bulletTimer = 0;
                 }
                 break;
 
             case Weapon_Select.missle:
                 if (canFireMissile && missleAmmo > 0)
                 {
-                    Instantiate(missle, firePos.transform.position, transform.localRotation, transform);
+                    Instantiate(missle, missleFirePos.transform.position, transform.localRotation, transform);
                     missleAmmo--;
                     canFireMissile = false;
-                    missleTimer = missleTimerReset;
+                    missleTimer = 0;
                 }
                 break;
 
@@ -279,7 +310,7 @@ public class Racer : MonoBehaviour
                     Instantiate(mine, dropPos.transform.position, transform.localRotation, transform);
                     mineAmmo--;
                     canDropMine = false;
-                    mineTimer = mineTimerReset;
+                    mineTimer = 0;
                 }
                 break;
         }
@@ -396,24 +427,6 @@ public class Racer : MonoBehaviour
     public RacerType GetRacerType()
     {
         return type;
-    }
-    public virtual void SetupRacer()
-    {
-        spriteCanvas = transform.Find("Canvas").gameObject;
-        healthBar = transform.Find("Canvas/HealthBar").GetComponent<Slider>();
-        spriteName = transform.Find("Canvas/SpriteName").GetComponent<TextMeshProUGUI>();
-
-        startPosition = transform.position;
-        startRotation = transform.rotation;
-
-        rb = transform.GetComponent<Rigidbody2D>();
-        racer = transform.Find("RacerSprite").GetComponent<SpriteRenderer>();
-
-        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.15f));
-        speed = speedMax;
-        turnSpeed = baseTurnSpeed;
-
-        finishLine = TrackManager.GetFinishline();
     }
 
     public void Finished()

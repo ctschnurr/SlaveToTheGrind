@@ -16,6 +16,7 @@ public class Missle : Weapon
         //forward = transform.forward;
         //forward.y = 1;
         owner = transform.parent.GetComponent<Racer>();
+        Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), transform.parent.GetComponent<Collider2D>());
         transform.parent = null;
     }
 

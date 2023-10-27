@@ -20,6 +20,8 @@ public class Mine : Weapon
         rb = gameObject.GetComponent<Rigidbody2D>();
         owner = transform.parent.GetComponent<Racer>();
         transform.parent = null;
+
+        transform.rotation = Quaternion.identity;
     }
 
     // Update is called once per frame

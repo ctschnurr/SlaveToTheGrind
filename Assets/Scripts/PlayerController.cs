@@ -38,10 +38,16 @@ public class PlayerController : Racer
         maxHealth = 50;
         health = maxHealth;
 
+        boostMax = 1000f;
+        boost = 0;
+
         totalMoney = 1000;
 
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
+
+        boostBar.maxValue = boostTimerReset;
+        boostBar.value = boostTimerReset;
     }
 
     public void UpdateRacer()
@@ -51,6 +57,9 @@ public class PlayerController : Racer
 
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
+
+        boostBar.maxValue = boostTimerReset;
+        boostBar.value = boostTimerReset;
     }
 
     public override void ResetRacer()
@@ -64,15 +73,17 @@ public class PlayerController : Racer
     {
         base.Update();
 
+        animator.SetFloat("Vertical", rb.velocity.magnitude);
+        animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+
         RaceManager.State raceState = RaceManager.GetState();
         if (raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
         {
             if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
             {
                 canBoost = false;
-                boostTimer = boostTimerReset;
-                boosted = true;
-                boost = boostReset;
+                boostActivated = true;
+                boost = boostMax;
             }
 
             if (Input.GetKeyDown(KeyCode.Space)) Fire(Weapon_Select.bullet);
@@ -90,7 +101,7 @@ public class PlayerController : Racer
         }
 
         healthBar.value = health;
-        spriteCanvas.transform.rotation = startRotation;
+        boostBar.value = boostTimer;
     }
 
     protected override void TakeHealth(int damage, Collision2D collision)
@@ -109,6 +120,7 @@ public class PlayerController : Racer
             pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.1f);
 
             horizontal = Input.GetAxis("Horizontal");
+
             float vertical = Input.GetAxis("Vertical");
 
             if (RacerState != State.dead)
@@ -147,7 +159,7 @@ public class PlayerController : Racer
         float[] sendMe;
         sendMe = new float[2];
         sendMe[0] = bulletAmmo;
-        sendMe[1] = bulletTimer;
+        sendMe[1] = bulletTimer / bulletTimerReset;
 
         return sendMe;
     }
@@ -157,7 +169,7 @@ public class PlayerController : Racer
         float[] sendMe;
         sendMe = new float[2];
         sendMe[0] = missleAmmo;
-        sendMe[1] = missleTimer;
+        sendMe[1] = missleTimer / missleTimerReset;
 
         return sendMe;
     }
@@ -167,7 +179,7 @@ public class PlayerController : Racer
         float[] sendMe;
         sendMe = new float[2];
         sendMe[0] = mineAmmo;
-        sendMe[1] = mineTimer;
+        sendMe[1] = mineTimer / mineTimerReset;
 
         return sendMe;
     }

@@ -203,7 +203,7 @@ public class RaceManager : MonoBehaviour
 
     public static void FinishQueue(Racer finisher)
     {
-        finishers.Add(finisher);
+        if(finisher.RacerState != Racer.State.dead) finishers.Add(finisher);
 
         if (finisher.GetRacerType() == Racer.RacerType.player)
         {
