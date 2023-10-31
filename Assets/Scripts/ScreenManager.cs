@@ -13,6 +13,7 @@ public class ScreenManager : MonoBehaviour
         title,
         instructions,
         loadSave,
+        customizePlayer,
         HUD,
         startRace,
         finish,
@@ -79,6 +80,11 @@ public class ScreenManager : MonoBehaviour
     static GameObject carUpgradesScreen;
     static GameObject racerUpgradesScreen;
     static GameObject ammoShopScreen;
+
+    static GameObject customizePlayer;
+    static TMP_InputField playerNameInput;
+    static TextMeshProUGUI playerExampleName;
+    static GameObject playerExampleColor;
 
     static GameObject HUD;
     static TextMeshProUGUI playerRanking;
@@ -159,6 +165,15 @@ public class ScreenManager : MonoBehaviour
 
         // ---
 
+        // Customize Player Objects
+        customizePlayer = GameObject.Find("ScreenManager/CustomizePlayer");
+
+        playerNameInput = GameObject.Find("ScreenManager/CustomizePlayer/PlayerNameInput").GetComponent<TMP_InputField>();
+        playerExampleName = GameObject.Find("ScreenManager/CustomizePlayer/Racer/Canvas/SpriteName").GetComponent<TextMeshProUGUI>();
+        playerExampleColor = GameObject.Find("ScreenManager/CustomizePlayer/playerNameInput/Racer/RacerImage/CarColor");
+
+        // ---
+
         // HUD Objects
         HUD = GameObject.Find("ScreenManager/HUD");
         
@@ -192,11 +207,12 @@ public class ScreenManager : MonoBehaviour
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, instructionsScreen, upgradesScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, carUpgradesScreen, racerUpgradesScreen, ammoShopScreen };
+        screensList = new List<GameObject> { titleScreen, instructionsScreen, customizePlayer, upgradesScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, carUpgradesScreen, racerUpgradesScreen, ammoShopScreen };
 
         ClearScreens();
-        
-        titleScreen.SetActive(true);
+
+        //titleScreen.SetActive(true);
+        customizePlayer.SetActive(true);
 
         playerController = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
 
@@ -588,5 +604,11 @@ public class ScreenManager : MonoBehaviour
         if (carUpgradesScreen.activeSelf) carUpgradesScreen.SetActive(false);
         if (racerUpgradesScreen.activeSelf) racerUpgradesScreen.SetActive(false);
         if (!ammoShopScreen.activeSelf) ammoShopScreen.SetActive(true);
+    }
+
+    public void CustomizePlayerName()
+    {
+        Debug.Log(playerExampleName.text);
+        playerExampleName.text = playerNameInput.text;
     }
 }
