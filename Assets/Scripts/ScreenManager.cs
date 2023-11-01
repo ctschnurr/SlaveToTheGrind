@@ -31,6 +31,12 @@ public class ScreenManager : MonoBehaviour
         ammo
     }
 
+    static GameObject titleScreen;
+    static GameObject instructionsScreen;
+    static GameObject upgradesScreen;
+    static GameObject racerUpgradesScreen;
+    static GameObject ammoShopScreen;
+
     // Upgrade screen elements:
     static GameObject upgradeSelect;
 
@@ -50,6 +56,11 @@ public class ScreenManager : MonoBehaviour
     static GameObject armour3lock;
     static GameObject armour3check;
 
+    static GameObject boostSpeed1check;
+
+    static GameObject boostCooldown1check;
+
+    static GameObject boostRecharge1check;
 
     static GameObject repair2lock;
     static GameObject repair3lock;
@@ -73,13 +84,6 @@ public class ScreenManager : MonoBehaviour
     static Screen nextScreen = Screen.title;
 
     static List<GameObject> screensList;
-
-    static GameObject titleScreen;
-    static GameObject instructionsScreen;
-    static GameObject upgradesScreen;
-    static GameObject carUpgradesScreen;
-    static GameObject racerUpgradesScreen;
-    static GameObject ammoShopScreen;
 
     static GameObject customizePlayer;
     static TMP_InputField playerNameInput;
@@ -123,31 +127,36 @@ public class ScreenManager : MonoBehaviour
     {
         titleScreen = GameObject.Find("ScreenManager/titleScreen");
         instructionsScreen = GameObject.Find("ScreenManager/instructionsScreen");
-        upgradesScreen = GameObject.Find("ScreenManager/UpgradesTitle");
-        carUpgradesScreen = GameObject.Find("ScreenManager/CarUpgrades");
+        upgradesScreen = GameObject.Find("ScreenManager/TheShop");
         racerUpgradesScreen = GameObject.Find("ScreenManager/RacerUpgrades");
         ammoShopScreen = GameObject.Find("ScreenManager/AmmoShop");
 
         // Upgrade Screen Elements
-        upgradeSelect = GameObject.Find("ScreenManager/UpgradesTitle/Select");
+        upgradeSelect = GameObject.Find("ScreenManager/TheShop/Select");
 
-        engine1check = GameObject.Find("ScreenManager/CarUpgrades/ButtonsPanel/EngineUpgrades/Upgrade1/Check");
+        engine1check = GameObject.Find("ScreenManager/TheShop/EngineUpgrades/Upgrade1/Check");
 
-        engine2lock = GameObject.Find("ScreenManager/CarUpgrades/ButtonsPanel/EngineUpgrades/Upgrade2/Lock");
-        engine2check = GameObject.Find("ScreenManager/CarUpgrades/ButtonsPanel/EngineUpgrades/Upgrade2/Check");
+        engine2lock = GameObject.Find("ScreenManager/TheShop/EngineUpgrades/Upgrade2/Lock");
+        engine2check = GameObject.Find("ScreenManagerTheShop/EngineUpgrades/Upgrade2/Check");
 
-        engine3lock = GameObject.Find("ScreenManager/CarUpgrades/ButtonsPanel/EngineUpgrades/Upgrade3/Lock");
-        engine3check = GameObject.Find("ScreenManager/CarUpgrades/ButtonsPanel/EngineUpgrades/Upgrade3/Check");
+        engine3lock = GameObject.Find("ScreenManager/TheShop/EngineUpgrades/Upgrade3/Lock");
+        engine3check = GameObject.Find("ScreenManager/TheShop/EngineUpgrades/Upgrade3/Check");
 
-        armour1check = GameObject.Find("ScreenManager/CarUpgrades/ButtonsPanel/ArmourUpgrades/Upgrade1/Check");
+        armour1check = GameObject.Find("ScreenManager/TheShop/ArmourUpgrades/Upgrade1/Check");
 
-        armour2lock = GameObject.Find("ScreenManager/CarUpgrades/ButtonsPanel/ArmourUpgrades/Upgrade2/Lock");
-        armour2check = GameObject.Find("ScreenManager/CarUpgrades/ButtonsPanel/ArmourUpgrades/Upgrade2/Check");
+        armour2lock = GameObject.Find("ScreenManager/TheShop/ArmourUpgrades/Upgrade2/Lock");
+        armour2check = GameObject.Find("ScreenManager/TheShop/ArmourUpgrades/Upgrade2/Check");
 
-        armour3lock = GameObject.Find("ScreenManager/CarUpgrades/ButtonsPanel/ArmourUpgrades/Upgrade3/Lock");
-        armour3check = GameObject.Find("ScreenManager/CarUpgrades/ButtonsPanel/ArmourUpgrades/Upgrade3/Check");
+        armour3lock = GameObject.Find("ScreenManager/TheShop/ArmourUpgrades/Upgrade3/Lock");
+        armour3check = GameObject.Find("ScreenManager/TheShop/ArmourUpgrades/Upgrade3/Check");
 
-        iconList = new List<GameObject> { engine1check, engine2lock, engine2check, engine3lock, engine3check, armour1check, armour2lock, armour2check, armour3lock, armour3check };
+        boostSpeed1check = GameObject.Find("ScreenManager/TheShop/BoostUpgrades/Upgrade1/Check");
+
+        boostCooldown1check = GameObject.Find("ScreenManager/TheShop/BoostUpgrades/Upgrade2/Check");
+
+        boostRecharge1check = GameObject.Find("ScreenManager/TheShop/BoostUpgrades/Upgrade3/Check");
+
+        iconList = new List<GameObject> { engine1check, engine2lock, engine2check, engine3lock, engine3check, armour1check, armour2lock, armour2check, armour3lock, armour3check, boostSpeed1check, boostCooldown1check, boostRecharge1check, };
         // repair2lock
         // repair3lock
         // 
@@ -155,13 +164,13 @@ public class ScreenManager : MonoBehaviour
         // speech2lock
         // speech3lock
 
-        upgradeName = GameObject.Find("ScreenManager/UpgradesTitle/DescriptionPanel/UpgradeName").GetComponent<TextMeshProUGUI>();
-        upgradeDescription = GameObject.Find("ScreenManager/UpgradesTitle/DescriptionPanel/UpgradeDescription").GetComponent<TextMeshProUGUI>();
-        upgradePrice = GameObject.Find("ScreenManager/UpgradesTitle/DescriptionPanel/UpgradePrice").GetComponent<TextMeshProUGUI>();
-        playerFunds = GameObject.Find("ScreenManager/UpgradesTitle/DescriptionPanel/PlayerFunds").GetComponent<TextMeshProUGUI>();
-        upgradeStatus = GameObject.Find("ScreenManager/UpgradesTitle/DescriptionPanel/UpgradeStatus").GetComponent<TextMeshProUGUI>();
+        upgradeName = GameObject.Find("ScreenManager/TheShop/DescriptionPanel/UpgradeName").GetComponent<TextMeshProUGUI>();
+        upgradeDescription = GameObject.Find("ScreenManager/TheShop/DescriptionPanel/UpgradeDescription").GetComponent<TextMeshProUGUI>();
+        upgradePrice = GameObject.Find("ScreenManager/TheShop/DescriptionPanel/UpgradePrice").GetComponent<TextMeshProUGUI>();
+        playerFunds = GameObject.Find("ScreenManager/TheShop/DescriptionPanel/PlayerFunds").GetComponent<TextMeshProUGUI>();
+        upgradeStatus = GameObject.Find("ScreenManager/TheShop/DescriptionPanel/UpgradeStatus").GetComponent<TextMeshProUGUI>();
 
-        purchaseButton = GameObject.Find("ScreenManager/UpgradesTitle/DescriptionPanel/PurchaseButton");
+        purchaseButton = GameObject.Find("ScreenManager/TheShop/DescriptionPanel/PurchaseButton");
 
         // ---
 
@@ -207,12 +216,12 @@ public class ScreenManager : MonoBehaviour
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, instructionsScreen, customizePlayer, upgradesScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, carUpgradesScreen, racerUpgradesScreen, ammoShopScreen };
+        screensList = new List<GameObject> { titleScreen, instructionsScreen, customizePlayer, upgradesScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, racerUpgradesScreen, ammoShopScreen };
 
         ClearScreens();
 
-        //titleScreen.SetActive(true);
-        customizePlayer.SetActive(true);
+        titleScreen.SetActive(true);
+        // customizePlayer.SetActive(true);
 
         playerController = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
 
@@ -454,12 +463,15 @@ public class ScreenManager : MonoBehaviour
 
     public static void UpdateUpgradeIcons()
     {
-        carUpgradesScreen.SetActive(true);
         racerUpgradesScreen.SetActive(true);
         ammoShopScreen.SetActive(true);
 
-        int engineLevel = playerController.GetEngineLevel();
-        int armourLevel = playerController.GetArmourLevel();
+        int engineLevel = playerController.EngineUpgradeLevel;
+        int armourLevel = playerController.ArmourUpgradeLevel;
+        int boostSpeedLevel = playerController.BoostSpeedLevel;
+        int boostCooldownLevel = playerController.BoostCooldownLevel;
+        int boostRechargeLevel = playerController.BoostRechargeLevel;
+
 
         foreach (GameObject icon in iconList)
         {
@@ -505,6 +517,54 @@ public class ScreenManager : MonoBehaviour
                 armour1check.SetActive(true);
                 armour2check.SetActive(true);
                 armour3check.SetActive(true);
+                break;
+        }
+
+        switch (boostSpeedLevel)
+        {
+            case 1:
+                boostSpeed1check.SetActive(true);
+                break;
+            case 2:
+                boostSpeed1check.SetActive(true);
+                //boostSpeed2check.SetActive(true);
+                break;
+            case 3:
+                boostSpeed1check.SetActive(true);
+                // boostSpeed2check.SetActive(true);
+                // boostSpeed3check.SetActive(true);
+                break;
+        }
+
+        switch (boostCooldownLevel)
+        {
+            case 1:
+                boostCooldown1check.SetActive(true);
+                break;
+            case 2:
+                boostCooldown1check.SetActive(true);
+                //boostSpeed2check.SetActive(true);
+                break;
+            case 3:
+                boostCooldown1check.SetActive(true);
+                // boostSpeed2check.SetActive(true);
+                // boostSpeed3check.SetActive(true);
+                break;
+        }
+
+        switch (boostRechargeLevel)
+        {
+            case 1:
+                boostRecharge1check.SetActive(true);
+                break;
+            case 2:
+                boostRecharge1check.SetActive(true);
+                //boostSpeed2check.SetActive(true);
+                break;
+            case 3:
+                boostCooldown1check.SetActive(true);
+                // boostSpeed2check.SetActive(true);
+                // boostSpeed3check.SetActive(true);
                 break;
         }
 
@@ -568,6 +628,32 @@ public class ScreenManager : MonoBehaviour
                 if (input.upgradeNumber == 2) upgradeSelect.transform.position = engine2lock.transform.position;
                 if (input.upgradeNumber == 3) upgradeSelect.transform.position = engine3lock.transform.position;
                 break;
+
+            case Upgrade.Category.armour:
+                if (input.upgradeNumber == 1) upgradeSelect.transform.position = armour1check.transform.position;
+                if (input.upgradeNumber == 2) upgradeSelect.transform.position = armour2lock.transform.position;
+                if (input.upgradeNumber == 3) upgradeSelect.transform.position = armour3lock.transform.position;
+                break;
+
+            case Upgrade.Category.boostSpeed:
+                if (input.upgradeNumber == 1) upgradeSelect.transform.position = boostSpeed1check.transform.position;
+                //if (input.upgradeNumber == 2) upgradeSelect.transform.position = boost2lock.transform.position;
+                //if (input.upgradeNumber == 3) upgradeSelect.transform.position = boost3lock.transform.position;
+                break;
+
+            case Upgrade.Category.boostCooldown:
+                if (input.upgradeNumber == 1) upgradeSelect.transform.position = boostCooldown1check.transform.position;
+                //if (input.upgradeNumber == 2) upgradeSelect.transform.position = boost2lock.transform.position;
+                //if (input.upgradeNumber == 3) upgradeSelect.transform.position = boost3lock.transform.position;
+                break;
+
+            case Upgrade.Category.boostRecharge:
+                if (input.upgradeNumber == 1) upgradeSelect.transform.position = boostRecharge1check.transform.position;
+                //if (input.upgradeNumber == 2) upgradeSelect.transform.position = boost2lock.transform.position;
+                //if (input.upgradeNumber == 3) upgradeSelect.transform.position = boost3lock.transform.position;
+                break;
+
+
         }
     }
 
@@ -589,19 +675,16 @@ public class ScreenManager : MonoBehaviour
     {
         if (racerUpgradesScreen.activeSelf) racerUpgradesScreen.SetActive(false);
         if (ammoShopScreen.activeSelf) ammoShopScreen.SetActive(false);
-        if (!carUpgradesScreen.activeSelf) carUpgradesScreen.SetActive(true);
     }
 
     public void ShowRacerUpgradesScreen()
     {
-        if (carUpgradesScreen.activeSelf) carUpgradesScreen.SetActive(false);
         if (ammoShopScreen.activeSelf) ammoShopScreen.SetActive(false);
         if (!racerUpgradesScreen.activeSelf) racerUpgradesScreen.SetActive(true);
     }
 
     public void ShowAmmoShopScreen()
     {
-        if (carUpgradesScreen.activeSelf) carUpgradesScreen.SetActive(false);
         if (racerUpgradesScreen.activeSelf) racerUpgradesScreen.SetActive(false);
         if (!ammoShopScreen.activeSelf) ammoShopScreen.SetActive(true);
     }
@@ -610,5 +693,10 @@ public class ScreenManager : MonoBehaviour
     {
         Debug.Log(playerExampleName.text);
         playerExampleName.text = playerNameInput.text;
+    }
+
+    public void BackButton()
+    {
+        SetScreen(lastScreen);
     }
 }

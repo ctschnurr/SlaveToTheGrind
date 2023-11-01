@@ -7,8 +7,13 @@ public class Globals : MonoBehaviour
     public const float oilSlickDelay = 1f;
     public const float oilSlickPenalty = 0.25f;
 
-    public const float baseSpeed = 2000;
-    public const float baseTurnSpeed = 50;
+    public const float baseSpeed = 2000f;
+    public const float baseTurnSpeed = 50f;
+
+    public const float baseBoostSpeed = 1000f;
+
+    public const float baseBoostCooldown = 3f;
+    public const float baseBoostRecharge = 5f;
 
     public const float bulletSpeed = baseSpeed * 2;
     public const float missleSpeed = 250;

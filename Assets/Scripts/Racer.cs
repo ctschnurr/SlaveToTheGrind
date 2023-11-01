@@ -37,9 +37,19 @@ public class Racer : MonoBehaviour
     // Upgradables
 
     protected int engineUpgradeLevel = 0;
+    public int EngineUpgradeLevel { get; set; }
     protected int armourUpgradeLevel = 0;
+    public int ArmourUpgradeLevel { get; set; }
+    protected int boostSpeedLevel = 0;
+    public int BoostSpeedLevel { get; set; }
+    protected int boostCooldownLevel = 0;
+    public int BoostCooldownLevel { get; set; }
+    protected int boostRechargeLevel = 0;
+    public int BoostRechargeLevel { get; set; }
 
-    protected int repairSkill = 1;
+    protected int repairSkillLevel = 0;
+    public int RepairSkillLevel { get; set; }
+
     // Racer stats
 
     protected string racerName;
@@ -102,12 +112,12 @@ public class Racer : MonoBehaviour
     protected float oilSlickTimerReset;
 
     protected bool boostActivated = false;
-    protected float boost;
+    protected float boost = 0;
     protected float boostMax;
-    protected float boostTimer = 3f;
-    protected float boostTimerReset = 3f;
-    protected float boostRechargeTimer = 5f;
-    protected float boostRechargeTimerReset = 5f;
+    protected float boostTimer;
+    protected float boostTimerReset;
+    protected float boostRechargeTimer;
+    protected float boostRechargeTimerReset;
     protected bool canBoost = true;
     protected bool boostRecharge = false;
 
@@ -135,12 +145,26 @@ public class Racer : MonoBehaviour
         rb = transform.GetComponent<Rigidbody2D>();
         racer = transform.Find("RacerSprite").gameObject;
 
-        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.15f));
-        speed = speedMax;
         turnSpeed = baseTurnSpeed;
 
         finishLine = TrackManager.GetFinishline();
+
+        UpdateRacer();
     }
+
+    public virtual void UpdateRacer()
+    {
+        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.1f));
+        speed = speedMax;
+
+        boostMax = baseBoostSpeed + (baseBoostSpeed * (boostSpeedLevel * 0.15f));
+
+        boostTimerReset = baseBoostCooldown - (baseBoostCooldown * (boostCooldownLevel * 0.15f));
+        boostTimer = boostTimerReset;
+
+        boostRechargeTimerReset = baseBoostRecharge - (baseBoostRecharge * (boostRechargeLevel * 0.15f));
+        boostRechargeTimer = boostRechargeTimerReset;
+}
     public virtual void ResetRacer()
     {
         rb.velocity = Vector3.zero;
@@ -329,7 +353,7 @@ public class Racer : MonoBehaviour
                     {
                         case "Bullet":
                             damaged = true;
-                            TakeHealth(5, collision);
+                            TakeHealth(8, collision);
                             break;
                     }
                 }
@@ -338,7 +362,7 @@ public class Racer : MonoBehaviour
             if (collision.gameObject.tag == "Racer")
             {
                 Vector3 direction = transform.position - collision.gameObject.transform.position;
-                rb.AddForce(direction * 5, ForceMode2D.Impulse);
+                rb.AddForce(direction * 10, ForceMode2D.Impulse);
 
                 damaged = true;
                 TakeHealth(2, collision);
@@ -347,7 +371,7 @@ public class Racer : MonoBehaviour
             if (collision.gameObject.tag == "Wall")
             {
                 damaged = true;
-                TakeHealth(2, collision);
+                TakeHealth(6, collision);
             }
 
             if (collision.gameObject.tag == "Explosion")
@@ -355,14 +379,14 @@ public class Racer : MonoBehaviour
                 Vector3 direction = transform.position - collision.gameObject.transform.position;
                 rb.AddForce(direction * 20, ForceMode2D.Impulse);
                 damaged = true;
-                TakeHealth(15, collision);
+                TakeHealth(25, collision);
             }
         }
     }
 
     protected virtual void TakeHealth(int damage, Collision2D collision)
     {
-        health -= damage;
+        health -= damage - armourUpgradeLevel;
         if (health <= 0)
         {
             health = 0;
@@ -381,10 +405,7 @@ public class Racer : MonoBehaviour
 
     public void AddHealth(int value)
     {
-        float tempConvert = (float)value;
-        tempConvert *= repairSkill;
-        int amountToRepair = (int)tempConvert;
-        health += amountToRepair;
+        health += value;
         if (health > maxHealth) health = maxHealth;
     }
 

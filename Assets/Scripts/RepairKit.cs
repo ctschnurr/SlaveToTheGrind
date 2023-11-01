@@ -7,10 +7,14 @@ public class RepairKit : PickUp
 {
 
     protected int value;
+    PlayerController player;
     // Start is called before the first frame update
     void Awake()
     {
+        player = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
+
         value = 25;
+        value += 1 * player.RepairSkillLevel;
 
         gameObject.name = "RepairKit";
         gameObject.tag = "PickUp";

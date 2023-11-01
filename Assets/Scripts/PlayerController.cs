@@ -18,7 +18,8 @@ public class PlayerController : Racer
     float horizontal;
     public Transform waypoint;
 
-    private int speechSkill;
+    protected int speechSkill = 0;
+    public int SpeechSkillLevel { get; set; }
 
     public delegate void PlayerDiedAction();
     public static event PlayerDiedAction OnPlayerDied;
@@ -38,9 +39,6 @@ public class PlayerController : Racer
         maxHealth = 50;
         health = maxHealth;
 
-        boostMax = 1000f;
-        boost = 0;
-
         totalMoney = 1000;
 
         healthBar.maxValue = maxHealth;
@@ -50,10 +48,9 @@ public class PlayerController : Racer
         boostBar.value = boostTimerReset;
     }
 
-    public void UpdateRacer()
+    public override void UpdateRacer()
     {
-        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.1f));
-        speed = speedMax;
+        base.UpdateRacer();
 
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
@@ -140,20 +137,6 @@ public class PlayerController : Racer
         }
     }
 
-    public int GetHealth()
-    {
-        return health;
-    }
-    public float[] GetBoostInfo()
-    {
-        float[] sendMe;
-        sendMe = new float[2];
-        sendMe[0] = boost;
-        sendMe[1] = boostTimer;
-
-        return sendMe;
-    }
-
     public float[] GetBulletInfo()
     {
         float[] sendMe;
@@ -189,34 +172,44 @@ public class PlayerController : Racer
         return totalMoney;
     }
 
-    public int GetEngineLevel()
-    {
-        return engineUpgradeLevel;
-    }
-    public void SetEngineLevel(int set)
-    {
-        engineUpgradeLevel = set;
-    }
-
-    public int GetArmourLevel()
-    {
-        return armourUpgradeLevel;
-    }
-
-    public void SetArmourLevel(int set)
-    {
-        armourUpgradeLevel = set;
-    }
-
-    public int GetRepairSkill()
-    {
-        return repairSkill;
-    }
-
-    public int GetSpeechSkill()
-    {
-        return speechSkill;
-    }
+    // public int GetEngineLevel()
+    // {
+    //     return engineUpgradeLevel;
+    // }
+    // public void SetEngineLevel(int set)
+    // {
+    //     engineUpgradeLevel = set;
+    // }
+    // 
+    // public int GetArmourLevel()
+    // {
+    //     return armourUpgradeLevel;
+    // }
+    // 
+    // public void SetArmourLevel(int set)
+    // {
+    //     armourUpgradeLevel = set;
+    // }
+    // 
+    // public int GetBoostSpeedLevel()
+    // {
+    //     return boostSpeedLevel;
+    // }
+    // 
+    // public void SetBoostSpeedLevel(int set)
+    // {
+    //     boostSpeedLevel = set;
+    // }
+    // 
+    // public int GetRepairSkill()
+    // {
+    //     return repairSkill;
+    // }
+    // 
+    // public int GetSpeechSkill()
+    // {
+    //     return speechSkill;
+    // }
 
     public void SpendMoney(int spent)
     {

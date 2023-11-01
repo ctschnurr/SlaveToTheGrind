@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     static bool paused = false;
 
     // Start is called before the first frame update
+    public static int slotNumber = 0;
     void Start()
     {
         TrackManager.SetupTrack();
