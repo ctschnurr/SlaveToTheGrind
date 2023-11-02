@@ -15,7 +15,7 @@ public class EnemyController : Racer
 
     public float angle;
 
-    private static int levelCounter = 0;
+    private static int levelCounter = 1;
 
     // Start is called before the first frame update
     public override void SetupRacer()
@@ -25,6 +25,12 @@ public class EnemyController : Racer
         int pickName = Random.Range(0, enemyNames.Count);
         racerName = enemyNames[pickName];
         enemyNames.Remove(racerName);
+        List<Color> colors = ScreenManager.Colors;
+        int pickColor = Random.Range(0, colors.Count);
+        racerColor = colors[pickColor];
+        colors.Remove(racerColor);
+        ScreenManager.Colors = colors;
+        carColor.color = racerColor;
         type = RacerType.enemy;
         spriteName.text = racerName;
 
@@ -51,6 +57,8 @@ public class EnemyController : Racer
 
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;
+
+        ready = true;
     }
 
     public override void ResetRacer()
@@ -169,23 +177,25 @@ public class EnemyController : Racer
 
     public override void Update()
     {
-        base.Update();
+        if(ready)
+        {
+            base.Update();
 
-        Vector3 targetDirection = waypoint.transform.position - transform.localPosition;
-        Quaternion tempQuaternion = Quaternion.LookRotation(Vector3.forward, targetDirection);
+            Vector3 targetDirection = waypoint.transform.position - transform.localPosition;
+            Quaternion tempQuaternion = Quaternion.LookRotation(Vector3.forward, targetDirection);
 
-        float turn = 0;
+            float turn = 0;
 
-        float direction = (transform.localRotation.z - tempQuaternion.z) * 10;
-        if (direction > 0.65) turn = 1;
-        if (direction < 0.65 && direction > -0.65) turn = 0;
-        if (direction < -0.65) turn = -1;
+            float direction = (transform.localRotation.z - tempQuaternion.z) * 10;
+            if (direction > 0.65) turn = 1;
+            if (direction < 0.65 && direction > -0.65) turn = 0;
+            if (direction < -0.65) turn = -1;
 
-        animator.SetFloat("Horizontal", turn);
-        animator.SetFloat("Vertical", rb.velocity.magnitude * 100);
+            animator.SetFloat("Horizontal", turn);
+            animator.SetFloat("Vertical", rb.velocity.magnitude * 100);
 
-        healthBar.value = health;
-        boostBar.value = boostTimer;
-
+            healthBar.value = health;
+            boostBar.value = boostTimer;
+        }
     }
 }

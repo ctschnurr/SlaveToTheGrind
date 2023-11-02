@@ -7,6 +7,7 @@ using UnityEngine.XR;
 using static Globals;
 using Cinemachine;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+using System;
 
 public class PlayerController : Racer
 {
@@ -29,7 +30,11 @@ public class PlayerController : Racer
         base.SetupRacer();
 
         type = RacerType.player;
-        racerName  = "PlayeRat";
+        racerName = DataManager.PlayerData.racerName;
+
+        string[] rgba = DataManager.PlayerData.racerColor.Substring(5, DataManager.PlayerData.racerColor.Length - 6).Split(", ");
+        carColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+
         spriteName.text = racerName;
 
         pCam = transform.Find("playerCam").GetComponent<CinemachineVirtualCamera>();
@@ -46,6 +51,8 @@ public class PlayerController : Racer
 
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;
+
+        ready = true;
     }
 
     public override void UpdateRacer()
@@ -68,37 +75,40 @@ public class PlayerController : Racer
 
     public override void Update()
     {
-        base.Update();
-
-        animator.SetFloat("Vertical", rb.velocity.magnitude);
-        animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
-
-        RaceManager.State raceState = RaceManager.GetState();
-        if (raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
+        if(ready)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
+            base.Update();
+
+            animator.SetFloat("Vertical", rb.velocity.magnitude);
+            animator.SetFloat("Horizontal", Input.GetAxis("Horizontal"));
+
+            RaceManager.State raceState = RaceManager.GetState();
+            if (raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
             {
-                canBoost = false;
-                boostActivated = true;
-                boost = boostMax;
+                if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
+                {
+                    canBoost = false;
+                    boostActivated = true;
+                    boost = boostMax;
+                }
+
+                if (Input.GetKeyDown(KeyCode.Space)) Fire(Weapon_Select.bullet);
+                if (Input.GetKeyDown(KeyCode.F)) Fire(Weapon_Select.missle);
+                if (Input.GetKeyDown(KeyCode.E)) Fire(Weapon_Select.mine);
+
             }
 
-            if (Input.GetKeyDown(KeyCode.Space)) Fire(Weapon_Select.bullet);
-            if (Input.GetKeyDown(KeyCode.F)) Fire(Weapon_Select.missle);
-            if (Input.GetKeyDown(KeyCode.E)) Fire(Weapon_Select.mine);
-
-        }
-
-        if (raceState == RaceManager.State.racing)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (raceState == RaceManager.State.racing)
             {
-                GameManager.Pause();
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    ButtonManager.Pause();
+                }
             }
-        }
 
-        healthBar.value = health;
-        boostBar.value = boostTimer;
+            healthBar.value = health;
+            boostBar.value = boostTimer;
+        }
     }
 
     protected override void TakeHealth(int damage, Collision2D collision)

@@ -1,63 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    static bool paused = false;
+    public enum GameState
+    {
+        idle,
+        active
+    }
+    public static GameState state = GameState.idle;
 
-    // Start is called before the first frame update
-    public static int slotNumber = 0;
+    public static GameManager gameManager;
+    public ScreenManager screenManager;
+    public DataManager dataManager;
+    static bool paused = false;
+    public static bool Paused { get { return paused; } set { paused = value; } }
+    static bool quit = false;
+    public static bool Quit { set { quit = value; } }
+    static int gameLevel;
+    public static int GameLevel { get { return gameLevel; } }
+
+    void Awake()
+    {
+        if (gameManager == null)
+        {
+            gameManager = this;
+        }
+        else if (gameManager != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
-        TrackManager.SetupTrack();
-        RaceManager.SetupRacers();
-        ScreenManager.SetupScreens();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        gameLevel = 0;
+        screenManager.SetupScreens();
+
+        // Application.Quit();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
+        if (quit) Application.Quit();
     }
 
-    public void StartRace()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-            ScreenManager.SetScreen(ScreenManager.Screen.HUD);
-            RaceManager.StartRace();
-    }
-
-    public void Restart()
-    {
-        RaceManager.ResetRace();
-        ScreenManager.SetScreen(ScreenManager.Screen.instructions);
-        Time.timeScale = 1;
-    }
-
-    public static void Pause()
-    {
-        if(!paused)
+        if(scene.name == "GameplayScene")
         {
-            Time.timeScale = 0;
-            ScreenManager.SetScreen(ScreenManager.Screen.pause);
-            paused = true;
-        }
-        else if (paused)
-        {
-            Time.timeScale = 1;
-            ScreenManager.SetScreen(ScreenManager.Screen.HUD);
-            paused = false;
-        }
-    }
+            TrackManager.SetupTrack();
+            RaceManager.SetupRacers();
+            state = GameState.active;
 
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
-    public void ShowUpgrades()
-    {
-        ScreenManager.SetScreen(ScreenManager.Screen.upgrades);
+            ScreenManager.SetScreen(ScreenManager.Screen.instructions);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -47,14 +48,16 @@ public class UpgradeManager : MonoBehaviour
     Upgrade boostRecharge2;
     Upgrade boostRecharge3;
 
+    Button engine1Button;
+    Button engine2Button;
+    Button engine3Button;
+
     private List<Upgrade> upgradeList;
 
     static Upgrade currentUpgrade;
 
     void Start()
     {
-        player = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
-
         engine1 = new Upgrade();
         engine1.upgradeNumber = 1;
         engine1.category = Upgrade.Category.engine;
@@ -128,12 +131,6 @@ public class UpgradeManager : MonoBehaviour
         upgradeList = new List<Upgrade>() { engine1, engine2, engine3, armour1, armour2, armour3 };
 
         currentUpgrade = engine1;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void GetPlayerStats()

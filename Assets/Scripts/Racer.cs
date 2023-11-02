@@ -6,6 +6,7 @@ using UnityEngine.XR;
 using UnityEngine.UI;
 using TMPro;
 using static Globals;
+using System;
 
 public class Racer : MonoBehaviour
 {
@@ -53,20 +54,26 @@ public class Racer : MonoBehaviour
     // Racer stats
 
     protected string racerName;
+    public string RacerName { get { return racerName; } set { racerName = value; } }
+    protected Color racerColor = Color.green;
+    public Color RacerColor { get { return racerColor; } set { racerColor = value; } }
+
     protected int health;
     protected int maxHealth;
     protected int totalMoney;
+    public int TotalMoney { get { return totalMoney; } set { totalMoney = value; } }
 
     protected Vector3 startPosition;
     protected Quaternion startRotation;
     protected GameObject racer;
+    protected SpriteRenderer carColor;
     protected Rigidbody2D rb;
     protected GameObject spriteCanvas;
     protected TextMeshProUGUI spriteName;
     protected Slider healthBar;
     protected Slider boostBar;
 
-    static protected List<Racer> defeated = new List<Racer>();
+    static protected List<Racer> defeated = new();
     protected int moneyThisRound;
 
     public float finishLine;
@@ -124,13 +131,10 @@ public class Racer : MonoBehaviour
     public delegate void FinishedAction(Racer racer);
     public static event FinishedAction OnFinished;
 
-    protected static List<string> enemyNames = new List<string> {"Rattigan", "Ratley", "Ratmore", "Ratty", "Ratso", "Ratsputin", "Rattitude", "Ratical"};
+    protected bool ready = false;
+
+    protected static List<string> enemyNames = new() { "Rattigan", "Ratley", "Ratmore", "Ratty", "Ratso", "Ratsputin", "Rattitude", "Ratical"};
     // Start is called before the first frame update
-
-    public void Start()
-    {
-
-    }
 
     public virtual void SetupRacer()
     {
@@ -138,6 +142,7 @@ public class Racer : MonoBehaviour
         spriteName = transform.Find("Canvas/SpriteName").GetComponent<TextMeshProUGUI>();
         healthBar = transform.Find("Canvas/HealthBar").GetComponent<Slider>();
         boostBar = transform.Find("Canvas/BoostBar").GetComponent<Slider>();
+        carColor = transform.Find("RacerSprite/carPaint").GetComponent<SpriteRenderer>();
 
         startPosition = transform.position;
         startRotation = transform.rotation;
@@ -169,8 +174,7 @@ public class Racer : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
         if (!racer.activeSelf) racer.SetActive(true);
-        transform.position = startPosition;
-        transform.rotation = startRotation;
+        transform.SetPositionAndRotation(startPosition, startRotation);
         RacerState = State.idle;
         health = maxHealth;
         boost = boostMax;
@@ -189,119 +193,120 @@ public class Racer : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-
-        if (transform.position.y >= finishLine && RacerState != State.finished)
+        if(ready)
         {
-            RacerState = State.finished;
-            Finished();
-        }
+            if (transform.position.y >= finishLine && RacerState != State.finished)
+            {
+                RacerState = State.finished;
+                Finished();
+            }
 
-        switch (RacerState)
-        {
-            case State.idle:
+            switch (RacerState)
+            {
+                case State.idle:
 
-                break;
+                    break;
 
-            case State.dead:
+                case State.dead:
+                    damageBlinkTimer -= Time.deltaTime;
+                    if (damageBlinkTimer <= 0)
+                    {
+                        if (racer.activeSelf) racer.SetActive(false);
+                        else racer.SetActive(true);
+
+                        damageBlinkTimer = damageBlinkTimerReset;
+                    }
+                    break;
+            }
+
+            if (damaged)
+            {
                 damageBlinkTimer -= Time.deltaTime;
-                if (damageBlinkTimer <= 0)
+                if (damageBlinkTimer <= 0 && flashCount > 0)
                 {
                     if (racer.activeSelf) racer.SetActive(false);
                     else racer.SetActive(true);
 
                     damageBlinkTimer = damageBlinkTimerReset;
+                    flashCount--;
                 }
-                break;
-        }
-
-        if (damaged)
-        {
-            damageBlinkTimer -= Time.deltaTime;
-            if (damageBlinkTimer <= 0 && flashCount > 0)
-            {
-                if (racer.activeSelf) racer.SetActive(false);
-                else racer.SetActive(true);
-
-                damageBlinkTimer = damageBlinkTimerReset;
-                flashCount--;
-            }
-            if (flashCount <= 0)
-            {
-                if (!racer.activeSelf) racer.SetActive(true);
-                damaged = false;
-                flashCount = 7;
-            }
-        }
-
-        if(oilSlicked)
-        {
-            oilSlickTimer -= Time.deltaTime;
-            if (oilSlickTimer <= 0)
-            {
-                OilSlicked();
-                oilSlickTimer = 0;
-            }
-        }
-
-        if (boostActivated)
-        {
-            if (boostTimer <= 0)
-            {
-                boostActivated = false;
-                boost = 0;
-                boostRecharge = true;
-            }
-            else boostTimer -= Time.deltaTime;
-        }
-
-        if (boostRecharge)
-        {
-            boostRechargeTimer -= Time.deltaTime;
-            if (boostRechargeTimer <= 0)
-            {
-                boostTimer += Time.deltaTime;
-                if(boostTimer >= boostTimerReset)
+                if (flashCount <= 0)
                 {
-                    boostRecharge = false;
-                    boostRechargeTimer = boostRechargeTimerReset;
-                    boostTimer = boostTimerReset;
-                    canBoost = true;
+                    if (!racer.activeSelf) racer.SetActive(true);
+                    damaged = false;
+                    flashCount = 7;
                 }
             }
-        }
 
-        if (!canFireBullet)
-        {
-            bulletTimer += Time.deltaTime;
-            if (bulletTimer >= bulletTimerReset)
+            if (oilSlicked)
             {
-                bulletTimer = bulletTimerReset;
-                canFireBullet = true;
+                oilSlickTimer -= Time.deltaTime;
+                if (oilSlickTimer <= 0)
+                {
+                    OilSlicked();
+                    oilSlickTimer = 0;
+                }
             }
-        }
 
-        if (!canFireMissile)
-        {
-            missleTimer += Time.deltaTime;
-            if (missleTimer >= missleTimerReset)
+            if (boostActivated)
             {
-                missleTimer = missleTimerReset;
-                canFireMissile = true;
+                if (boostTimer <= 0)
+                {
+                    boostActivated = false;
+                    boost = 0;
+                    boostRecharge = true;
+                }
+                else boostTimer -= Time.deltaTime;
             }
-        }
 
-        if (!canDropMine)
-        {
-            mineTimer += Time.deltaTime;
-            if (mineTimer >= mineTimerReset)
+            if (boostRecharge)
             {
-                mineTimer = mineTimerReset;
-                canDropMine = true;
+                boostRechargeTimer -= Time.deltaTime;
+                if (boostRechargeTimer <= 0)
+                {
+                    boostTimer += Time.deltaTime;
+                    if (boostTimer >= boostTimerReset)
+                    {
+                        boostRecharge = false;
+                        boostRechargeTimer = boostRechargeTimerReset;
+                        boostTimer = boostTimerReset;
+                        canBoost = true;
+                    }
+                }
             }
-        }
 
-        spriteCanvas.transform.rotation = startRotation;
-        spriteCanvas.transform.position = new Vector2(racer.transform.position.x, racer.transform.position.y - 1);
+            if (!canFireBullet)
+            {
+                bulletTimer += Time.deltaTime;
+                if (bulletTimer >= bulletTimerReset)
+                {
+                    bulletTimer = bulletTimerReset;
+                    canFireBullet = true;
+                }
+            }
+
+            if (!canFireMissile)
+            {
+                missleTimer += Time.deltaTime;
+                if (missleTimer >= missleTimerReset)
+                {
+                    missleTimer = missleTimerReset;
+                    canFireMissile = true;
+                }
+            }
+
+            if (!canDropMine)
+            {
+                mineTimer += Time.deltaTime;
+                if (mineTimer >= mineTimerReset)
+                {
+                    mineTimer = mineTimerReset;
+                    canDropMine = true;
+                }
+            }
+
+            spriteCanvas.transform.SetPositionAndRotation(new Vector2(racer.transform.position.x, racer.transform.position.y - 1), startRotation);
+        }
     }
 
     protected void Fire(Weapon_Select input)
@@ -433,11 +438,6 @@ public class Racer : MonoBehaviour
             speed = speedMax;
             oilSlicked = false;
         }
-    }
-
-    public string GetName()
-    {
-        return racerName;
     }
 
     // public State GetState()

@@ -21,6 +21,8 @@ public class ScreenManager : MonoBehaviour
         endRace,
         earnings,
         upgrades,
+        saveSlot,
+        confirmDelete,
         pause
     }
 
@@ -34,8 +36,44 @@ public class ScreenManager : MonoBehaviour
     static GameObject titleScreen;
     static GameObject instructionsScreen;
     static GameObject upgradesScreen;
-    static GameObject racerUpgradesScreen;
-    static GameObject ammoShopScreen;
+
+    // Save slot screen elements:
+    static GameObject saveSlotScreen;
+
+    static GameObject slot1NewPanel;
+    static GameObject slot2NewPanel;
+    static GameObject slot3NewPanel;
+
+    static GameObject slot1ContinuePanel;
+    static TextMeshProUGUI slot1RacerMoney;
+    static TextMeshProUGUI slot1RacerName;
+    static Image slot1RacerColor;
+    static GameObject slot1bronze;
+    static GameObject slot1silver;
+    static GameObject slot1gold;
+
+    static GameObject slot2ContinuePanel;
+    static TextMeshProUGUI slot2RacerMoney;
+    static TextMeshProUGUI slot2RacerName;
+    static Image slot2RacerColor;
+    static GameObject slot2bronze;
+    static GameObject slot2silver;
+    static GameObject slot2gold;
+
+    static GameObject slot3ContinuePanel;
+    static TextMeshProUGUI slot3RacerMoney;
+    static TextMeshProUGUI slot3RacerName;
+    static Image slot3RacerColor;
+    static GameObject slot3bronze;
+    static GameObject slot3silver;
+    static GameObject slot3gold;
+
+    static List<GameObject> slotPanels;
+    static List<GameObject> trophiesForSaveScreen;
+
+    static GameObject confirmDelete;
+    public static GameObject ConfirmDelete { get { return confirmDelete; } }
+    // ---
 
     // Upgrade screen elements:
     static GameObject upgradeSelect;
@@ -80,6 +118,7 @@ public class ScreenManager : MonoBehaviour
     //
 
     static Screen lastScreen = Screen.title;
+    public static Screen LastScreen { get { return lastScreen; } }
     static Screen currentScreen = Screen.title;
     static Screen nextScreen = Screen.title;
 
@@ -87,8 +126,19 @@ public class ScreenManager : MonoBehaviour
 
     static GameObject customizePlayer;
     static TMP_InputField playerNameInput;
+    public static TMP_InputField PlayerNameInput { get { return playerNameInput; } }
     static TextMeshProUGUI playerExampleName;
-    static GameObject playerExampleColor;
+    public static TextMeshProUGUI PlayerExampleName { get { return playerExampleName; } }
+    static Image playerExampleColor;
+    public static Image PlayerExampleColor { get { return playerExampleColor; } }
+
+    static Color red;
+    static Color blue;
+    static Color green;
+    static Color yellow;
+
+    protected static List<Color> colors = new() { Color.red, Color.blue, Color.green, Color.yellow};
+    public static List<Color> Colors { get { return colors; } set { colors = value; } }
 
     static GameObject HUD;
     static TextMeshProUGUI playerRanking;
@@ -121,15 +171,90 @@ public class ScreenManager : MonoBehaviour
 
     static bool timerOn = false;
     static float timer = 0;
+    void Update()
+    {
+        if (ready && GameManager.state == GameManager.GameState.active)
+        {
+            if(playerController == null) playerController = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
 
-    // Start is called before the first frame update
-    public static void SetupScreens()
+            float[] bulletInfo = playerController.GetBulletInfo();
+            bulletCooldown.fillAmount = bulletInfo[1];
+            //bulletStats.text = "Bullets: " + bulletInfo[0] + " : " + tempString;
+
+            float[] missleInfo = playerController.GetMissleInfo();
+            missleCooldown.fillAmount = missleInfo[1];
+            //missleStats.text = "Missles: " + missleInfo[0] + " : " + tempString;
+
+            float[] mineInfo = playerController.GetMineInfo();
+            mineCooldown.fillAmount = mineInfo[1];
+            //mineStats.text = "Mines: " + mineInfo[0] + " : " + tempString;
+
+            int money = playerController.GetCurrentRaceEarnings();
+            moneyText.text = "$" + money;
+
+            rank = RaceManager.GetPlace();
+            UpdateRank(rank);
+        }
+
+        if (timerOn)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                SetScreen(nextScreen);
+                timerOn = false;
+            }
+        }
+    }
+    public void SetupScreens()
     {
         titleScreen = GameObject.Find("ScreenManager/titleScreen");
         instructionsScreen = GameObject.Find("ScreenManager/instructionsScreen");
         upgradesScreen = GameObject.Find("ScreenManager/TheShop");
-        racerUpgradesScreen = GameObject.Find("ScreenManager/RacerUpgrades");
-        ammoShopScreen = GameObject.Find("ScreenManager/AmmoShop");
+
+        // Save Screen Elements
+        saveSlotScreen = GameObject.Find("ScreenManager/SaveSlotScreen");
+        
+        slot1NewPanel = GameObject.Find("ScreenManager/SaveSlotScreen/slot1New");
+        slot2NewPanel = GameObject.Find("ScreenManager/SaveSlotScreen/slot2New");
+        slot3NewPanel = GameObject.Find("ScreenManager/SaveSlotScreen/slot3New");
+
+        slot1ContinuePanel = GameObject.Find("ScreenManager/SaveSlotScreen/slot1Continue");
+        slot2ContinuePanel = GameObject.Find("ScreenManager/SaveSlotScreen/slot2Continue");
+        slot3ContinuePanel = GameObject.Find("ScreenManager/SaveSlotScreen/slot3Continue");
+
+        confirmDelete = GameObject.Find("ScreenManager/SaveSlotScreen/confirmDelete");
+        confirmDelete.SetActive(false);
+
+        slotPanels = new() { slot1NewPanel, slot2NewPanel, slot3NewPanel, slot1ContinuePanel, slot2ContinuePanel, slot3ContinuePanel };
+
+        slot1RacerMoney = GameObject.Find("ScreenManager/SaveSlotScreen/slot1Continue/saveMoney").GetComponent<TextMeshProUGUI>();
+        slot1RacerName = GameObject.Find("ScreenManager/SaveSlotScreen/slot1Continue/icon/Canvas/saveName").GetComponent<TextMeshProUGUI>();
+        slot1RacerColor = GameObject.Find("ScreenManager/SaveSlotScreen/slot1Continue/icon/image/saveColor").GetComponent<Image>();
+
+        slot1bronze = GameObject.Find("ScreenManager/SaveSlotScreen/slot1Continue/bronzeCup");
+        slot1silver = GameObject.Find("ScreenManager/SaveSlotScreen/slot1Continue/silverCup");
+        slot1gold = GameObject.Find("ScreenManager/SaveSlotScreen/slot1Continue/goldCup");
+
+        slot2RacerMoney = GameObject.Find("ScreenManager/SaveSlotScreen/slot2Continue/saveMoney").GetComponent<TextMeshProUGUI>();
+        slot2RacerName = GameObject.Find("ScreenManager/SaveSlotScreen/slot2Continue/icon/Canvas/saveName").GetComponent<TextMeshProUGUI>();
+        slot2RacerColor = GameObject.Find("ScreenManager/SaveSlotScreen/slot2Continue/icon/image/saveColor").GetComponent<Image>();
+
+        slot2bronze = GameObject.Find("ScreenManager/SaveSlotScreen/slot2Continue/bronzeCup");
+        slot2silver = GameObject.Find("ScreenManager/SaveSlotScreen/slot2Continue/silverCup");
+        slot2gold = GameObject.Find("ScreenManager/SaveSlotScreen/slot2Continue/goldCup");
+
+        slot3RacerMoney = GameObject.Find("ScreenManager/SaveSlotScreen/slot3Continue/saveMoney").GetComponent<TextMeshProUGUI>();
+        slot3RacerName = GameObject.Find("ScreenManager/SaveSlotScreen/slot3Continue/icon/Canvas/saveName").GetComponent<TextMeshProUGUI>();
+        slot3RacerColor = GameObject.Find("ScreenManager/SaveSlotScreen/slot3Continue/icon/image/saveColor").GetComponent<Image>();
+
+        slot3bronze = GameObject.Find("ScreenManager/SaveSlotScreen/slot3Continue/bronzeCup");
+        slot3silver = GameObject.Find("ScreenManager/SaveSlotScreen/slot3Continue/silverCup");
+        slot3gold = GameObject.Find("ScreenManager/SaveSlotScreen/slot3Continue/goldCup");
+
+        trophiesForSaveScreen = new() { slot1bronze, slot1silver, slot1gold, slot2bronze, slot2silver, slot2gold, slot3bronze, slot3silver, slot3gold };
+
+        // ---
 
         // Upgrade Screen Elements
         upgradeSelect = GameObject.Find("ScreenManager/TheShop/Select");
@@ -179,8 +304,14 @@ public class ScreenManager : MonoBehaviour
 
         playerNameInput = GameObject.Find("ScreenManager/CustomizePlayer/PlayerNameInput").GetComponent<TMP_InputField>();
         playerExampleName = GameObject.Find("ScreenManager/CustomizePlayer/Racer/Canvas/SpriteName").GetComponent<TextMeshProUGUI>();
-        playerExampleColor = GameObject.Find("ScreenManager/CustomizePlayer/playerNameInput/Racer/RacerImage/CarColor");
+        playerExampleColor = GameObject.Find("ScreenManager/CustomizePlayer/Racer/RacerImage/CarColor").GetComponent<Image>();
 
+        red = Color.red;
+        blue = Color.blue;
+        green = Color.green;
+        yellow = Color.yellow;
+
+        playerExampleColor.color = green;
         // ---
 
         // HUD Objects
@@ -204,7 +335,7 @@ public class ScreenManager : MonoBehaviour
         raceResultsScreen = GameObject.Find("ScreenManager/RaceResults");
         earningsScreen = GameObject.Find("ScreenManager/Earnings");
 
-        earningsText = GameObject.Find("ScreenManager/Earnings/EarningsText").GetComponent<TextMeshProUGUI>();
+        earningsText = GameObject.Find("ScreenManager/Earnings/earningsText").GetComponent<TextMeshProUGUI>();
 
         rank1 = GameObject.Find("ScreenManager/RaceResults/rank1").GetComponent<TextMeshProUGUI>();
         rank2 = GameObject.Find("ScreenManager/RaceResults/rank2").GetComponent<TextMeshProUGUI>();
@@ -216,85 +347,14 @@ public class ScreenManager : MonoBehaviour
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, instructionsScreen, customizePlayer, upgradesScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, racerUpgradesScreen, ammoShopScreen };
+        screensList = new List<GameObject> { titleScreen, instructionsScreen, customizePlayer, upgradesScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen };
 
         ClearScreens();
 
         titleScreen.SetActive(true);
-        // customizePlayer.SetActive(true);
-
-        playerController = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
 
         ready = true;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(ready)
-        {
-            float[] bulletInfo = playerController.GetBulletInfo();
-            bulletCooldown.fillAmount = bulletInfo[1];
-            //bulletStats.text = "Bullets: " + bulletInfo[0] + " : " + tempString;
-
-            float[] missleInfo = playerController.GetMissleInfo();
-            missleCooldown.fillAmount = missleInfo[1];
-            //missleStats.text = "Missles: " + missleInfo[0] + " : " + tempString;
-
-            float[] mineInfo = playerController.GetMineInfo();
-            mineCooldown.fillAmount = mineInfo[1];
-            //mineStats.text = "Mines: " + mineInfo[0] + " : " + tempString;
-
-            int money = playerController.GetCurrentRaceEarnings();
-            moneyText.text = "$" + money;
-
-            rank = RaceManager.GetPlace();
-            UpdateRank(rank);
-        }
-
-        if(timerOn)
-        {
-            timer -= Time.deltaTime;
-            if(timer <= 0)
-            {
-                SetScreen(nextScreen);
-                timerOn = false;
-            }
-        }
-    }
-
-    void UpdateRank(int input)
-    {
-        switch (input)
-        {
-            case 0:
-                place = " ";
-                break;
-            case 1:
-                place = "1ST";
-                break;
-
-            case 2:
-                place = "2ND";
-                break;
-
-            case 3:
-                place = "3RD";
-                break;
-
-            case 4:
-                place = "4TH";
-                break;
-        }
-
-        playerRanking.text = place;
-    }
-
-    public static void CountDown(string countDown)
-    {
-        countDownText.text = countDown;
-    }
-
 
     public static void SetScreen(Screen screen)
     {
@@ -348,15 +408,56 @@ public class ScreenManager : MonoBehaviour
             case Screen.pause:
                 if (!pauseScreen.activeSelf) pauseScreen.SetActive(true);
                 break;
+
+            case Screen.saveSlot:
+                if (!saveSlotScreen.activeSelf) saveSlotScreen.SetActive(true);
+                UpdateSaveSlots();
+                break;
+
+            case Screen.customizePlayer:
+                if (!customizePlayer.activeSelf) customizePlayer.SetActive(true);
+                break;
         }
 
         lastScreen = currentScreen;
         currentScreen = screen;
     }
 
-    static void ClearScreens()
+    public static void ClearScreens()
     {
         foreach (GameObject screen in screensList) { if(screen.activeSelf) screen.SetActive(false); }
+    }
+
+    public static void CountDown(string countDown)
+    {
+        countDownText.text = countDown;
+    }
+
+    void UpdateRank(int input)
+    {
+        switch (input)
+        {
+            case 0:
+                place = " ";
+                break;
+            case 1:
+                place = "1ST";
+                break;
+
+            case 2:
+                place = "2ND";
+                break;
+
+            case 3:
+                place = "3RD";
+                break;
+
+            case 4:
+                place = "4TH";
+                break;
+        }
+
+        playerRanking.text = place;
     }
 
     protected static void SetupEndRaceScreen()
@@ -387,7 +488,7 @@ public class ScreenManager : MonoBehaviour
 
             Racer racer = racers[i];
             Racer.State racerState = racer.RacerState;
-            string racerName = racer.GetName();
+            string racerName = racer.RacerName;
             if (racerState == Racer.State.finished) ranks[i].text = place + " - " + racerName;
             else if (racerState == Racer.State.dead) ranks[i].text = "DNF - " + racerName;
         }
@@ -449,7 +550,7 @@ public class ScreenManager : MonoBehaviour
             {
                 foreach (Racer racer in defeated)
                 {
-                    earningsReport += "Defeated " + racer.GetName() + "! +$" + eliminationReward + "\n";
+                    earningsReport += "Defeated " + racer.RacerName + "! +$" + eliminationReward + "\n";
                     raceEarnings += eliminationReward;
                 }
             }
@@ -463,9 +564,6 @@ public class ScreenManager : MonoBehaviour
 
     public static void UpdateUpgradeIcons()
     {
-        racerUpgradesScreen.SetActive(true);
-        ammoShopScreen.SetActive(true);
-
         int engineLevel = playerController.EngineUpgradeLevel;
         int armourLevel = playerController.ArmourUpgradeLevel;
         int boostSpeedLevel = playerController.BoostSpeedLevel;
@@ -567,9 +665,6 @@ public class ScreenManager : MonoBehaviour
                 // boostSpeed3check.SetActive(true);
                 break;
         }
-
-        racerUpgradesScreen.SetActive(false);
-        ammoShopScreen.SetActive(false);
     }
 
     public static void UpdateUpgradeClicked(Upgrade input)
@@ -652,51 +747,102 @@ public class ScreenManager : MonoBehaviour
                 //if (input.upgradeNumber == 2) upgradeSelect.transform.position = boost2lock.transform.position;
                 //if (input.upgradeNumber == 3) upgradeSelect.transform.position = boost3lock.transform.position;
                 break;
-
-
         }
     }
 
-    // Button Functions
-    public void GoToInstructions()
+    public static void UpdateSaveSlots()
     {
-        SetScreen(Screen.instructions);
-    }
-    public void GoToEarnings()
-    {
-        SetScreen(Screen.earnings);
+        foreach (GameObject panel in slotPanels) if (!panel.activeSelf) panel.SetActive(true);
+        foreach (GameObject trophy in trophiesForSaveScreen) if (!trophy.activeSelf) trophy.SetActive(true);
+
+        string[] saveData = DataManager.CheckSaveData(1);
+        if(saveData == null) slot1ContinuePanel.SetActive(false);
+        else
+        {
+            slot1NewPanel.SetActive(false);
+            slot1RacerMoney.text = "$" + saveData[0];
+            string[] rgba = saveData[1].Substring(5, saveData[1].Length - 6).Split(", ");
+            slot1RacerColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+            switch(int.Parse(saveData[3]))
+            {
+                case 0:
+                    slot1bronze.SetActive(false);
+                    slot1silver.SetActive(false);
+                    slot1gold.SetActive(false);
+                    break;
+
+                case 1:
+                    slot1silver.SetActive(false);
+                    slot1gold.SetActive(false);
+                    break;
+
+                case 2:
+                    slot1gold.SetActive(false);
+                    break;
+            }
+        }
+
+        saveData = DataManager.CheckSaveData(2);
+        if (saveData == null) slot2ContinuePanel.SetActive(false);
+        else
+        {
+            slot2NewPanel.SetActive(false);
+            slot2RacerMoney.text = "$" + saveData[0];
+            string[] rgba = saveData[1].Substring(5, saveData[1].Length - 6).Split(", ");
+            slot2RacerColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+            switch (int.Parse(saveData[3]))
+            {
+                case 0:
+                    slot2bronze.SetActive(false);
+                    slot2silver.SetActive(false);
+                    slot2gold.SetActive(false);
+                    break;
+
+                case 1:
+                    slot2silver.SetActive(false);
+                    slot2gold.SetActive(false);
+                    break;
+
+                case 2:
+                    slot2gold.SetActive(false);
+                    break;
+            }
+        }
+
+        saveData = DataManager.CheckSaveData(3);
+        if (saveData == null) slot3ContinuePanel.SetActive(false);
+        else
+        {
+            slot3NewPanel.SetActive(false);
+            slot3RacerMoney.text = "$" + saveData[0];
+            string[] rgba = saveData[1].Substring(5, saveData[1].Length - 6).Split(", ");
+            slot3RacerColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+            switch (int.Parse(saveData[3]))
+            {
+                case 0:
+                    slot3bronze.SetActive(false);
+                    slot3silver.SetActive(false);
+                    slot3gold.SetActive(false);
+                    break;
+
+                case 1:
+                    slot3silver.SetActive(false);
+                    slot3gold.SetActive(false);
+                    break;
+
+                case 2:
+                    slot3gold.SetActive(false);
+                    break;
+            }
+        }
+
     }
 
-    public void GoToUpgrades()
+    public static void ActivateDeleteSavePanel()
     {
-        SetScreen(Screen.upgrades);
-    }
-    public void ShowCarUpgradesScreen()
-    {
-        if (racerUpgradesScreen.activeSelf) racerUpgradesScreen.SetActive(false);
-        if (ammoShopScreen.activeSelf) ammoShopScreen.SetActive(false);
-    }
-
-    public void ShowRacerUpgradesScreen()
-    {
-        if (ammoShopScreen.activeSelf) ammoShopScreen.SetActive(false);
-        if (!racerUpgradesScreen.activeSelf) racerUpgradesScreen.SetActive(true);
-    }
-
-    public void ShowAmmoShopScreen()
-    {
-        if (racerUpgradesScreen.activeSelf) racerUpgradesScreen.SetActive(false);
-        if (!ammoShopScreen.activeSelf) ammoShopScreen.SetActive(true);
-    }
-
-    public void CustomizePlayerName()
-    {
-        Debug.Log(playerExampleName.text);
-        playerExampleName.text = playerNameInput.text;
-    }
-
-    public void BackButton()
-    {
-        SetScreen(lastScreen);
+        if (!ScreenManager.ConfirmDelete.activeSelf)
+        {
+            ScreenManager.ConfirmDelete.SetActive(true);
+        }
     }
 }
