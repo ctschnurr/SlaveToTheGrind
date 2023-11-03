@@ -19,7 +19,7 @@ public class PlayerController : Racer
     float horizontal;
     public Transform waypoint;
 
-    protected int speechSkill = 0;
+    protected int speechSkillLevel = 0;
     public int SpeechSkillLevel { get; set; }
 
     public delegate void PlayerDiedAction();
@@ -30,9 +30,9 @@ public class PlayerController : Racer
         base.SetupRacer();
 
         type = RacerType.player;
-        racerName = DataManager.PlayerData.racerName;
+        racerName = DataManager.PlayerSave.racerName;
 
-        string[] rgba = DataManager.PlayerData.racerColor.Substring(5, DataManager.PlayerData.racerColor.Length - 6).Split(", ");
+        string[] rgba = DataManager.PlayerSave.racerColor.Split(',');
         carColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
 
         spriteName.text = racerName;
@@ -52,6 +52,7 @@ public class PlayerController : Racer
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;
 
+        UpdateRacer();
         ready = true;
     }
 
@@ -59,11 +60,20 @@ public class PlayerController : Racer
     {
         base.UpdateRacer();
 
-        healthBar.maxValue = maxHealth;
-        healthBar.value = maxHealth;
-
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;
+
+        DataManager.PlayerSave.money = totalMoney;
+        DataManager.PlayerSave.gameLevel = GameManager.GameLevel;
+
+        DataManager.PlayerSave.engineUpgradeLevel = engineUpgradeLevel;
+        DataManager.PlayerSave.armourUpgradeLevel = armourUpgradeLevel;
+        DataManager.PlayerSave.boostSpeedLevel = boostSpeedLevel;
+        DataManager.PlayerSave.boostRechargeLevel = boostRechargeLevel;
+        DataManager.PlayerSave.boostCooldownLevel = boostCooldownLevel;
+
+        DataManager.PlayerSave.repairSkill = repairSkillLevel;
+        DataManager.PlayerSave.speechSkill = speechSkillLevel;
     }
 
     public override void ResetRacer()

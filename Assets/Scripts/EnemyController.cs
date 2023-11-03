@@ -15,22 +15,46 @@ public class EnemyController : Racer
 
     public float angle;
 
-    private static int levelCounter = 1;
+    private static int enemyCounter = 0;
+    public static int EnemyCounter { get { return enemyCounter; } set { enemyCounter = value; } }
 
     // Start is called before the first frame update
     public override void SetupRacer()
     {
         base.SetupRacer();
 
-        int pickName = Random.Range(0, enemyNames.Count);
-        racerName = enemyNames[pickName];
-        enemyNames.Remove(racerName);
-        List<Color> colors = ScreenManager.Colors;
-        int pickColor = Random.Range(0, colors.Count);
-        racerColor = colors[pickColor];
-        colors.Remove(racerColor);
-        ScreenManager.Colors = colors;
-        carColor.color = racerColor;
+        if (GameLoaded)
+        {
+            RacerData[] enemySaves = DataManager.EnemySaves;
+
+            racerName = DataManager.EnemySaves[enemyCounter].racerName;
+            string[] rgba = DataManager.EnemySaves[enemyCounter].racerColor.Split(',');
+            carColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+            engineUpgradeLevel = DataManager.EnemySaves[enemyCounter].engineUpgradeLevel;
+            armourUpgradeLevel = DataManager.EnemySaves[enemyCounter].armourUpgradeLevel;
+            boostSpeedLevel = DataManager.EnemySaves[enemyCounter].boostSpeedLevel;
+            boostRechargeLevel = DataManager.EnemySaves[enemyCounter].boostRechargeLevel;
+            boostCooldownLevel = DataManager.EnemySaves[enemyCounter].boostCooldownLevel;
+        }
+        else
+        {
+            int pickName = Random.Range(0, enemyNames.Count);
+            racerName = enemyNames[pickName];
+            enemyNames.Remove(racerName);
+            List<Color> colors = ScreenManager.Colors;
+            int pickColor = Random.Range(0, colors.Count);
+            racerColor = colors[pickColor];
+            colors.Remove(racerColor);
+            ScreenManager.Colors = colors;
+            carColor.color = racerColor;
+
+            engineUpgradeLevel = enemyCounter + 1;
+            armourUpgradeLevel = Random.Range(0, 2);
+            boostSpeedLevel = Random.Range(0, 2);
+            boostRechargeLevel = Random.Range(0, 2);
+            boostCooldownLevel = Random.Range(0, 2);
+        }
+
         type = RacerType.enemy;
         spriteName.text = racerName;
 
@@ -39,16 +63,7 @@ public class EnemyController : Racer
         maxHealth = 50;
         health = maxHealth;
 
-        boostMax = 1000f;
-        boost = 0;
-
-        engineUpgradeLevel = levelCounter;
-
-        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.1f));
-        speed = speedMax;
         turnSpeed = baseTurnSpeed;
-
-        levelCounter++;
 
         racers = RaceManager.GetRacers();
 
@@ -58,6 +73,7 @@ public class EnemyController : Racer
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;
 
+        UpdateRacer();
         ready = true;
     }
 
@@ -66,6 +82,30 @@ public class EnemyController : Racer
         //TrackManager.SendNextWaypoint(null);
         base.ResetRacer();
         waypoint = GameObject.Find("FirstPoint");
+    }
+
+    public override void UpdateRacer()
+    {
+        base.UpdateRacer();
+
+        boostBar.maxValue = boostTimerReset;
+        boostBar.value = boostTimerReset;
+
+        RacerData[] enemySaves = DataManager.EnemySaves;
+
+        DataManager.EnemySaves[enemyCounter].racerName = racerName;
+        string rgba = carColor.color.r.ToString() + "," + carColor.color.g.ToString() + "," + carColor.color.b.ToString() + "," + carColor.color.a.ToString();
+        DataManager.EnemySaves[enemyCounter].racerColor = rgba;
+
+        DataManager.EnemySaves[enemyCounter].engineUpgradeLevel = engineUpgradeLevel;
+        DataManager.EnemySaves[enemyCounter].armourUpgradeLevel = armourUpgradeLevel;
+        DataManager.EnemySaves[enemyCounter].boostSpeedLevel = boostSpeedLevel;
+        DataManager.EnemySaves[enemyCounter].boostRechargeLevel = boostRechargeLevel;
+        DataManager.EnemySaves[enemyCounter].boostCooldownLevel = boostCooldownLevel;
+
+        DataManager.EnemySaves = enemySaves;
+
+        enemyCounter++;
     }
 
     // Update is called once per frame
@@ -113,7 +153,7 @@ public class EnemyController : Racer
                     float lookForward = Vector3.Angle(racer.transform.position - transform.position, transform.up);
                     if (lookForward < 5f && distance < 12)
                     {
-                        int fireChance = Random.Range(1, 30 - gameLevel);
+                        int fireChance = Random.Range(1, 30 - GameManager.GameLevel);
 
                         if(fireChance == 1)
                         {

@@ -133,6 +133,19 @@ public class RaceManager : MonoBehaviour
             Racer temp = racer.GetComponent<Racer>();
             temp.SetupRacer();
         }
+
+        DataManager.SaveGame();
+    }
+
+    public static void UpdateRacers()
+    {
+        EnemyController.EnemyCounter = 0;
+
+        foreach (GameObject racer in racers)
+        {
+            Racer temp = racer.GetComponent<Racer>();
+            temp.UpdateRacer();
+        }
     }
 
     public static void ResetRace()

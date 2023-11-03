@@ -153,8 +153,6 @@ public class Racer : MonoBehaviour
         turnSpeed = baseTurnSpeed;
 
         finishLine = TrackManager.GetFinishline();
-
-        UpdateRacer();
     }
 
     public virtual void UpdateRacer()

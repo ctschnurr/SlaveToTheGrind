@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour
     static bool quit = false;
     public static bool Quit { set { quit = value; } }
     static int gameLevel;
-    public static int GameLevel { get { return gameLevel; } }
+    public static int GameLevel { get { return gameLevel; } set { gameLevel = value; } }
+    private static bool gameLoaded = false;
+    public static bool GameLoaded { get { return gameLoaded; } set { gameLoaded = value; } }
 
     void Awake()
     {
@@ -60,7 +62,13 @@ public class GameManager : MonoBehaviour
             RaceManager.SetupRacers();
             state = GameState.active;
 
-            ScreenManager.SetScreen(ScreenManager.Screen.instructions);
+            ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
+        }
+        if (scene.name == "TitleScene")
+        {
+            state = GameState.idle;
+
+            ScreenManager.SetScreen(ScreenManager.Screen.title);
         }
     }
 }

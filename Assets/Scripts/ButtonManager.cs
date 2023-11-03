@@ -28,19 +28,36 @@ public class ButtonManager : MonoBehaviour
 
         DataManager.NewSave();
 
-        DataManager.PlayerData.money = 0;
-        DataManager.PlayerData.racerColor = ScreenManager.PlayerExampleColor.color.ToString();
-        DataManager.PlayerData.racerName = ScreenManager.PlayerExampleName.text;
-        DataManager.PlayerData.gameLevel = 0;;
+        DataManager.PlayerSave.money = 0;
+        string rgba = ScreenManager.PlayerExampleColor.color.r.ToString() + "," + ScreenManager.PlayerExampleColor.color.g.ToString() + "," + ScreenManager.PlayerExampleColor.color.b.ToString() + "," + ScreenManager.PlayerExampleColor.color.a.ToString();
+        DataManager.PlayerSave.racerColor = rgba;
+        DataManager.PlayerSave.racerName = ScreenManager.PlayerExampleName.text;
+
+        DataManager.PlayerSave.gameLevel = 0;
 
         DataManager.SaveGame();
 
         SwitchToGameplay();
     }
 
-    public void GoToInstructions()
+    public void ContinueGame()
     {
-        ScreenManager.SetScreen(ScreenManager.Screen.instructions);
+        GameLoaded = true;
+        DataManager.LoadGame();
+
+        GameLevel = DataManager.PlayerSave.gameLevel;
+
+        SwitchToGameplay();
+    }
+
+    public void ShowControlsScreen()
+    {
+        ScreenManager.SetScreen(ScreenManager.Screen.controls);
+    }
+
+    public void ShowRaceStartScreen()
+    {
+        ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
     }
 
     public void GoToChooseSaveSlot()
@@ -62,6 +79,11 @@ public class ButtonManager : MonoBehaviour
         ScreenManager.SetScreen(ScreenManager.Screen.customizePlayer);
     }
 
+    public void ShowStoryScreen()
+    {
+        ScreenManager.SetScreen(ScreenManager.Screen.story);
+    }
+
     public void CustomizePlayerName()
     {
         ScreenManager.PlayerExampleName.text = ScreenManager.PlayerNameInput.text;
@@ -71,6 +93,12 @@ public class ButtonManager : MonoBehaviour
     {
         ScreenManager.ClearScreens();
         SceneManager.LoadScene(1);
+    }
+
+    public void QuitToTitle()
+    {
+        ScreenManager.ClearScreens();
+        SceneManager.LoadScene(0);
     }
     public void StartRace()
     {

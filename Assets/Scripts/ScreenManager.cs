@@ -15,7 +15,7 @@ public class ScreenManager : MonoBehaviour
         loadSave,
         customizePlayer,
         HUD,
-        startRace,
+        raceStart,
         finish,
         defeat,
         endRace,
@@ -23,6 +23,8 @@ public class ScreenManager : MonoBehaviour
         upgrades,
         saveSlot,
         confirmDelete,
+        story,
+        controls,
         pause
     }
 
@@ -36,6 +38,9 @@ public class ScreenManager : MonoBehaviour
     static GameObject titleScreen;
     static GameObject instructionsScreen;
     static GameObject upgradesScreen;
+    static GameObject storyScreen;
+    static GameObject controlsScreen;
+    static GameObject raceStartScreen;
 
     // Save slot screen elements:
     static GameObject saveSlotScreen;
@@ -211,6 +216,9 @@ public class ScreenManager : MonoBehaviour
         titleScreen = GameObject.Find("ScreenManager/titleScreen");
         instructionsScreen = GameObject.Find("ScreenManager/instructionsScreen");
         upgradesScreen = GameObject.Find("ScreenManager/TheShop");
+        storyScreen = GameObject.Find("ScreenManager/storyScreen");
+        controlsScreen = GameObject.Find("ScreenManager/controlsScreen");
+        raceStartScreen = GameObject.Find("ScreenManager/RaceStart");
 
         // Save Screen Elements
         saveSlotScreen = GameObject.Find("ScreenManager/SaveSlotScreen");
@@ -347,7 +355,7 @@ public class ScreenManager : MonoBehaviour
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, instructionsScreen, customizePlayer, upgradesScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen };
+        screensList = new List<GameObject> { titleScreen, instructionsScreen, customizePlayer, upgradesScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen, storyScreen, controlsScreen, raceStartScreen };
 
         ClearScreens();
 
@@ -416,6 +424,18 @@ public class ScreenManager : MonoBehaviour
 
             case Screen.customizePlayer:
                 if (!customizePlayer.activeSelf) customizePlayer.SetActive(true);
+                break;
+
+            case Screen.story:
+                if (!storyScreen.activeSelf) storyScreen.SetActive(true);
+                break;
+
+            case Screen.controls:
+                if (!controlsScreen.activeSelf) controlsScreen.SetActive(true);
+                break;
+
+            case Screen.raceStart:
+                if (!raceStartScreen.activeSelf) raceStartScreen.SetActive(true);
                 break;
         }
 
@@ -756,13 +776,15 @@ public class ScreenManager : MonoBehaviour
         foreach (GameObject trophy in trophiesForSaveScreen) if (!trophy.activeSelf) trophy.SetActive(true);
 
         string[] saveData = DataManager.CheckSaveData(1);
-        if(saveData == null) slot1ContinuePanel.SetActive(false);
+ 
+        if (saveData == null) slot1ContinuePanel.SetActive(false);
         else
         {
             slot1NewPanel.SetActive(false);
             slot1RacerMoney.text = "$" + saveData[0];
-            string[] rgba = saveData[1].Substring(5, saveData[1].Length - 6).Split(", ");
+            string[] rgba = saveData[1].Split(',');
             slot1RacerColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+            slot1RacerName.text = saveData[2];
             switch(int.Parse(saveData[3]))
             {
                 case 0:
@@ -788,7 +810,7 @@ public class ScreenManager : MonoBehaviour
         {
             slot2NewPanel.SetActive(false);
             slot2RacerMoney.text = "$" + saveData[0];
-            string[] rgba = saveData[1].Substring(5, saveData[1].Length - 6).Split(", ");
+            string[] rgba = saveData[1].Split(',');
             slot2RacerColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
             switch (int.Parse(saveData[3]))
             {
@@ -815,7 +837,7 @@ public class ScreenManager : MonoBehaviour
         {
             slot3NewPanel.SetActive(false);
             slot3RacerMoney.text = "$" + saveData[0];
-            string[] rgba = saveData[1].Substring(5, saveData[1].Length - 6).Split(", ");
+            string[] rgba = saveData[1].Split(',');
             slot3RacerColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
             switch (int.Parse(saveData[3]))
             {

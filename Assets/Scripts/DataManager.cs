@@ -16,10 +16,16 @@ public class DataManager : MonoBehaviour
     static SaveData gameData;
 
     static RacerData playerSave;
-    public static RacerData PlayerData { get { return playerSave; } set { playerSave = value; } }
+    public static RacerData PlayerSave { get { return playerSave; } set { playerSave = value; } }
     static RacerData enemy1Save;
+    public static RacerData Enemy1Save { get { return enemy1Save; } set { enemy1Save = value; } }
     static RacerData enemy2Save;
+    public static RacerData Enemy2Save { get { return enemy2Save; } set { enemy2Save = value; } }
     static RacerData enemy3Save;
+    public static RacerData Enemy3Save { get { return enemy3Save; } set { enemy3Save = value; } }
+    protected static RacerData[] enemySaves;
+    public static RacerData[] EnemySaves { get { return enemySaves; } set { enemySaves = value; } }
+
     // Start is called before the first frame update
 
     public static string[] CheckSaveData(int slotNumber)
@@ -80,7 +86,24 @@ public class DataManager : MonoBehaviour
 
         return saveDataString;
     }
+    public static void NewSave()
+    {
+        FileStream saveFile = null;
+        if (saveSlot == 1) saveFile = File.Open(Application.persistentDataPath + "/save01.dat", FileMode.Create);
+        if (saveSlot == 2) saveFile = File.Open(Application.persistentDataPath + "/save02.dat", FileMode.Create);
+        if (saveSlot == 3) saveFile = File.Open(Application.persistentDataPath + "/save03.dat", FileMode.Create);
 
+        playerSave = new RacerData();
+        enemy1Save = new RacerData();
+        enemy2Save = new RacerData();
+        enemy3Save = new RacerData();
+
+        enemySaves = new[] { enemy1Save, enemy2Save, enemy3Save };
+
+        saveFile.Close();
+
+        List<RacerData> racerDatabase = new() { playerSave, enemy1Save, enemy2Save, enemy3Save };
+    }
     public static void DeleteSave()
     {
         if (saveSlot == 1) File.Delete(Application.persistentDataPath + "/save01.dat");
@@ -101,7 +124,12 @@ public class DataManager : MonoBehaviour
 
         SaveData saveData = new SaveData();
 
+        saveData.playerData = new RacerData();
+
         saveData.playerData = playerSave;
+        saveData.enemy1Data = enemy1Save;
+        saveData.enemy2Data = enemy2Save;
+        saveData.enemy3Data = enemy3Save;
 
         bf.Serialize(saveFile, saveData);
         saveFile.Close();
@@ -119,32 +147,13 @@ public class DataManager : MonoBehaviour
         SaveData loadData = (SaveData)bf.Deserialize(loadFile);
 
         playerSave = loadData.playerData;
+        enemy1Save = loadData.enemy1Data;
+        enemy2Save = loadData.enemy2Data;
+        enemy3Save = loadData.enemy3Data;
+
+        enemySaves = new[] { enemy1Save, enemy2Save, enemy3Save };
 
         loadFile.Close();
-    }
-
-    public static void NewSave()
-    {
-        FileStream saveFile = null;
-        if (saveSlot == 1) saveFile = File.Open(Application.persistentDataPath + "/save01.dat", FileMode.Create);
-        if (saveSlot == 2) saveFile = File.Open(Application.persistentDataPath + "/save02.dat", FileMode.Create);
-        if (saveSlot == 3) saveFile = File.Open(Application.persistentDataPath + "/save03.dat", FileMode.Create);
-
-        saveFile.Close();
-
-        playerSave = new RacerData();
-        playerSave.racerType = 0;
-
-        enemy1Save = new RacerData();
-        enemy1Save.racerType = 1;
-
-        enemy2Save = new RacerData();
-        enemy2Save.racerType = 1;
-
-        enemy3Save = new RacerData();
-        enemy3Save.racerType = 1;
-
-        List<RacerData> racerDatabase = new() { playerSave, enemy1Save, enemy2Save, enemy3Save };
     }
 }
 
