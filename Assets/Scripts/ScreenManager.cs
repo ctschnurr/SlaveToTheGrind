@@ -11,7 +11,6 @@ public class ScreenManager : MonoBehaviour
     public enum Screen
     {
         title,
-        instructions,
         loadSave,
         customizePlayer,
         HUD,
@@ -21,10 +20,13 @@ public class ScreenManager : MonoBehaviour
         endRace,
         earnings,
         upgrades,
+        armoury,
+        school,
         saveSlot,
         confirmDelete,
         story,
         controls,
+        cupWinner,
         pause
     }
 
@@ -36,11 +38,13 @@ public class ScreenManager : MonoBehaviour
     }
 
     static GameObject titleScreen;
-    static GameObject instructionsScreen;
     static GameObject upgradesScreen;
+    static GameObject armouryScreen;
+    static GameObject schoolScreen;
     static GameObject storyScreen;
     static GameObject controlsScreen;
     static GameObject raceStartScreen;
+    static GameObject cupWinnerScreen;
 
     // Save slot screen elements:
     static GameObject saveSlotScreen;
@@ -153,6 +157,10 @@ public class ScreenManager : MonoBehaviour
     static Image missleCooldown;
     static Image mineCooldown;
 
+    static TextMeshProUGUI bulletAmmo;
+    static TextMeshProUGUI missleAmmo;
+    static TextMeshProUGUI mineAmmo;
+
     static GameObject finishScreen;
     static GameObject defeatScreen;
     static GameObject raceResultsScreen;
@@ -184,15 +192,15 @@ public class ScreenManager : MonoBehaviour
 
             float[] bulletInfo = playerController.GetBulletInfo();
             bulletCooldown.fillAmount = bulletInfo[1];
-            //bulletStats.text = "Bullets: " + bulletInfo[0] + " : " + tempString;
+            bulletAmmo.text = "x " + playerController.BulletAmmo;
 
             float[] missleInfo = playerController.GetMissleInfo();
             missleCooldown.fillAmount = missleInfo[1];
-            //missleStats.text = "Missles: " + missleInfo[0] + " : " + tempString;
+            missleAmmo.text = "x " + playerController.MissleAmmo;
 
             float[] mineInfo = playerController.GetMineInfo();
             mineCooldown.fillAmount = mineInfo[1];
-            //mineStats.text = "Mines: " + mineInfo[0] + " : " + tempString;
+            mineAmmo.text = "x " + playerController.MineAmmo;
 
             int money = playerController.GetCurrentRaceEarnings();
             moneyText.text = "$" + money;
@@ -214,11 +222,13 @@ public class ScreenManager : MonoBehaviour
     public void SetupScreens()
     {
         titleScreen = GameObject.Find("ScreenManager/titleScreen");
-        instructionsScreen = GameObject.Find("ScreenManager/instructionsScreen");
         upgradesScreen = GameObject.Find("ScreenManager/TheShop");
+        armouryScreen = GameObject.Find("ScreenManager/TheArmoury");
+        schoolScreen = GameObject.Find("ScreenManager/TheSchool");
         storyScreen = GameObject.Find("ScreenManager/storyScreen");
         controlsScreen = GameObject.Find("ScreenManager/controlsScreen");
         raceStartScreen = GameObject.Find("ScreenManager/RaceStart");
+        cupWinnerScreen = GameObject.Find("ScreenManager/CupWinner");
 
         // Save Screen Elements
         saveSlotScreen = GameObject.Find("ScreenManager/SaveSlotScreen");
@@ -332,6 +342,11 @@ public class ScreenManager : MonoBehaviour
         bulletCooldown = GameObject.Find("ScreenManager/HUD/BulletCooldown").GetComponent<Image>();
         missleCooldown = GameObject.Find("ScreenManager/HUD/MissleCooldown").GetComponent<Image>();
         mineCooldown = GameObject.Find("ScreenManager/HUD/MineCooldown").GetComponent<Image>();
+
+        bulletAmmo = GameObject.Find("ScreenManager/HUD/BulletCooldown/BulletAmmo").GetComponent<TextMeshProUGUI>();
+        missleAmmo = GameObject.Find("ScreenManager/HUD/MissleCooldown/MissleAmmo").GetComponent<TextMeshProUGUI>();
+        mineAmmo = GameObject.Find("ScreenManager/HUD/MineCooldown/MineAmmo").GetComponent<TextMeshProUGUI>();
+
         // ---
 
 
@@ -355,7 +370,7 @@ public class ScreenManager : MonoBehaviour
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, instructionsScreen, customizePlayer, upgradesScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen, storyScreen, controlsScreen, raceStartScreen };
+        screensList = new List<GameObject> { titleScreen, customizePlayer, upgradesScreen, schoolScreen, armouryScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen, storyScreen, controlsScreen, raceStartScreen, cupWinnerScreen };
 
         ClearScreens();
 
@@ -367,6 +382,7 @@ public class ScreenManager : MonoBehaviour
     public static void SetScreen(Screen screen)
     {
         ClearScreens();
+        Upgrade temp;
 
         switch (screen)
         {
@@ -374,15 +390,25 @@ public class ScreenManager : MonoBehaviour
                 if (!titleScreen.activeSelf) titleScreen.SetActive(true);
                 break;
 
-            case Screen.instructions:
-                if (!instructionsScreen.activeSelf) instructionsScreen.SetActive(true);
-                break;
-
             case Screen.upgrades:
                 if (!upgradesScreen.activeSelf) upgradesScreen.SetActive(true);
                 UpdateUpgradeIcons();
-                Upgrade temp = UpgradeManager.GetCurrentUpgrade();
+                temp = UpgradeManager.GetCurrentUpgrade();
                 UpdateUpgradeClicked(temp);
+                break;
+
+            case Screen.armoury:
+                if (!armouryScreen.activeSelf) armouryScreen.SetActive(true);
+                //UpdateUpgradeIcons();
+                //temp = UpgradeManager.GetCurrentUpgrade();
+                //UpdateUpgradeClicked(temp);
+                break;
+
+            case Screen.school:
+                if (!schoolScreen.activeSelf) schoolScreen.SetActive(true);
+                //UpdateUpgradeIcons();
+                //temp = UpgradeManager.GetCurrentUpgrade();
+                //UpdateUpgradeClicked(temp);
                 break;
 
             case Screen.HUD:
@@ -436,6 +462,10 @@ public class ScreenManager : MonoBehaviour
 
             case Screen.raceStart:
                 if (!raceStartScreen.activeSelf) raceStartScreen.SetActive(true);
+                break;
+
+            case Screen.cupWinner:
+                if (!cupWinnerScreen.activeSelf) cupWinnerScreen.SetActive(true);
                 break;
         }
 

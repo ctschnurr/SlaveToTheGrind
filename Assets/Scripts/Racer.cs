@@ -38,18 +38,21 @@ public class Racer : MonoBehaviour
     // Upgradables
 
     protected int engineUpgradeLevel = 0;
-    public int EngineUpgradeLevel { get; set; }
+    public int EngineUpgradeLevel { get { return engineUpgradeLevel; } set { engineUpgradeLevel = value; } }
     protected int armourUpgradeLevel = 0;
-    public int ArmourUpgradeLevel { get; set; }
+    public int ArmourUpgradeLevel { get { return armourUpgradeLevel; } set { armourUpgradeLevel = value; } }
     protected int boostSpeedLevel = 0;
-    public int BoostSpeedLevel { get; set; }
+    public int BoostSpeedLevel { get { return boostSpeedLevel; } set { boostSpeedLevel = value; } }
     protected int boostCooldownLevel = 0;
-    public int BoostCooldownLevel { get; set; }
+    public int BoostCooldownLevel { get { return boostCooldownLevel; } set { boostCooldownLevel = value; } }
+
     protected int boostRechargeLevel = 0;
-    public int BoostRechargeLevel { get; set; }
+    public int BoostRechargeLevel { get { return boostRechargeLevel; } set { boostRechargeLevel = value; } }
+
 
     protected int repairSkillLevel = 0;
-    public int RepairSkillLevel { get; set; }
+    public int RepairSkillLevel { get { return repairSkillLevel; } set { repairSkillLevel = value; } }
+
 
     // Racer stats
 
@@ -92,22 +95,27 @@ public class Racer : MonoBehaviour
     protected float bulletTimer = .5f;
     protected float bulletTimerReset = .5f;
     protected bool canFireBullet = true;
-    protected int bulletAmmo = 99;
-    protected int bulletAmmoMax = 99;
+    protected int bulletAmmo = 20;
+    public int BulletAmmo { get { return bulletAmmo; } set { bulletAmmo = value; } }
+    protected int bulletAmmoMax = 20;
 
     public GameObject missle;
     protected float missleTimer = 1.5f;
     protected float missleTimerReset = 1.5f;
     protected bool canFireMissile = true;
-    protected int missleAmmo = 10;
-    protected int missleAmmoMax = 10;
+    protected int missleAmmo = 3;
+    public int MissleAmmo { get { return missleAmmo; } set { missleAmmo = value; } }
+
+    protected int missleAmmoMax = 3;
 
     public GameObject mine;
     protected float mineTimer = 1f;
     protected float mineTimerReset = 1f;
     protected bool canDropMine = true;
-    protected int mineAmmo = 10;
-    protected int mineAmmoMax = 10;
+    protected int mineAmmo = 5;
+    public int MineAmmo { get { return mineAmmo; } set { mineAmmo = value; } }
+
+    protected int mineAmmoMax = 5;
 
     protected bool damaged = false;
     protected float damageBlinkTimer = 0f;
@@ -157,17 +165,8 @@ public class Racer : MonoBehaviour
 
     public virtual void UpdateRacer()
     {
-        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.1f));
-        speed = speedMax;
 
-        boostMax = baseBoostSpeed + (baseBoostSpeed * (boostSpeedLevel * 0.15f));
-
-        boostTimerReset = baseBoostCooldown - (baseBoostCooldown * (boostCooldownLevel * 0.15f));
-        boostTimer = boostTimerReset;
-
-        boostRechargeTimerReset = baseBoostRecharge - (baseBoostRecharge * (boostRechargeLevel * 0.15f));
-        boostRechargeTimer = boostRechargeTimerReset;
-}
+    }
     public virtual void ResetRacer()
     {
         rb.velocity = Vector3.zero;
@@ -175,7 +174,7 @@ public class Racer : MonoBehaviour
         transform.SetPositionAndRotation(startPosition, startRotation);
         RacerState = State.idle;
         health = maxHealth;
-        boost = boostMax;
+
         moneyThisRound = 0;
         if(defeated != null) defeated.Clear();
 
@@ -273,7 +272,7 @@ public class Racer : MonoBehaviour
                 }
             }
 
-            if (!canFireBullet)
+            if (!canFireBullet && bulletAmmo > 0)
             {
                 bulletTimer += Time.deltaTime;
                 if (bulletTimer >= bulletTimerReset)
@@ -283,7 +282,7 @@ public class Racer : MonoBehaviour
                 }
             }
 
-            if (!canFireMissile)
+            if (!canFireMissile && missleAmmo > 0)
             {
                 missleTimer += Time.deltaTime;
                 if (missleTimer >= missleTimerReset)
@@ -293,7 +292,7 @@ public class Racer : MonoBehaviour
                 }
             }
 
-            if (!canDropMine)
+            if (!canDropMine && mineAmmo > 0)
             {
                 mineTimer += Time.deltaTime;
                 if (mineTimer >= mineTimerReset)

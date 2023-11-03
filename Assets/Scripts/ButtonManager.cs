@@ -57,6 +57,7 @@ public class ButtonManager : MonoBehaviour
 
     public void ShowRaceStartScreen()
     {
+        RaceManager.ResetRace();
         ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
     }
 
@@ -69,9 +70,19 @@ public class ButtonManager : MonoBehaviour
         ScreenManager.SetScreen(ScreenManager.Screen.earnings);
     }
 
-    public void GoToUpgrades()
+    public void ShowUpgradesScreen()
     {
         ScreenManager.SetScreen(ScreenManager.Screen.upgrades);
+    }
+
+    public void ShowArmouryScreen()
+    {
+        ScreenManager.SetScreen(ScreenManager.Screen.armoury);
+    }
+
+    public void ShowSchoolScreen()
+    {
+        ScreenManager.SetScreen(ScreenManager.Screen.school);
     }
 
     public void GoToCustomizePlayer()
@@ -109,7 +120,7 @@ public class ButtonManager : MonoBehaviour
     public void Restart()
     {
         RaceManager.ResetRace();
-        ScreenManager.SetScreen(ScreenManager.Screen.instructions);
+        ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
         Time.timeScale = 1;
     }
 
@@ -132,6 +143,11 @@ public class ButtonManager : MonoBehaviour
     public void ShowUpgrades()
     {
         ScreenManager.SetScreen(ScreenManager.Screen.upgrades);
+    }
+
+    public void ShowTitleScreen()
+    {
+        ScreenManager.SetScreen(ScreenManager.Screen.title);
     }
 
     public void SetSaveSlot(int slotNumber)
@@ -164,5 +180,15 @@ public class ButtonManager : MonoBehaviour
                 ScreenManager.PlayerExampleColor.color = Color.yellow;
                 break;
         }
+    }
+
+    public void NextRace()
+    {
+        if (RaceManager.PlayerPlace == 0)
+        {
+            GameLevel++;
+            ScreenManager.SetScreen(ScreenManager.Screen.cupWinner);
+        }
+        else ShowRaceStartScreen();
     }
 }

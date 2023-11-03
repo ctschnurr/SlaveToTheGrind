@@ -44,7 +44,7 @@ public class PlayerController : Racer
         maxHealth = 50;
         health = maxHealth;
 
-        totalMoney = 1000;
+        totalMoney = 0;
 
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
@@ -59,6 +59,17 @@ public class PlayerController : Racer
     public override void UpdateRacer()
     {
         base.UpdateRacer();
+
+        speedMax = baseSpeed + (baseSpeed * (engineUpgradeLevel * 0.1f));
+        speed = speedMax;
+
+        boostMax = baseBoostSpeed + (baseBoostSpeed * (boostSpeedLevel * 0.15f));
+
+        boostTimerReset = baseBoostCooldown - (baseBoostCooldown * (boostCooldownLevel * 0.15f));
+        boostTimer = boostTimerReset;
+
+        boostRechargeTimerReset = baseBoostRecharge - (baseBoostRecharge * (boostRechargeLevel * 0.15f));
+        boostRechargeTimer = boostRechargeTimerReset;
 
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;

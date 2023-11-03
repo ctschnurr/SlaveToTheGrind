@@ -266,6 +266,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void PurchaseClicked()
     {
+        player = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
         switch(currentUpgrade.category)
         {
             case Upgrade.Category.engine:

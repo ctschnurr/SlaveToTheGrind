@@ -88,6 +88,17 @@ public class EnemyController : Racer
     {
         base.UpdateRacer();
 
+        speedMax = baseSpeed + (baseSpeed * ((engineUpgradeLevel + GameLevel) * 0.1f));
+        speed = speedMax;
+
+        boostMax = baseBoostSpeed + (baseBoostSpeed * ((boostSpeedLevel + GameLevel) * 0.15f));
+
+        boostTimerReset = baseBoostCooldown - (baseBoostCooldown * ((boostCooldownLevel + GameLevel) * 0.15f));
+        boostTimer = boostTimerReset;
+
+        boostRechargeTimerReset = baseBoostRecharge - (baseBoostRecharge * ((boostRechargeLevel + GameLevel) * 0.15f));
+        boostRechargeTimer = boostRechargeTimerReset;
+
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;
 

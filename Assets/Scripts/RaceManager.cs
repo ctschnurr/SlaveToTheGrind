@@ -31,6 +31,7 @@ public class RaceManager : MonoBehaviour
     static float timerReset = 1;
 
     static float playerPlace;
+    public static float PlayerPlace { get { return playerPlace; } }
 
     // Start is called before the first frame update
     void Start()
@@ -135,6 +136,8 @@ public class RaceManager : MonoBehaviour
         }
 
         DataManager.SaveGame();
+
+        EnemyController.EnemyCounter = 0;
     }
 
     public static void UpdateRacers()
@@ -150,14 +153,19 @@ public class RaceManager : MonoBehaviour
 
     public static void ResetRace()
     {
+        UpdateRacers();
+
         state = State.prep;
         finishers = new List<Racer>();
         ranking = new List<GameObject>(racers);
+        playerPlace = -1;
         foreach(GameObject racerGO in racers)
         {
             Racer racer = racerGO.GetComponent<Racer>();
             racer.ResetRacer();
         }
+
+
     }
 
     public static void StartRace()
@@ -249,6 +257,11 @@ public class RaceManager : MonoBehaviour
             bool finishedCheck = finishers.Contains(checkRacer);
 
             if (!finishedCheck) finishers.Add(checkRacer);
+        }
+
+        foreach(Racer racer in finishers)
+        {
+            if (racer.GetRacerType() == Racer.RacerType.player) playerPlace = finishers.IndexOf(racer);
         }
 
         state = State.done;
