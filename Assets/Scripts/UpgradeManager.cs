@@ -305,7 +305,7 @@ public class UpgradeManager : MonoBehaviour
 
         currentUpgrade.state = Upgrade.State.owned;
 
-        ScreenManager.UpdateUpgradeIcons();
+        ScreenManager.UpdateShopIcons();
         ScreenManager.UpdateUpgradeClicked(currentUpgrade);
     }
 

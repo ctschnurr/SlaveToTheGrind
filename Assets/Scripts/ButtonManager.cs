@@ -24,6 +24,8 @@ public class ButtonManager : MonoBehaviour
     }
     public void SubmitNewPlayer()
     {
+        if (GameLoaded == true) GameLoaded = false;
+
         ScreenManager.Colors.Remove(ScreenManager.PlayerExampleColor.color);
 
         DataManager.NewSave();
@@ -57,8 +59,12 @@ public class ButtonManager : MonoBehaviour
 
     public void ShowRaceStartScreen()
     {
-        RaceManager.ResetRace();
-        ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
+        if(GameLevel != 4)
+        {
+            RaceManager.ResetRace();
+            ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
+        }
+        else ScreenManager.SetScreen(ScreenManager.Screen.storyEnd);
     }
 
     public void GoToChooseSaveSlot()
@@ -72,7 +78,7 @@ public class ButtonManager : MonoBehaviour
 
     public void ShowUpgradesScreen()
     {
-        ScreenManager.SetScreen(ScreenManager.Screen.upgrades);
+        ScreenManager.SetScreen(ScreenManager.Screen.shop);
     }
 
     public void ShowArmouryScreen()
@@ -97,7 +103,7 @@ public class ButtonManager : MonoBehaviour
 
     public void CustomizePlayerName()
     {
-        ScreenManager.PlayerExampleName.text = ScreenManager.PlayerNameInput.text;
+        if (ScreenManager.PlayerNameInput.text != "" && ScreenManager.PlayerNameInput.text != " ") ScreenManager.PlayerExampleName.text = ScreenManager.PlayerNameInput.text;
     }
 
     public void SwitchToGameplay()
@@ -140,9 +146,20 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
+    public void ToggleFullscreen()
+    {
+        Screen.fullScreen = !Screen.fullScreen;
+    }
+
+    public void ShowOptions()
+    {
+        ScreenManager.SetScreen(ScreenManager.Screen.options);
+
+    }
+
     public void ShowUpgrades()
     {
-        ScreenManager.SetScreen(ScreenManager.Screen.upgrades);
+        ScreenManager.SetScreen(ScreenManager.Screen.shop);
     }
 
     public void ShowTitleScreen()

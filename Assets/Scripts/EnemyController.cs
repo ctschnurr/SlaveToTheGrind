@@ -49,10 +49,10 @@ public class EnemyController : Racer
             carColor.color = racerColor;
 
             engineUpgradeLevel = enemyCounter + 1;
-            armourUpgradeLevel = Random.Range(0, 2);
-            boostSpeedLevel = Random.Range(0, 2);
-            boostRechargeLevel = Random.Range(0, 2);
-            boostCooldownLevel = Random.Range(0, 2);
+            armourUpgradeLevel = enemyCounter + 1;
+            boostSpeedLevel = enemyCounter + 1;
+            boostRechargeLevel = enemyCounter + 1;
+            boostCooldownLevel = enemyCounter + 1;
         }
 
         type = RacerType.enemy;
@@ -90,6 +90,8 @@ public class EnemyController : Racer
 
         speedMax = baseSpeed + (baseSpeed * ((engineUpgradeLevel + GameLevel) * 0.1f));
         speed = speedMax;
+
+        armourUpgradeLevel = enemyCounter + 1 + GameLevel;
 
         boostMax = baseBoostSpeed + (baseBoostSpeed * ((boostSpeedLevel + GameLevel) * 0.15f));
 

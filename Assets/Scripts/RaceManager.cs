@@ -129,6 +129,8 @@ public class RaceManager : MonoBehaviour
 
         ranking = new List<GameObject>(racers);
 
+        EnemyController.EnemyCounter = 0;
+
         foreach (GameObject racer in racers)
         {
             Racer temp = racer.GetComponent<Racer>();
@@ -149,6 +151,8 @@ public class RaceManager : MonoBehaviour
             Racer temp = racer.GetComponent<Racer>();
             temp.UpdateRacer();
         }
+
+        DataManager.SaveGame();
     }
 
     public static void ResetRace()

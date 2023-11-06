@@ -258,11 +258,23 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 930198095901478534, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 934604036661786611, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 934604036661786611, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1031418406813544512, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1295614104416466531, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -277,6 +289,14 @@ PrefabInstance:
     - target: {fileID: 3213914168072057477, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3254081979572305533, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3571640054257883757, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_text
+      value: Default
       objectReference: {fileID: 0}
     - target: {fileID: 4346228111345487377, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.x
