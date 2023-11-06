@@ -24116,7 +24116,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2646988175118243830}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: GoToCustomizePlayer
+        m_MethodName: QuitToTitle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
