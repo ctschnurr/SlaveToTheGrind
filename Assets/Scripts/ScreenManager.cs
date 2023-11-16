@@ -41,11 +41,7 @@ public class ScreenManager : MonoBehaviour
     }
 
     static GameObject titleScreen;
-    static GameObject shop;
-    static GameObject shopT1;
-    static GameObject shopT2;
-    static GameObject shopT3;
-    static GameObject shopT4;
+    static GameObject garageScreen;
     static GameObject armouryScreen;
     static GameObject schoolScreen;
     static GameObject storyScreen;
@@ -117,101 +113,11 @@ public class ScreenManager : MonoBehaviour
     public static GameObject ConfirmDelete { get { return confirmDelete; } }
     // ---
 
-    // Upgrade screen elements:
-    static GameObject upgradeSelect;
-
-    // T1 Shop Elements:
-    static GameObject engine1check;
-
-    static GameObject engine2lock;
-    static GameObject engine2check;
-
-    static GameObject engine3lock;
-    static GameObject engine3check;
-
-    static GameObject armour1check;
-
-    static GameObject armour2lock;
-    static GameObject armour2check;
-
-    static GameObject armour3lock;
-    static GameObject armour3check;
-
-    static GameObject boostSpeed1check;
-    static GameObject boostCooldown1check;
-    static GameObject boostRecharge1check;
-
-    // T2 Shop Elements:
-    static GameObject engine4check;
-
-    static GameObject engine5lock;
-    static GameObject engine5check;
-
-    static GameObject engine6lock;
-    static GameObject engine6check;
-
-    static GameObject armour4check;
-
-    static GameObject armour5lock;
-    static GameObject armour5check;
-
-    static GameObject armour6lock;
-    static GameObject armour6check;
-
-    static GameObject boostSpeed2check;
-    static GameObject boostCooldown2check;
-    static GameObject boostRecharge2check;
-
-    // T3 Shop Elements
-    static GameObject engine7check;
-
-    static GameObject engine8lock;
-    static GameObject engine8check;
-
-    static GameObject engine9lock;
-    static GameObject engine9check;
-
-    static GameObject armour7check;
-
-    static GameObject armour8lock;
-    static GameObject armour8check;
-
-    static GameObject armour9lock;
-    static GameObject armour9check;
-
-    static GameObject boostSpeed3check;
-    static GameObject boostCooldown3check;
-    static GameObject boostRecharge3check;
-
-    // T4 Shop Elements
-    static GameObject engine10check;
-
-    static GameObject engine11lock;
-    static GameObject engine11check;
-
-    static GameObject engine12lock;
-    static GameObject engine12check;
-
-    static GameObject armour10check;
-
-    static GameObject armour11lock;
-    static GameObject armour11check;
-
-    static GameObject armour12lock;
-    static GameObject armour12check;
-
-    static GameObject boostSpeed4check;
-    static GameObject boostCooldown4check;
-    static GameObject boostRecharge4check;
-    //
-
     static GameObject repair2lock;
     static GameObject repair3lock;
          
     static GameObject speech2lock;
     static GameObject speech3lock;
-
-    static List<GameObject> shopIconList;
 
     static TextMeshProUGUI upgradeName;
     static TextMeshProUGUI upgradeDescription;
@@ -393,123 +299,15 @@ public class ScreenManager : MonoBehaviour
 
         trophiesForSaveScreen = new() { slot1bronze, slot1silver, slot1gold, slot2bronze, slot2silver, slot2gold, slot3bronze, slot3silver, slot3gold };
 
-        // ---
+        garageScreen = GameObject.Find("ScreenManager/Garage");
 
-        // Shop Screen Elements:
-        shop = GameObject.Find("ScreenManager/Shop");
+        upgradeName = GameObject.Find("ScreenManager/Garage/DescriptionPanel/UpgradeName").GetComponent<TextMeshProUGUI>();
+        upgradeDescription = GameObject.Find("ScreenManager/Garage/DescriptionPanel/UpgradeDescription").GetComponent<TextMeshProUGUI>();
+        upgradePrice = GameObject.Find("ScreenManager/Garage/DescriptionPanel/UpgradePrice").GetComponent<TextMeshProUGUI>();
+        playerFunds = GameObject.Find("ScreenManager/Garage/DescriptionPanel/PlayerFunds").GetComponent<TextMeshProUGUI>();
+        upgradeStatus = GameObject.Find("ScreenManager/Garage/DescriptionPanel/UpgradeStatus").GetComponent<TextMeshProUGUI>();
 
-        // Shop Tier Panels
-        shopT1 = GameObject.Find("ScreenManager/Shop/T1");
-        shopT2 = GameObject.Find("ScreenManager/Shop/T2");
-        shopT3 = GameObject.Find("ScreenManager/Shop/T3");
-        shopT4 = GameObject.Find("ScreenManager/Shop/T4");
-
-        upgradeSelect = GameObject.Find("ScreenManager/Shop/Select");
-
-        // Shop T1 Elements
-        engine1check = GameObject.Find("ScreenManager/Shop/T1/EngineUpgrades/Upgrade1/Check");
-
-        engine2lock = GameObject.Find("ScreenManager/Shop/T1/EngineUpgrades/Upgrade2/Lock");
-        engine2check = GameObject.Find("ScreenManager/Shop/T1/EngineUpgrades/Upgrade2/Check");
-
-        engine3lock = GameObject.Find("ScreenManager/Shop/T1/EngineUpgrades/Upgrade3/Lock");
-        engine3check = GameObject.Find("ScreenManager/Shop/T1/EngineUpgrades/Upgrade3/Check");
-
-        armour1check = GameObject.Find("ScreenManager/Shop/T1/ArmourUpgrades/Upgrade1/Check");
-
-        armour2lock = GameObject.Find("ScreenManager/Shop/T1/ArmourUpgrades/Upgrade2/Lock");
-        armour2check = GameObject.Find("ScreenManager/Shop/T1/ArmourUpgrades/Upgrade2/Check");
-
-        armour3lock = GameObject.Find("ScreenManager/Shop/T1/ArmourUpgrades/Upgrade3/Lock");
-        armour3check = GameObject.Find("ScreenManager/Shop/T1/ArmourUpgrades/Upgrade3/Check");
-
-        boostSpeed1check = GameObject.Find("ScreenManager/Shop/T1/BoostUpgrades/Upgrade1/Check");
-        boostCooldown1check = GameObject.Find("ScreenManager/Shop/T1/BoostUpgrades/Upgrade2/Check");
-        boostRecharge1check = GameObject.Find("ScreenManager/Shop/T1/BoostUpgrades/Upgrade3/Check");
-
-        // Shop T2 Elements
-        engine4check = GameObject.Find("ScreenManager/Shop/T2/EngineUpgrades/Upgrade1/Check");
-
-        engine5lock = GameObject.Find("ScreenManager/Shop/T2/EngineUpgrades/Upgrade2/Lock");
-        engine5check = GameObject.Find("ScreenManager/Shop/T2/EngineUpgrades/Upgrade2/Check");
-
-        engine6lock = GameObject.Find("ScreenManager/Shop/T2/EngineUpgrades/Upgrade3/Lock");
-        engine6check = GameObject.Find("ScreenManager/Shop/T2/EngineUpgrades/Upgrade3/Check");
-
-        armour4check = GameObject.Find("ScreenManager/Shop/T2/ArmourUpgrades/Upgrade1/Check");
-
-        armour5lock = GameObject.Find("ScreenManager/Shop/T2/ArmourUpgrades/Upgrade2/Lock");
-        armour5check = GameObject.Find("ScreenManager/Shop/T2/ArmourUpgrades/Upgrade2/Check");
-
-        armour6lock = GameObject.Find("ScreenManager/Shop/T2/ArmourUpgrades/Upgrade3/Lock");
-        armour6check = GameObject.Find("ScreenManager/Shop/T2/ArmourUpgrades/Upgrade3/Check");
-
-        boostSpeed2check = GameObject.Find("ScreenManager/Shop/T2/BoostUpgrades/Upgrade1/Check");
-        boostCooldown2check = GameObject.Find("ScreenManager/Shop/T2/BoostUpgrades/Upgrade2/Check");
-        boostRecharge2check = GameObject.Find("ScreenManager/Shop/T2/BoostUpgrades/Upgrade3/Check");
-
-        // Shop T3 Elements
-        engine7check = GameObject.Find("ScreenManager/Shop/T3/EngineUpgrades/Upgrade1/Check");
-
-        engine8lock = GameObject.Find("ScreenManager/Shop/T3/EngineUpgrades/Upgrade2/Lock");
-        engine8check = GameObject.Find("ScreenManager/Shop/T3/EngineUpgrades/Upgrade2/Check");
-
-        engine9lock = GameObject.Find("ScreenManager/Shop/T3/EngineUpgrades/Upgrade3/Lock");
-        engine9check = GameObject.Find("ScreenManager/Shop/T3/EngineUpgrades/Upgrade3/Check");
-
-        armour7check = GameObject.Find("ScreenManager/Shop/T3/ArmourUpgrades/Upgrade1/Check");
-
-        armour8lock = GameObject.Find("ScreenManager/Shop/T3/ArmourUpgrades/Upgrade2/Lock");
-        armour8check = GameObject.Find("ScreenManager/Shop/T3/ArmourUpgrades/Upgrade2/Check");
-
-        armour9lock = GameObject.Find("ScreenManager/Shop/T3/ArmourUpgrades/Upgrade3/Lock");
-        armour9check = GameObject.Find("ScreenManager/Shop/T3/ArmourUpgrades/Upgrade3/Check");
-
-        boostSpeed3check = GameObject.Find("ScreenManager/Shop/T3/BoostUpgrades/Upgrade1/Check");
-        boostCooldown3check = GameObject.Find("ScreenManager/Shop/T3/BoostUpgrades/Upgrade2/Check");
-        boostRecharge3check = GameObject.Find("ScreenManager/Shop/T3/BoostUpgrades/Upgrade3/Check");
-
-        // Shop T4 Elements
-        engine10check = GameObject.Find("ScreenManager/Shop/T4/EngineUpgrades/Upgrade1/Check");
-
-        engine11lock = GameObject.Find("ScreenManager/Shop/T4/EngineUpgrades/Upgrade2/Lock");
-        engine11check = GameObject.Find("ScreenManager/Shop/T4/EngineUpgrades/Upgrade2/Check");
-
-        engine12lock = GameObject.Find("ScreenManager/Shop/T4/EngineUpgrades/Upgrade3/Lock");
-        engine12check = GameObject.Find("ScreenManager/Shop/T4/EngineUpgrades/Upgrade3/Check");
-
-        armour10check = GameObject.Find("ScreenManager/Shop/T4/ArmourUpgrades/Upgrade1/Check");
-
-        armour11lock = GameObject.Find("ScreenManager/Shop/T4/ArmourUpgrades/Upgrade2/Lock");
-        armour11check = GameObject.Find("ScreenManager/Shop/T4/ArmourUpgrades/Upgrade2/Check");
-
-        armour12lock = GameObject.Find("ScreenManager/Shop/T4/ArmourUpgrades/Upgrade3/Lock");
-        armour12check = GameObject.Find("ScreenManager/Shop/T4/ArmourUpgrades/Upgrade3/Check");
-
-        boostSpeed4check = GameObject.Find("ScreenManager/Shop/T4/BoostUpgrades/Upgrade1/Check");
-        boostCooldown4check = GameObject.Find("ScreenManager/Shop/T4/BoostUpgrades/Upgrade2/Check");
-        boostRecharge4check = GameObject.Find("ScreenManager/Shop/T4/BoostUpgrades/Upgrade3/Check");
-
-        shopIconList = new List<GameObject> { 
-            engine1check, engine2lock, engine2check, engine3lock, engine3check, armour1check, armour2lock, armour2check, armour3lock, armour3check, boostSpeed1check, boostCooldown1check, boostRecharge1check, 
-            engine4check, engine5lock, engine5check, engine6lock, engine6check, armour4check, armour5lock, armour5check, armour6lock, armour6check, boostSpeed2check, boostCooldown2check, boostRecharge2check,
-            engine7check, engine8lock, engine8check, engine9lock, engine9check, armour7check, armour8lock, armour8check, armour9lock, armour9check, boostSpeed3check, boostCooldown3check, boostRecharge3check,
-            engine10check, engine11lock, engine11check, engine12lock, engine12check, armour10check, armour11lock, armour11check, armour12lock, armour12check, boostSpeed4check, boostCooldown4check, boostRecharge4check };
-
-        // repair2lock
-        // repair3lock
-        // 
-        // 
-        // speech2lock
-        // speech3lock
-
-        upgradeName = GameObject.Find("ScreenManager/Shop/DescriptionPanel/UpgradeName").GetComponent<TextMeshProUGUI>();
-        upgradeDescription = GameObject.Find("ScreenManager/Shop/DescriptionPanel/UpgradeDescription").GetComponent<TextMeshProUGUI>();
-        upgradePrice = GameObject.Find("ScreenManager/Shop/DescriptionPanel/UpgradePrice").GetComponent<TextMeshProUGUI>();
-        playerFunds = GameObject.Find("ScreenManager/Shop/DescriptionPanel/PlayerFunds").GetComponent<TextMeshProUGUI>();
-        upgradeStatus = GameObject.Find("ScreenManager/Shop/DescriptionPanel/UpgradeStatus").GetComponent<TextMeshProUGUI>();
-
-        purchaseButton = GameObject.Find("ScreenManager/Shop/DescriptionPanel/PurchaseButton");
+        purchaseButton = GameObject.Find("ScreenManager/Garage/DescriptionPanel/PurchaseButton");
 
         // ---
 
@@ -566,7 +364,7 @@ public class ScreenManager : MonoBehaviour
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, customizePlayer, shop, schoolScreen, armouryScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen, storyScreen, controlsScreen, raceStartScreen, cupWinnerScreen, storyEndScreen, optionsScreen };
+        screensList = new List<GameObject> { titleScreen, customizePlayer, garageScreen, schoolScreen, armouryScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen, storyScreen, controlsScreen, raceStartScreen, cupWinnerScreen, storyEndScreen, optionsScreen };
 
         ClearScreens();
 
@@ -591,23 +389,23 @@ public class ScreenManager : MonoBehaviour
                 break;
 
             case Screen.shop:
-                if (!shop.activeSelf) shop.SetActive(true);
-                UpdateShopIcons();
-                temp = UpgradeManager.GetCurrentUpgrade();
+                if (!garageScreen.activeSelf) garageScreen.SetActive(true);
+                GarageManager.UpdateShopIcons();
+                temp = GarageManager.GetDefaultUpgrade();
                 UpdateUpgradeClicked(temp);
                 break;
 
             case Screen.armoury:
                 if (!armouryScreen.activeSelf) armouryScreen.SetActive(true);
-                UpdateShopIcons();
-                temp = UpgradeManager.GetCurrentUpgrade();
+                //UpdateShopIcons();
+                temp = GarageManager.GetDefaultUpgrade();
                 UpdateUpgradeClicked(temp);
                 break;
 
             case Screen.school:
                 if (!schoolScreen.activeSelf) schoolScreen.SetActive(true);
-                UpdateShopIcons();
-                temp = UpgradeManager.GetCurrentUpgrade();
+                //UpdateShopIcons();
+                temp = GarageManager.GetDefaultUpgrade();
                 UpdateUpgradeClicked(temp);
                 break;
 
@@ -818,279 +616,8 @@ public class ScreenManager : MonoBehaviour
         playerController.PayRacer(raceEarnings);
     }
 
-    public static void UpdateShopIcons()
-    {
-        int engineLevel = playerController.EngineUpgradeLevel;
-        int armourLevel = playerController.ArmourUpgradeLevel;
-        int boostSpeedLevel = playerController.BoostSpeedLevel;
-        int boostCooldownLevel = playerController.BoostCooldownLevel;
-        int boostRechargeLevel = playerController.BoostRechargeLevel;
-
-
-        foreach (GameObject icon in shopIconList)
-        {
-            icon.SetActive(false);
-        }
-
-        switch(GameManager.GameLevel)
-        {
-            case 0:
-                shopT1.SetActive(true);
-                shopT2.SetActive(false);
-                shopT3.SetActive(false);
-                shopT4.SetActive(false);
-                break;
-
-            case 1:
-                shopT1.SetActive(false);
-                shopT2.SetActive(true);
-                shopT3.SetActive(false);
-                shopT4.SetActive(false);
-                break;
-
-            case 2:
-                shopT1.SetActive(false);
-                shopT2.SetActive(false);
-                shopT3.SetActive(true);
-                shopT4.SetActive(false);
-                break;
-
-            case 3:
-                shopT1.SetActive(false);
-                shopT2.SetActive(false);
-                shopT3.SetActive(false);
-                shopT4.SetActive(true);
-                break;
-        }
-
-        switch(engineLevel)
-        {
-            case 0:
-                //engine 1 available
-                engine2lock.SetActive(true);
-                engine3lock.SetActive(true);
-                break;
-            case 1:
-                engine1check.SetActive(true);
-                //engine 2 available
-                engine3lock.SetActive(true);
-                break;
-            case 2:
-                engine1check.SetActive(true);
-                engine2check.SetActive(true);
-                //engine 3 available
-                break;
-            case 3:
-                engine1check.SetActive(true);
-                engine2check.SetActive(true);
-                engine3check.SetActive(true);
-                // engine 4 available
-                engine5lock.SetActive(true);
-                engine6lock.SetActive(true);
-                break;
-            case 4:
-                engine4check.SetActive(true);
-                //engine 5 available
-                engine6lock.SetActive(true);
-                break;
-            case 5:
-                engine4check.SetActive(true);
-                engine5check.SetActive(true);
-                //engine 6 available
-                break;
-            case 6:
-                engine4check.SetActive(true);
-                engine5check.SetActive(true);
-                engine6check.SetActive(true);
-                // engine 7 available
-                engine8lock.SetActive(true);
-                engine9lock.SetActive(true);
-                break;
-            case 7:
-                engine7check.SetActive(true);
-                //engine 8 available
-                engine9lock.SetActive(true);
-                break;
-            case 8:
-                engine7check.SetActive(true);
-                engine8check.SetActive(true);
-                //engine 9 available
-                break;
-            case 9:
-                engine7check.SetActive(true);
-                engine8check.SetActive(true);
-                engine9check.SetActive(true);
-                //engine 10 available
-                engine11lock.SetActive(true);
-                engine12lock.SetActive(true);
-                break;
-            case 10:
-                engine10check.SetActive(true);
-                //engine 11 available
-                engine12lock.SetActive(true);
-                break;
-            case 11:
-                engine10check.SetActive(true);
-                engine11check.SetActive(true);
-                //engine 12 available
-                break;
-            case 12:
-                engine10check.SetActive(true);
-                engine11check.SetActive(true);
-                engine12check.SetActive(true);
-                break;
-
-        }
-
-        switch (armourLevel)
-        {
-            case 0:
-                //armour 1 available
-                armour2lock.SetActive(true);
-                armour3lock.SetActive(true);
-                break;
-            case 1:
-                armour1check.SetActive(true);
-                //armour 2 available
-                armour3lock.SetActive(true);
-                break;
-            case 2:
-                armour1check.SetActive(true);
-                armour2check.SetActive(true);
-                //armour 3 available
-                break;
-            case 3:
-                armour1check.SetActive(true);
-                armour2check.SetActive(true);
-                armour3check.SetActive(true);
-                // armour 4 available
-                armour5lock.SetActive(true);
-                armour6lock.SetActive(true);
-                break;
-            case 4:
-                armour4check.SetActive(true);
-                //armour 5 available
-                armour6lock.SetActive(true);
-                break;
-            case 5:
-                armour4check.SetActive(true);
-                armour5check.SetActive(true);
-                //armour 6 available
-                break;
-            case 6:
-                armour4check.SetActive(true);
-                armour5check.SetActive(true);
-                armour6check.SetActive(true);
-                // armour 7 available
-                armour8lock.SetActive(true);
-                armour9lock.SetActive(true);
-                break;
-            case 7:
-                armour7check.SetActive(true);
-                //armour 8 available
-                armour9lock.SetActive(true);
-                break;
-            case 8:
-                armour7check.SetActive(true);
-                armour8check.SetActive(true);
-                //armour 9 available
-                break;
-            case 9:
-                armour7check.SetActive(true);
-                armour8check.SetActive(true);
-                armour9check.SetActive(true);
-                //armour 10 available
-                armour11lock.SetActive(true);
-                armour12lock.SetActive(true);
-                break;
-            case 10:
-                armour10check.SetActive(true);
-                //armour 11 available
-                armour12lock.SetActive(true);
-                break;
-            case 11:
-                armour10check.SetActive(true);
-                armour11check.SetActive(true);
-                //armour 12 available
-                break;
-            case 12:
-                armour10check.SetActive(true);
-                armour11check.SetActive(true);
-                armour12check.SetActive(true);
-                break;
-        }
-
-        switch (boostSpeedLevel)
-        {
-            case 1:
-                boostSpeed1check.SetActive(true);
-                break;
-            case 2:
-                boostSpeed1check.SetActive(true);
-                boostSpeed2check.SetActive(true);
-                break;
-            case 3:
-                boostSpeed1check.SetActive(true);
-                boostSpeed2check.SetActive(true);
-                boostSpeed3check.SetActive(true);
-                break;
-            case 4:
-                boostSpeed1check.SetActive(true);
-                boostSpeed2check.SetActive(true);
-                boostSpeed3check.SetActive(true);
-                boostSpeed4check.SetActive(true);
-                break;
-        }
-
-        switch (boostCooldownLevel)
-        {
-            case 1:
-                boostCooldown1check.SetActive(true);
-                break;
-            case 2:
-                boostCooldown1check.SetActive(true);
-                boostCooldown2check.SetActive(true);
-                break;
-            case 3:
-                boostCooldown1check.SetActive(true);
-                boostCooldown2check.SetActive(true);
-                boostCooldown3check.SetActive(true);
-                break;
-            case 4:
-                boostCooldown1check.SetActive(true);
-                boostCooldown2check.SetActive(true);
-                boostCooldown3check.SetActive(true);
-                boostCooldown4check.SetActive(true);
-                break;
-        }
-
-        switch (boostRechargeLevel)
-        {
-            case 1:
-                boostRecharge1check.SetActive(true);
-                break;
-            case 2:
-                boostRecharge1check.SetActive(true);
-                boostRecharge2check.SetActive(true);
-                break;
-            case 3:
-                boostCooldown1check.SetActive(true);
-                boostRecharge2check.SetActive(true);
-                boostRecharge3check.SetActive(true);
-                break;
-            case 4:
-                boostCooldown1check.SetActive(true);
-                boostRecharge2check.SetActive(true);
-                boostRecharge3check.SetActive(true);
-                boostRecharge4check.SetActive(true);
-                break;
-        }
-    }
-
     public static void UpdateUpgradeClicked(Upgrade input)
     {
-        UpdateSelectedIcon(input);
-
         upgradeName.text = input.name;
         upgradeDescription.text = input.description;
         upgradePrice.text = "Upgrade Price: $" + input.price.ToString();
@@ -1128,38 +655,6 @@ public class ScreenManager : MonoBehaviour
                 if (purchaseButton.activeSelf) purchaseButton.SetActive(false);
                 if (!upgradeStatus.gameObject.activeSelf) upgradeStatus.gameObject.SetActive(true);
                 upgradeStatus.text = "Locked";
-                break;
-        }
-    }
-
-    static void UpdateSelectedIcon(Upgrade input)
-    {
-        if (!upgradeSelect.activeSelf) upgradeSelect.SetActive(true);
-
-        switch(input.category)
-        {
-            case Upgrade.Category.engine:
-                if (input.upgradeNumber == 1 || input.upgradeNumber == 4 || input.upgradeNumber == 7 || input.upgradeNumber == 10) upgradeSelect.transform.position = engine1check.transform.position;
-                if (input.upgradeNumber == 2 || input.upgradeNumber == 5 || input.upgradeNumber == 8 || input.upgradeNumber == 11) upgradeSelect.transform.position = engine2check.transform.position;
-                if (input.upgradeNumber == 3 || input.upgradeNumber == 6 || input.upgradeNumber == 9 || input.upgradeNumber == 12) upgradeSelect.transform.position = engine3check.transform.position;
-                break;
-
-            case Upgrade.Category.armour:
-                if (input.upgradeNumber == 1 || input.upgradeNumber == 4 || input.upgradeNumber == 7 || input.upgradeNumber == 10) upgradeSelect.transform.position = armour1check.transform.position;
-                if (input.upgradeNumber == 2 || input.upgradeNumber == 5 || input.upgradeNumber == 8 || input.upgradeNumber == 11) upgradeSelect.transform.position = armour2lock.transform.position;
-                if (input.upgradeNumber == 3 || input.upgradeNumber == 6 || input.upgradeNumber == 9 || input.upgradeNumber == 12) upgradeSelect.transform.position = armour3lock.transform.position;
-                break;
-
-            case Upgrade.Category.boostSpeed:
-                upgradeSelect.transform.position = boostSpeed1check.transform.position;
-                break;
-
-            case Upgrade.Category.boostCooldown:
-                upgradeSelect.transform.position = boostCooldown1check.transform.position;
-                break;
-
-            case Upgrade.Category.boostRecharge:
-                upgradeSelect.transform.position = boostRecharge1check.transform.position;
                 break;
         }
     }

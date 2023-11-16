@@ -172,6 +172,13 @@ public class RacerData
     public int boostRechargeLevel;
     public int repairSkill;
     public int speechSkill;
+    public int bulletClipLevel;
+    public int missleClipLevel;
+    public int mineClipLevel;
+    public int bulletCooldownLevel;
+    public int missleCooldownLevel;
+    public int mineCooldownLevel;
+    //ADD AMMO
 }
 
 [Serializable]

@@ -53,6 +53,23 @@ public class Racer : MonoBehaviour
     protected int repairSkillLevel = 0;
     public int RepairSkillLevel { get { return repairSkillLevel; } set { repairSkillLevel = value; } }
 
+    protected int bulletClipLevel = 0;
+    public int BulletClipLevel { get { return bulletClipLevel; } set { bulletClipLevel = value; } }
+
+    protected int bulletCooldownLevel = 0;
+    public int BulletCooldownLevel { get { return bulletCooldownLevel; } set { bulletCooldownLevel = value; } }
+
+    protected int missleClipLevel = 0;
+    public int MissleClipLevel { get { return missleClipLevel; } set { missleClipLevel = value; } }
+
+    protected int missleCooldownLevel = 0;
+    public int MissleCooldownLevel { get { return missleCooldownLevel; } set { missleCooldownLevel = value; } }
+
+    protected int mineClipLevel = 0;
+    public int MineClipLevel { get { return mineClipLevel; } set { mineClipLevel = value; } }
+
+    protected int mineCooldownLevel = 0;
+    public int MineCooldownLevel { get { return mineCooldownLevel; } set { mineCooldownLevel = value; } }
 
     // Racer stats
 
@@ -96,8 +113,10 @@ public class Racer : MonoBehaviour
     protected float bulletTimerReset = .5f;
     protected bool canFireBullet = true;
     protected int bulletAmmo = 20;
+
     public int BulletAmmo { get { return bulletAmmo; } set { bulletAmmo = value; } }
     protected int bulletAmmoMax = 20;
+    public int BulletAmmoMax { get { return bulletAmmoMax; } set { bulletAmmoMax = value; } }
 
     public GameObject missle;
     protected float missleTimer = 1.5f;
@@ -107,6 +126,7 @@ public class Racer : MonoBehaviour
     public int MissleAmmo { get { return missleAmmo; } set { missleAmmo = value; } }
 
     protected int missleAmmoMax = 3;
+    public int MissleAmmoMax { get { return missleAmmoMax; } set { missleAmmoMax = value; } }
 
     public GameObject mine;
     protected float mineTimer = 1f;
@@ -116,6 +136,7 @@ public class Racer : MonoBehaviour
     public int MineAmmo { get { return mineAmmo; } set { mineAmmo = value; } }
 
     protected int mineAmmoMax = 5;
+    public int MineAmmoMax { get { return mineAmmoMax; } set { mineAmmoMax = value; } }
 
     protected bool damaged = false;
     protected float damageBlinkTimer = 0f;

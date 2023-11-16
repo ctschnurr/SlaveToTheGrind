@@ -74,6 +74,14 @@ public class PlayerController : Racer
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;
 
+        bulletAmmoMax = bulletAmmoBase + (25 * bulletClipLevel);
+        missleAmmoMax = missleAmmoBase + (5 * missleClipLevel);
+        mineAmmoMax = mineAmmoBase + (5 * mineClipLevel);
+
+        bulletTimerReset = bulletTimerBase - (bulletTimerBase * (bulletCooldownLevel * 0.05f));
+        missleTimerReset = missleTimerBase - (missleTimerBase * (missleCooldownLevel * 0.05f));
+        mineTimerReset = mineTimerBase - (mineTimerBase * (mineCooldownLevel * 0.05f));
+
         DataManager.PlayerSave.money = totalMoney;
         DataManager.PlayerSave.gameLevel = GameManager.GameLevel;
 
@@ -82,6 +90,14 @@ public class PlayerController : Racer
         DataManager.PlayerSave.boostSpeedLevel = boostSpeedLevel;
         DataManager.PlayerSave.boostRechargeLevel = boostRechargeLevel;
         DataManager.PlayerSave.boostCooldownLevel = boostCooldownLevel;
+
+        DataManager.PlayerSave.bulletClipLevel = bulletClipLevel;
+        DataManager.PlayerSave.missleClipLevel = missleClipLevel;
+        DataManager.PlayerSave.mineClipLevel = mineClipLevel;
+
+        DataManager.PlayerSave.bulletCooldownLevel = bulletCooldownLevel;
+        DataManager.PlayerSave.missleCooldownLevel = missleCooldownLevel;
+        DataManager.PlayerSave.mineCooldownLevel = mineCooldownLevel;
 
         DataManager.PlayerSave.repairSkill = repairSkillLevel;
         DataManager.PlayerSave.speechSkill = speechSkillLevel;

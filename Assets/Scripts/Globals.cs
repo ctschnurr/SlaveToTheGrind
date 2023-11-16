@@ -18,6 +18,14 @@ public class Globals : MonoBehaviour
     public const float bulletSpeed = baseSpeed * 2;
     public const float missleSpeed = 250;
 
+    public const int bulletAmmoBase = 20;
+    public const int missleAmmoBase = 5;
+    public const int mineAmmoBase = 5;
+
+    public const float bulletTimerBase = .5f;
+    public const float missleTimerBase = 1.5f;
+    public const float mineTimerBase = 1f;
+
     public const int firstPlaceReward = 150;
     public const int secondPlaceReward = 125;
     public const int thirdPlaceReward = 100;

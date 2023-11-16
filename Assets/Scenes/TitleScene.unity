@@ -258,6 +258,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 555063234894202414, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 555063234894202414, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostCooldownUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 633546986567912026, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 633546986567912026, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PurchaseClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 633546986567912026, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GarageManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 930198095901478534, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -274,9 +294,49 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1132384069056906550, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 1132384069056906550, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
     - target: {fileID: 1295614104416466531, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431542731881663604, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 1431542731881663604, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 1693085538432269924, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 1693085538432269924, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875941357386181165, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 1875941357386181165, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostSpeedUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 2143228021035788370, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 2143228021035788370, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
       objectReference: {fileID: 0}
     - target: {fileID: 2183659433780471386, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.x
@@ -286,6 +346,46 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2323795016741121246, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 2323795016741121246, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 2486061109068948410, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 2486061109068948410, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 2502995254262828250, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 2502995254262828250, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostSpeedUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 2685294255334521940, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 2685294255334521940, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 2831820042169513389, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 2831820042169513389, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
+      objectReference: {fileID: 0}
     - target: {fileID: 3213914168072057477, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -293,6 +393,30 @@ PrefabInstance:
     - target: {fileID: 3254081979572305533, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3451791276331809469, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 3451791276331809469, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 3457820685444596140, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 3457820685444596140, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555748471072333283, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 3555748471072333283, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
       objectReference: {fileID: 0}
     - target: {fileID: 3571640054257883757, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_text
@@ -305,6 +429,70 @@ PrefabInstance:
     - target: {fileID: 4346228111345487377, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4480162133861419805, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 4480162133861419805, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 4870465999589167028, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 4870465999589167028, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 5046132665517702425, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 5046132665517702425, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 5156596265517906254, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 5156596265517906254, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostCooldownUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 5385259480790681436, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 5385259480790681436, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostRechargeUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 5450606389493896808, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 5450606389493896808, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 5563366937148840781, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 5563366937148840781, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostCooldownUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 5636807802450810655, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 5636807802450810655, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostCooldownUpgradeClicked
       objectReference: {fileID: 0}
     - target: {fileID: 5815655481476619416, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_LocalPosition.x
@@ -354,6 +542,94 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5934455829492480861, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 5934455829492480861, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966934004796968807, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 5966934004796968807, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6066534299374032021, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 6066534299374032021, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6230048161005300640, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 6230048161005300640, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6405673442600229353, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 6405673442600229353, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601776463110473029, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 6601776463110473029, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostSpeedUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733269921558955264, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 6733269921558955264, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostRechargeUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6735020877145967006, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 6735020877145967006, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6748277485789431264, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 6748277485789431264, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6765157641071255693, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 6765157641071255693, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EngineUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 6933570722365949357, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 6933570722365949357, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostRechargeUpgradeClicked
+      objectReference: {fileID: 0}
     - target: {fileID: 7371271950537685452, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -361,6 +637,22 @@ PrefabInstance:
     - target: {fileID: 7371271950537685452, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7578427534029671043, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 7578427534029671043, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostSpeedUpgradeClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636082896733411654, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 7636082896733411654, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ArmourUpgradeClicked
       objectReference: {fileID: 0}
     - target: {fileID: 7861027786081581551, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.x
@@ -377,6 +669,14 @@ PrefabInstance:
     - target: {fileID: 7892192095976671243, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8314083830792283566, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2073950280}
+    - target: {fileID: 8314083830792283566, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BoostRechargeUpgradeClicked
       objectReference: {fileID: 0}
     - target: {fileID: 8629196243251728171, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
       propertyPath: m_AnchorMax.x
@@ -17078,6 +17378,17 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &2073950280 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1270382058419911545, guid: 8b29487a60fde3546ad712621bce8e10, type: 3}
+  m_PrefabInstance: {fileID: 450317824}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a849c228af18c4788c9cb08e406cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

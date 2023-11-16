@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager;
     public ScreenManager screenManager;
     public DataManager dataManager;
+    public GarageManager garageManager;
+
     static bool paused = false;
     public static bool Paused { get { return paused; } set { paused = value; } }
     static bool quit = false;
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
 
         gameLevel = 0;
         screenManager.SetupScreens();
+        garageManager.SetupGarage();
 
         // Application.Quit();
     }
