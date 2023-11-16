@@ -18,8 +18,6 @@ public class Globals : MonoBehaviour
     public const float bulletSpeed = baseSpeed * 2;
     public const float missleSpeed = 250;
 
-    public const int gameLevel = 1; // this will need to be in GameManager so it can be updated with level complete
-
     public const int firstPlaceReward = 150;
     public const int secondPlaceReward = 125;
     public const int thirdPlaceReward = 100;

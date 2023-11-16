@@ -187,7 +187,7 @@ public class EnemyController : Racer
                     float lookBack = Vector3.Angle(racer.transform.position - transform.position, transform.up);
                     if (lookBack > 170f && distance < 12)
                     {
-                        int fireChance = Random.Range(1, 30 - (gameLevel * 2));
+                        int fireChance = Random.Range(1, 30 - (GameLevel * 2));
                         if (fireChance == 1)
                         {
                             int choice = Random.Range(1, 3);

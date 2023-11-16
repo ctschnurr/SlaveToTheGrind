@@ -157,11 +157,6 @@ public class ButtonManager : MonoBehaviour
 
     }
 
-    public void ShowUpgrades()
-    {
-        ScreenManager.SetScreen(ScreenManager.Screen.shop);
-    }
-
     public void ShowTitleScreen()
     {
         ScreenManager.SetScreen(ScreenManager.Screen.title);
