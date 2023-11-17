@@ -122,7 +122,7 @@ public class Racer : MonoBehaviour
     protected float missleTimer = 1.5f;
     protected float missleTimerReset = 1.5f;
     protected bool canFireMissile = true;
-    protected int missleAmmo = 3;
+    protected int missleAmmo = 5;
     public int MissleAmmo { get { return missleAmmo; } set { missleAmmo = value; } }
 
     protected int missleAmmoMax = 3;
@@ -487,6 +487,6 @@ public class Racer : MonoBehaviour
 
     public void PayRacer(int earnings)
     {
-        totalMoney += earnings;
+        TotalMoney += earnings;
     }
 }

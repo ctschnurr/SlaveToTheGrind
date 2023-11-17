@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.Windows;
 using static Globals;
 using static Unity.Burst.Intrinsics.X86.Avx;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ScreenManager : MonoBehaviour
 {
@@ -211,7 +212,7 @@ public class ScreenManager : MonoBehaviour
             mineCooldown.fillAmount = mineInfo[1];
             mineAmmo.text = "x " + playerController.MineAmmo;
 
-            int money = playerController.GetCurrentRaceEarnings();
+            int money = playerController.GetCurrentRaceEarnings() + playerController.GetMoney(); ;
             moneyText.text = "$" + money;
 
             rank = RaceManager.GetPlace();
@@ -413,7 +414,7 @@ public class ScreenManager : MonoBehaviour
                 if (!armouryScreen.activeSelf) armouryScreen.SetActive(true);
                 ArmouryManager.UpdateArmouryIcons();
                 temp = ArmouryManager.GetDefaultUpgrade();
-                UpdateUpgradeClicked(temp);
+                UpdateArmouryClicked(temp);
                 break;
 
             case Screen.school:
@@ -628,6 +629,9 @@ public class ScreenManager : MonoBehaviour
 
         earningsText.text = earningsReport;
         playerController.PayRacer(raceEarnings);
+
+        playerController.UpdateRacer();
+        DataManager.SaveGame();
     }
 
     public static void UpdateUpgradeClicked(Upgrade input)
@@ -689,6 +693,21 @@ public class ScreenManager : MonoBehaviour
         int mineAmmo = playerController.MineAmmo;
         int mineAmmoMax = playerController.MineAmmoMax;
 
+        switch (input.category)
+        {
+            case Upgrade.Category.bulletAmmo:
+                armouryUpgradeDescription.text += "\n\n Bullets: " + bulletAmmo + "/" + bulletAmmoMax;
+                break;
+                
+            case Upgrade.Category.missleAmmo: 
+                armouryUpgradeDescription.text += "\n\n Missles: " + missleAmmo + "/" + missleAmmoMax;
+                break;
+
+            case Upgrade.Category.mineAmmo:
+                armouryUpgradeDescription.text += "\n\n Mines: " + mineAmmo + "/" + mineAmmoMax;
+                break;
+        }
+
         switch (input.state)
         {
             case Upgrade.State.available:
@@ -707,8 +726,6 @@ public class ScreenManager : MonoBehaviour
 
                 if(input.category == Upgrade.Category.bulletAmmo && bulletAmmo >= bulletAmmoMax) 
                 {
-                    armouryUpgradeDescription.text += "\n\n Bullets: " + bulletAmmo + "/" + bulletAmmoMax;
-
                     if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
                     if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
                     armouryUpgradeStatus.text = "Bullet Ammo Full";
@@ -717,8 +734,6 @@ public class ScreenManager : MonoBehaviour
 
                 if (input.category == Upgrade.Category.missleAmmo && missleAmmo >= missleAmmoMax)
                 {
-                    armouryUpgradeDescription.text += "\n\n Missles: " + missleAmmo + "/" + missleAmmoMax;
-
                     if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
                     if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
                     armouryUpgradeStatus.text = "Missle Ammo Full";
@@ -727,8 +742,6 @@ public class ScreenManager : MonoBehaviour
 
                 if (input.category == Upgrade.Category.mineAmmo && mineAmmo >= mineAmmoMax)
                 {
-                    armouryUpgradeDescription.text += "\n\n Mines: " + mineAmmo + "/" + mineAmmoMax;
-
                     if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
                     if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
                     armouryUpgradeStatus.text = "Mine Ammo Full";

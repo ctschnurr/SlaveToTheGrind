@@ -169,7 +169,8 @@ public class RaceManager : MonoBehaviour
             racer.ResetRacer();
         }
 
-
+        player1.GetComponent<Racer>().UpdateRacer();
+        DataManager.SaveGame();
     }
 
     public static void StartRace()

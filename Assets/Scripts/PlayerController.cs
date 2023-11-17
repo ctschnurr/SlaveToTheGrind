@@ -35,6 +35,8 @@ public class PlayerController : Racer
         string[] rgba = DataManager.PlayerSave.racerColor.Split(',');
         carColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
 
+        if (GameManager.GameLoaded) TotalMoney = DataManager.PlayerSave.money;
+
         spriteName.text = racerName;
 
         pCam = transform.Find("playerCam").GetComponent<CinemachineVirtualCamera>();
@@ -43,8 +45,6 @@ public class PlayerController : Racer
 
         maxHealth = 50;
         health = maxHealth;
-
-        totalMoney = 0;
 
         healthBar.maxValue = maxHealth;
         healthBar.value = maxHealth;
@@ -74,7 +74,7 @@ public class PlayerController : Racer
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;
 
-        bulletAmmoMax = bulletAmmoBase + (25 * bulletClipLevel);
+        bulletAmmoMax = bulletAmmoBase + (20 * bulletClipLevel);
         missleAmmoMax = missleAmmoBase + (5 * missleClipLevel);
         mineAmmoMax = mineAmmoBase + (5 * mineClipLevel);
 
@@ -82,7 +82,7 @@ public class PlayerController : Racer
         missleTimerReset = missleTimerBase - (missleTimerBase * (missleCooldownLevel * 0.05f));
         mineTimerReset = mineTimerBase - (mineTimerBase * (mineCooldownLevel * 0.05f));
 
-        DataManager.PlayerSave.money = totalMoney;
+        DataManager.PlayerSave.money = TotalMoney;
         DataManager.PlayerSave.gameLevel = GameManager.GameLevel;
 
         DataManager.PlayerSave.engineUpgradeLevel = engineUpgradeLevel;
