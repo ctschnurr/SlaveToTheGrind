@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public ScreenManager screenManager;
     public DataManager dataManager;
     public GarageManager garageManager;
+    public ArmouryManager armouryManager;
 
     static bool paused = false;
     public static bool Paused { get { return paused; } set { paused = value; } }
@@ -46,8 +47,9 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         gameLevel = 0;
-        screenManager.SetupScreens();
         garageManager.SetupGarage();
+        armouryManager.SetupArmoury();
+        screenManager.SetupScreens();
 
         // Application.Quit();
     }

@@ -159,7 +159,7 @@ public class GarageManager : MonoBehaviour
 
     static PlayerController playerController;
 
-    void Start()
+    void StartElements()
     {
         garageT1 = GameObject.Find("Garage/T1");
         garageT2 = GameObject.Find("Garage/T2");
@@ -262,6 +262,8 @@ public class GarageManager : MonoBehaviour
     }
     public void SetupGarage()
     {
+        StartElements();
+
         engine1 = new Upgrade
         {
             upgradeNumber = 1,
@@ -1145,7 +1147,7 @@ public class Upgrade
         equipped,
         owned,
         available,
-        locked
+        locked,
     }
 
     public enum Category

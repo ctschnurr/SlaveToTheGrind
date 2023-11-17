@@ -126,6 +126,13 @@ public class ScreenManager : MonoBehaviour
     static TextMeshProUGUI upgradeStatus;
     static GameObject purchaseButton;
 
+    static TextMeshProUGUI armouryUpgradeName;
+    static TextMeshProUGUI armouryUpgradeDescription;
+    static TextMeshProUGUI armouryUpgradePrice;
+    static TextMeshProUGUI armouryPlayerFunds;
+    static TextMeshProUGUI armouryUpgradeStatus;
+    static GameObject armouryPurchaseButton;
+
     //
 
     static Screen lastScreen = Screen.title;
@@ -309,6 +316,13 @@ public class ScreenManager : MonoBehaviour
 
         purchaseButton = GameObject.Find("ScreenManager/Garage/DescriptionPanel/PurchaseButton");
 
+        armouryUpgradeName = GameObject.Find("ScreenManager/Armoury/DescriptionPanel/UpgradeName").GetComponent<TextMeshProUGUI>();
+        armouryUpgradeDescription = GameObject.Find("ScreenManager/Armoury/DescriptionPanel/UpgradeDescription").GetComponent<TextMeshProUGUI>();
+        armouryUpgradePrice = GameObject.Find("ScreenManager/Armoury/DescriptionPanel/UpgradePrice").GetComponent<TextMeshProUGUI>();
+        armouryPlayerFunds = GameObject.Find("ScreenManager/Armoury/DescriptionPanel/PlayerFunds").GetComponent<TextMeshProUGUI>();
+        armouryUpgradeStatus = GameObject.Find("ScreenManager/Armoury/DescriptionPanel/UpgradeStatus").GetComponent<TextMeshProUGUI>();
+        armouryPurchaseButton = GameObject.Find("ScreenManager/Armoury/DescriptionPanel/PurchaseButton");
+
         // ---
 
         // Customize Player Objects
@@ -397,8 +411,8 @@ public class ScreenManager : MonoBehaviour
 
             case Screen.armoury:
                 if (!armouryScreen.activeSelf) armouryScreen.SetActive(true);
-                //UpdateShopIcons();
-                temp = GarageManager.GetDefaultUpgrade();
+                ArmouryManager.UpdateArmouryIcons();
+                temp = ArmouryManager.GetDefaultUpgrade();
                 UpdateUpgradeClicked(temp);
                 break;
 
@@ -659,6 +673,87 @@ public class ScreenManager : MonoBehaviour
         }
     }
 
+    public static void UpdateArmouryClicked(Upgrade input)
+    {
+        armouryUpgradeName.text = input.name;
+        armouryUpgradeDescription.text = input.description;
+        armouryUpgradePrice.text = "Upgrade Price: $" + input.price.ToString();
+        armouryPlayerFunds.text = "Your Funds: $" + playerController.GetMoney();
+
+        int bulletAmmo = playerController.BulletAmmo;
+        int bulletAmmoMax = playerController.BulletAmmoMax;
+
+        int missleAmmo = playerController.MissleAmmo;
+        int missleAmmoMax = playerController.MissleAmmoMax;
+
+        int mineAmmo = playerController.MineAmmo;
+        int mineAmmoMax = playerController.MineAmmoMax;
+
+        switch (input.state)
+        {
+            case Upgrade.State.available:
+                if (playerController.GetMoney() < input.price)
+                {
+                    if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
+                    if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
+                    armouryUpgradeStatus.text = "Insufficient Funds";
+                    break;
+                }
+                else
+                {
+                    if (!armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(true);
+                    if (armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(false);
+                }
+
+                if(input.category == Upgrade.Category.bulletAmmo && bulletAmmo >= bulletAmmoMax) 
+                {
+                    armouryUpgradeDescription.text += "\n\n Bullets: " + bulletAmmo + "/" + bulletAmmoMax;
+
+                    if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
+                    if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
+                    armouryUpgradeStatus.text = "Bullet Ammo Full";
+                    break;
+                }
+
+                if (input.category == Upgrade.Category.missleAmmo && missleAmmo >= missleAmmoMax)
+                {
+                    armouryUpgradeDescription.text += "\n\n Missles: " + missleAmmo + "/" + missleAmmoMax;
+
+                    if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
+                    if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
+                    armouryUpgradeStatus.text = "Missle Ammo Full";
+                    break;
+                }
+
+                if (input.category == Upgrade.Category.mineAmmo && mineAmmo >= mineAmmoMax)
+                {
+                    armouryUpgradeDescription.text += "\n\n Mines: " + mineAmmo + "/" + mineAmmoMax;
+
+                    if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
+                    if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
+                    armouryUpgradeStatus.text = "Mine Ammo Full";
+                    break;
+                }
+                break;
+
+            case Upgrade.State.owned:
+                if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
+                if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
+                armouryUpgradeStatus.text = "Owned";
+                break;
+
+            case Upgrade.State.equipped:
+                if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
+                if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
+                armouryUpgradeStatus.text = "Equipped";
+                break;
+            case Upgrade.State.locked:
+                if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
+                if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
+                armouryUpgradeStatus.text = "Locked";
+                break;
+        }
+    }
     public static void UpdateSaveSlots()
     {
         foreach (GameObject panel in slotPanels) if (!panel.activeSelf) panel.SetActive(true);

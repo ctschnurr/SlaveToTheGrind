@@ -105,7 +105,7 @@ public class ArmouryManager : MonoBehaviour
 
     static PlayerController playerController;
 
-    void Start()
+    void StartElements()
     {
         armouryT1 = GameObject.Find("Armoury/T1");
         armouryT2 = GameObject.Find("Armoury/T2");
@@ -120,8 +120,8 @@ public class ArmouryManager : MonoBehaviour
         missleClip1Check = GameObject.Find("ScreenManager/Armoury/T1/MissleUpgrades/Upgrade2/Check");
         missleCooldown1Check = GameObject.Find("ScreenManager/Armoury/T1/MissleUpgrades/Upgrade3/Check");
 
-        mineClip1Check = GameObject.Find("ScreenManager/Armoury/T2/MineUpgrades/Upgrade2/Check");
-        mineCooldown1Check = GameObject.Find("ScreenManager/Armoury/T2/MineUpgrades/Upgrade3/Check");
+        mineClip1Check = GameObject.Find("ScreenManager/Armoury/T1/MineUpgrades/Upgrade2/Check");
+        mineCooldown1Check = GameObject.Find("ScreenManager/Armoury/T1/MineUpgrades/Upgrade3/Check");
 
         bulletClip2Check = GameObject.Find("ScreenManager/Armoury/T2/BulletUpgrades/Upgrade2/Check");
         bulletCooldown2Check = GameObject.Find("ScreenManager/Armoury/T2/BulletUpgrades/Upgrade3/Check");
@@ -156,12 +156,13 @@ public class ArmouryManager : MonoBehaviour
             bulletClip2Check, bulletCooldown2Check, missleClip2Check, missleCooldown2Check, mineClip2Check, mineCooldown2Check,
             bulletClip3Check, bulletCooldown3Check, missleClip3Check, missleCooldown3Check, mineClip3Check, mineCooldown3Check,
             bulletClip4Check, bulletCooldown4Check, missleClip4Check, missleCooldown4Check, mineClip4Check, mineCooldown4Check
-
         };
     }
 
     public void SetupArmoury()
     {
+        StartElements();
+
         bulletAmmo = new Upgrade
         {
             upgradeNumber = 1,
@@ -435,8 +436,10 @@ public class ArmouryManager : MonoBehaviour
 
     public void BulletAmmoClicked()
     {
-        ScreenManager.UpdateUpgradeClicked(bulletAmmo);
+        ScreenManager.UpdateArmouryClicked(bulletAmmo);
         currentUpgrade = bulletAmmo;
+
+        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void BulletClipUpgradeClicked(int levelButton)
@@ -445,22 +448,24 @@ public class ArmouryManager : MonoBehaviour
         switch (levelButton)
         {
             case 1:
-                ScreenManager.UpdateUpgradeClicked(bulletClip1);
+                ScreenManager.UpdateArmouryClicked(bulletClip1);
                 currentUpgrade = bulletClip1;
                 break;
             case 2:
-                ScreenManager.UpdateUpgradeClicked(bulletClip2);
+                ScreenManager.UpdateArmouryClicked(bulletClip2);
                 currentUpgrade = bulletClip2;
                 break;
             case 3:
-                ScreenManager.UpdateUpgradeClicked(bulletClip3);
+                ScreenManager.UpdateArmouryClicked(bulletClip3);
                 currentUpgrade = bulletClip3;
                 break;
             case 4:
-                ScreenManager.UpdateUpgradeClicked(bulletClip4);
+                ScreenManager.UpdateArmouryClicked(bulletClip4);
                 currentUpgrade = bulletClip4;
                 break;
         }
+
+        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void BulletCooldownUpgradeClicked(int levelButton)
@@ -469,28 +474,32 @@ public class ArmouryManager : MonoBehaviour
         switch (levelButton)
         {
             case 1:
-                ScreenManager.UpdateUpgradeClicked(bulletCooldown1);
+                ScreenManager.UpdateArmouryClicked(bulletCooldown1);
                 currentUpgrade = bulletCooldown1;
                 break;
             case 2:
-                ScreenManager.UpdateUpgradeClicked(bulletCooldown2);
+                ScreenManager.UpdateArmouryClicked(bulletCooldown2);
                 currentUpgrade = bulletCooldown2;
                 break;
             case 3:
-                ScreenManager.UpdateUpgradeClicked(bulletCooldown3);
+                ScreenManager.UpdateArmouryClicked(bulletCooldown3);
                 currentUpgrade = bulletCooldown3;
                 break;
             case 4:
-                ScreenManager.UpdateUpgradeClicked(bulletCooldown4);
+                ScreenManager.UpdateArmouryClicked(bulletCooldown4);
                 currentUpgrade = bulletCooldown4;
                 break;
         }
+
+        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void MissleAmmoClicked()
     {
-        ScreenManager.UpdateUpgradeClicked(missleAmmo);
+        ScreenManager.UpdateArmouryClicked(missleAmmo);
         currentUpgrade = missleAmmo;
+
+        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void MissleClipUpgradeClicked(int levelButton)
@@ -499,22 +508,24 @@ public class ArmouryManager : MonoBehaviour
         switch (levelButton)
         {
             case 1:
-                ScreenManager.UpdateUpgradeClicked(missleClip1);
+                ScreenManager.UpdateArmouryClicked(missleClip1);
                 currentUpgrade = missleClip1;
                 break;
             case 2:
-                ScreenManager.UpdateUpgradeClicked(missleClip2);
+                ScreenManager.UpdateArmouryClicked(missleClip2);
                 currentUpgrade = missleClip2;
                 break;
             case 3:
-                ScreenManager.UpdateUpgradeClicked(missleClip3);
+                ScreenManager.UpdateArmouryClicked(missleClip3);
                 currentUpgrade = missleClip3;
                 break;
             case 4:
-                ScreenManager.UpdateUpgradeClicked(missleClip4);
+                ScreenManager.UpdateArmouryClicked(missleClip4);
                 currentUpgrade = missleClip4;
                 break;
         }
+
+        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void MissleCooldownUpgradeClicked(int levelButton)
@@ -523,27 +534,31 @@ public class ArmouryManager : MonoBehaviour
         switch (levelButton)
         {
             case 1:
-                ScreenManager.UpdateUpgradeClicked(missleCooldown1);
+                ScreenManager.UpdateArmouryClicked(missleCooldown1);
                 currentUpgrade = missleCooldown1;
                 break;
             case 2:
-                ScreenManager.UpdateUpgradeClicked(missleCooldown2);
+                ScreenManager.UpdateArmouryClicked(missleCooldown2);
                 currentUpgrade = missleCooldown2;
                 break;
             case 3:
-                ScreenManager.UpdateUpgradeClicked(missleCooldown3);
+                ScreenManager.UpdateArmouryClicked(missleCooldown3);
                 currentUpgrade = missleCooldown3;
                 break;
             case 4:
-                ScreenManager.UpdateUpgradeClicked(missleCooldown4);
+                ScreenManager.UpdateArmouryClicked(missleCooldown4);
                 currentUpgrade = missleCooldown4;
                 break;
         }
+
+        UpdateSelectedIcon(currentUpgrade);
     }
     public void MineAmmoClicked()
     {
-        ScreenManager.UpdateUpgradeClicked(mineAmmo);
+        ScreenManager.UpdateArmouryClicked(mineAmmo);
         currentUpgrade = mineAmmo;
+
+        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void MineClipUpgradeClicked(int levelButton)
@@ -552,22 +567,24 @@ public class ArmouryManager : MonoBehaviour
         switch (levelButton)
         {
             case 1:
-                ScreenManager.UpdateUpgradeClicked(mineClip1);
+                ScreenManager.UpdateArmouryClicked(mineClip1);
                 currentUpgrade = mineClip1;
                 break;
             case 2:
-                ScreenManager.UpdateUpgradeClicked(mineClip2);
+                ScreenManager.UpdateArmouryClicked(mineClip2);
                 currentUpgrade = mineClip2;
                 break;
             case 3:
-                ScreenManager.UpdateUpgradeClicked(mineClip3);
+                ScreenManager.UpdateArmouryClicked(mineClip3);
                 currentUpgrade = mineClip3;
                 break;
             case 4:
-                ScreenManager.UpdateUpgradeClicked(mineClip4);
+                ScreenManager.UpdateArmouryClicked(mineClip4);
                 currentUpgrade = mineClip4;
                 break;
         }
+
+        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void MineCooldownUpgradeClicked(int levelButton)
@@ -576,38 +593,38 @@ public class ArmouryManager : MonoBehaviour
         switch (levelButton)
         {
             case 1:
-                ScreenManager.UpdateUpgradeClicked(mineCooldown1);
+                ScreenManager.UpdateArmouryClicked(mineCooldown1);
                 currentUpgrade = mineCooldown1;
                 break;
             case 2:
-                ScreenManager.UpdateUpgradeClicked(mineCooldown2);
+                ScreenManager.UpdateArmouryClicked(mineCooldown2);
                 currentUpgrade = mineCooldown2;
                 break;
             case 3:
-                ScreenManager.UpdateUpgradeClicked(mineCooldown3);
+                ScreenManager.UpdateArmouryClicked(mineCooldown3);
                 currentUpgrade = mineCooldown3;
                 break;
             case 4:
-                ScreenManager.UpdateUpgradeClicked(mineCooldown4);
+                ScreenManager.UpdateArmouryClicked(mineCooldown4);
                 currentUpgrade = mineCooldown4;
                 break;
         }
+
+        UpdateSelectedIcon(currentUpgrade);
     }
 
     public static void UpdateArmouryIcons()
     {
         if (playerController == null) playerController = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
 
-        int bulletClipLevel = 0;// playerController.EngineUpgradeLevel;
-        int bulletCooldownLevel = 0;
+        int bulletClipLevel = playerController.BulletClipLevel;
+        int bulletCooldownLevel = playerController.BulletCooldownLevel;
 
-        int missleClipLevel = 0;// playerController.EngineUpgradeLevel;
-        int missleCooldownLevel = 0;
+        int missleClipLevel = playerController.MissleClipLevel;
+        int missleCooldownLevel = playerController.MissleCooldownLevel;
 
-        int mineClipLevel = 0;// playerController.EngineUpgradeLevel;
-        int mineCooldownLevel = 0;
-
-
+        int mineClipLevel = playerController.MineClipLevel;
+        int mineCooldownLevel = playerController.MineCooldownLevel;
 
         foreach (GameObject icon in armouryIconList)
         {
@@ -744,18 +761,53 @@ public class ArmouryManager : MonoBehaviour
 
     public static Upgrade GetDefaultUpgrade()
     {
-        switch (GameManager.GameLevel)
+        return bulletAmmo;
+    }
+
+    static void UpdateSelectedIcon(Upgrade input)
+    {
+        if (!upgradeSelect.activeSelf) upgradeSelect.SetActive(true);
+
+        switch (input.category)
         {
-            case 0:
-                return bulletAmmo;
-            case 1:
-                return bulletAmmo;
-            case 2:
-                return bulletAmmo;
-            case 3:
-                return bulletAmmo;
-            default:
-                return bulletAmmo;
+            case Upgrade.Category.bulletAmmo:
+                upgradeSelect.transform.position = bulletClip1Check.transform.position;
+                upgradeSelect.transform.position = new Vector3(upgradeSelect.transform.position.x - 200, upgradeSelect.transform.position.y);
+                break;
+
+            case Upgrade.Category.bulletClip:
+                upgradeSelect.transform.position = bulletClip1Check.transform.position;
+                break;
+
+            case Upgrade.Category.bulletCooldown:
+                upgradeSelect.transform.position = bulletCooldown1Check.transform.position;
+                break;
+
+            case Upgrade.Category.missleAmmo:
+                upgradeSelect.transform.position = missleClip1Check.transform.position;
+                upgradeSelect.transform.position = new Vector3(upgradeSelect.transform.position.x - 200, upgradeSelect.transform.position.y);
+                break;
+
+            case Upgrade.Category.missleClip:
+                upgradeSelect.transform.position = missleClip1Check.transform.position;
+                break;
+
+            case Upgrade.Category.missleCooldown:
+                upgradeSelect.transform.position = missleCooldown1Check.transform.position;
+                break;
+
+            case Upgrade.Category.mineAmmo:
+                upgradeSelect.transform.position = mineClip1Check.transform.position;
+                upgradeSelect.transform.position = new Vector3(upgradeSelect.transform.position.x - 200, upgradeSelect.transform.position.y);
+                break;
+
+            case Upgrade.Category.mineClip:
+                upgradeSelect.transform.position = mineClip1Check.transform.position;
+                break;
+
+            case Upgrade.Category.mineCooldown:
+                upgradeSelect.transform.position = mineCooldown1Check.transform.position;
+                break;
         }
     }
 
@@ -808,12 +860,11 @@ public class ArmouryManager : MonoBehaviour
                 player.SpendMoney(currentUpgrade.price);
                 player.MineCooldownLevel = currentUpgrade.upgradeNumber;
                 break;
-
         }
 
-        currentUpgrade.state = Upgrade.State.owned;
+        if(currentUpgrade.category != Upgrade.Category.bulletAmmo && currentUpgrade.category != Upgrade.Category.missleAmmo && currentUpgrade.category != Upgrade.Category.mineAmmo) currentUpgrade.state = Upgrade.State.owned;
 
         GarageManager.UpdateShopIcons();
-        ScreenManager.UpdateUpgradeClicked(currentUpgrade);
+        ScreenManager.UpdateArmouryClicked(currentUpgrade);
     }
 }
