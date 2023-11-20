@@ -16,7 +16,7 @@ public class Globals : MonoBehaviour
     public const float baseBoostRecharge = 5f;
 
     public const float bulletSpeed = baseSpeed * 2;
-    public const float missleSpeed = 250;
+    public const float missleSpeed = 200;
 
     public const int bulletAmmoBase = 20;
     public const int missleAmmoBase = 5;

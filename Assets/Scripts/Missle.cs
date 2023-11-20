@@ -8,13 +8,10 @@ public class Missle : Weapon
     // Start is called before the first frame update
     public GameObject explosion;
     public float speed = missleSpeed;
-    Vector3 forward;
     void Awake()
     {
         gameObject.name = "Missle";
         rb = gameObject.GetComponent<Rigidbody2D>();
-        //forward = transform.forward;
-        //forward.y = 1;
         owner = transform.parent.GetComponent<Racer>();
         Physics2D.IgnoreCollision(transform.GetComponent<Collider2D>(), transform.parent.GetComponent<Collider2D>());
         transform.parent = null;

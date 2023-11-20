@@ -5,8 +5,7 @@ using UnityEngine;
 public class Explosion : Weapon
 {
     float expandSpeed = 80f;
-    float fadeSpeed = 5f;
-
+    ParticleSystem particles;
     Vector3 scaleChange;
     // Start is called before the first frame update
     void Awake()
@@ -15,20 +14,14 @@ public class Explosion : Weapon
         owner = null;
         if (transform.parent != null) owner = transform.parent.GetComponent<Racer>();
         transform.parent = null;
+        particles = transform.Find("Particles").GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Color tempcolor = GetComponent<SpriteRenderer>().material.color;
-        tempcolor.a = Mathf.MoveTowards(tempcolor.a, 0f, fadeSpeed * Time.deltaTime);
-        GetComponent<Renderer>().material.color = tempcolor;
-
         if (transform.localScale.x < 10) transform.localScale += scaleChange * Time.deltaTime;
-        if (transform.localScale.x > 10)
-        {
-            Destroy(gameObject);
-        }
+        if (!particles.isPlaying) Destroy(gameObject);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

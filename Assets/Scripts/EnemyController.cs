@@ -172,6 +172,7 @@ public class EnemyController : Racer
                         {
                             if (canBoost)
                             {
+                                boostFlame.Play();
                                 canBoost = false;
                                 boostActivated = true;
                                 boost = boostMax;

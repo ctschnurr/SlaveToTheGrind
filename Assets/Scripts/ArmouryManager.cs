@@ -52,6 +52,7 @@ public class ArmouryManager : MonoBehaviour
     private List<Upgrade> upgradeList;
 
     static Upgrade currentUpgrade;
+    public static Upgrade CurrentUpgrade { get { return currentUpgrade; } }
 
     static GameObject upgradeSelect;
 
@@ -181,8 +182,6 @@ public class ArmouryManager : MonoBehaviour
             bulletAmmo3Grey, bulletClip3Check, bulletCooldown3Check, missleAmmo3Grey, missleClip3Check, missleCooldown3Check, mineAmmo3Grey, mineClip3Check, mineCooldown3Check,
             bulletAmmo4Grey, bulletClip4Check, bulletCooldown4Check, missleAmmo4Grey, missleClip4Check, missleCooldown4Check, mineAmmo4Grey, mineClip4Check, mineCooldown4Check
         };
-
-        currentUpgrade = bulletAmmo;
     }
 
     public void SetupArmoury()
@@ -458,6 +457,8 @@ public class ArmouryManager : MonoBehaviour
             description = "Mine cooldown decrease.",
             price = 250
         };
+
+        currentUpgrade = bulletAmmo;
     }
 
     public void BulletAmmoClicked()

@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
         if (scene.name == "TitleScene")
         {
             state = GameState.idle;
+            gameLevel = 0;
 
             ScreenManager.SetScreen(ScreenManager.Screen.title);
         }

@@ -14,7 +14,7 @@ public class PlayerController : Racer
     GameObject car;
 
     CinemachineVirtualCamera pCam;
-    float pCamFloat = 10;
+    float pCamFloat = 12;
 
     float horizontal;
     public Transform waypoint;
@@ -127,6 +127,7 @@ public class PlayerController : Racer
                     canBoost = false;
                     boostActivated = true;
                     boost = boostMax;
+                    boostFlame.Play();
                 }
 
                 if (Input.GetKeyDown(KeyCode.Space)) Fire(Weapon_Select.bullet);
@@ -158,11 +159,10 @@ public class PlayerController : Racer
     void FixedUpdate()
     {
         RaceManager.State raceState = RaceManager.GetState();
+        pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.1f);
 
-        if(raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
+        if (raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
         {
-            pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.1f);
-
             horizontal = Input.GetAxis("Horizontal");
 
             float vertical = Input.GetAxis("Vertical");
@@ -173,12 +173,12 @@ public class PlayerController : Racer
 
                 if (horizontal > 0)
                 {
-                    if (rb.rotation > -65) rb.rotation -= turnSpeed * Time.deltaTime;
+                    if (rb.rotation > -80) rb.rotation -= turnSpeed * Time.deltaTime;
                 }
 
                 if (horizontal < 0)
                 {
-                    if (rb.rotation < 65) rb.rotation += turnSpeed * Time.deltaTime;
+                    if (rb.rotation < 80) rb.rotation += turnSpeed * Time.deltaTime;
                 }
             }
         }
@@ -188,8 +188,8 @@ public class PlayerController : Racer
     {
         float[] sendMe;
         sendMe = new float[2];
-        sendMe[0] = bulletAmmo;
-        sendMe[1] = bulletTimer / bulletTimerReset;
+        sendMe[0] = bulletTimer;
+        sendMe[1] = bulletTimerReset;
 
         return sendMe;
     }
@@ -198,8 +198,8 @@ public class PlayerController : Racer
     {
         float[] sendMe;
         sendMe = new float[2];
-        sendMe[0] = missleAmmo;
-        sendMe[1] = missleTimer / missleTimerReset;
+        sendMe[0] = missleTimer;
+        sendMe[1] = missleTimerReset;
 
         return sendMe;
     }
@@ -208,8 +208,8 @@ public class PlayerController : Racer
     {
         float[] sendMe;
         sendMe = new float[2];
-        sendMe[0] = mineAmmo;
-        sendMe[1] = mineTimer / mineTimerReset;
+        sendMe[0] = mineTimer;
+        sendMe[1] = mineTimerReset;
 
         return sendMe;
     }

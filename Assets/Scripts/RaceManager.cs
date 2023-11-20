@@ -53,22 +53,15 @@ public class RaceManager : MonoBehaviour
                 timer -= Time.deltaTime;
                 if (timer <= 0)
                 {
-                    if (countDown > 0)
+                    if (countDown >= 0)
                     {
-                        ScreenManager.CountDown(countDown.ToString());
+                        ScreenManager.CountDown(countDown);
                         timer = timerReset;
                         countDown--;
-                    }
-                    else if (countDown == 0)
-                    {
-                        ScreenManager.CountDown("GO!");
-                        timer = timerReset;
-                        countDown--;
-
                     }
                     else if (countDown == -1)
                     {
-                        ScreenManager.CountDown(" ");
+                        ScreenManager.CountDown(countDown);
                         timer = timerReset;
 
                         state = State.racing;

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.Windows;
 using static Globals;
 using static Unity.Burst.Intrinsics.X86.Avx;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class ScreenManager : MonoBehaviour
 {
@@ -162,14 +161,16 @@ public class ScreenManager : MonoBehaviour
     static GameObject HUD;
     static TextMeshProUGUI playerRanking;
     static TextMeshProUGUI moneyText;
-    static TextMeshProUGUI countDownText;
+    static Image bulletAmmo;
     static Image bulletCooldown;
+    static Image missleAmmo;
     static Image missleCooldown;
+    static Image mineAmmo;
     static Image mineCooldown;
-
-    static TextMeshProUGUI bulletAmmo;
-    static TextMeshProUGUI missleAmmo;
-    static TextMeshProUGUI mineAmmo;
+    static Image countdown3;
+    static Image countdown2;
+    static Image countdown1;
+    static Image countdownGO;
 
     static GameObject finishScreen;
     static GameObject defeatScreen;
@@ -198,22 +199,19 @@ public class ScreenManager : MonoBehaviour
     {
         if (ready && GameManager.state == GameManager.GameState.active)
         {
-            if(playerController == null) playerController = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
+            if (playerController == null) playerController = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
 
             float[] bulletInfo = playerController.GetBulletInfo();
-            bulletCooldown.fillAmount = bulletInfo[1];
-            bulletAmmo.text = "x " + playerController.BulletAmmo;
+            if (playerController.BulletAmmo > 0) bulletCooldown.fillAmount = 1 - (bulletInfo[0] / bulletInfo[1]);
+            bulletAmmo.fillAmount = (float)playerController.BulletAmmo / playerController.BulletAmmoMax;
 
             float[] missleInfo = playerController.GetMissleInfo();
-            missleCooldown.fillAmount = missleInfo[1];
-            missleAmmo.text = "x " + playerController.MissleAmmo;
+            if (playerController.MissleAmmo > 0) missleCooldown.fillAmount = 1 - (missleInfo[0] / missleInfo[1]);
+            missleAmmo.fillAmount = (float)playerController.MissleAmmo / playerController.MissleAmmoMax;
 
             float[] mineInfo = playerController.GetMineInfo();
-            mineCooldown.fillAmount = mineInfo[1];
-            mineAmmo.text = "x " + playerController.MineAmmo;
-
-            int money = playerController.GetCurrentRaceEarnings() + playerController.GetMoney(); ;
-            moneyText.text = "$" + money;
+            if (playerController.MineAmmo > 0) mineCooldown.fillAmount = 1 - (mineInfo[0] / mineInfo[1]);
+            mineAmmo.fillAmount = (float)playerController.MineAmmo / playerController.MineAmmoMax;
 
             rank = RaceManager.GetPlace();
             UpdateRank(rank);
@@ -244,13 +242,13 @@ public class ScreenManager : MonoBehaviour
         // Race Start Screen Elements
         raceStartScreen = GameObject.Find("ScreenManager/RaceStart");
 
-        startBronze = GameObject.Find("ScreenManager/RaceStart/BronzeCup");
-        startSilver = GameObject.Find("ScreenManager/RaceStart/SilverCup");
-        startGold = GameObject.Find("ScreenManager/RaceStart/GoldCup");
-        startChamp = GameObject.Find("ScreenManager/RaceStart/ChampionshipCup");
+        startBronze = GameObject.Find("ScreenManager/RaceStart/TitlePanel/BronzeCup");
+        startSilver = GameObject.Find("ScreenManager/RaceStart/TitlePanel/SilverCup");
+        startGold = GameObject.Find("ScreenManager/RaceStart/TitlePanel/GoldCup");
+        startChamp = GameObject.Find("ScreenManager/RaceStart/TitlePanel/ChampionshipCup");
 
-        startTitleText = GameObject.Find("ScreenManager/RaceStart/LevelTitle").GetComponent<TextMeshProUGUI>();
-        startDescText = GameObject.Find("ScreenManager/RaceStart/LevelDescription").GetComponent<TextMeshProUGUI>();
+        startTitleText = GameObject.Find("ScreenManager/RaceStart/TitlePanel/LevelTitle").GetComponent<TextMeshProUGUI>();
+        startDescText = GameObject.Find("ScreenManager/RaceStart/TitlePanel/LevelDescription").GetComponent<TextMeshProUGUI>();
         // ---
 
         // Cup Winner Screen Elements
@@ -346,16 +344,22 @@ public class ScreenManager : MonoBehaviour
         
         playerRanking = GameObject.Find("ScreenManager/HUD/playerRanking").GetComponent<TextMeshProUGUI>();
         moneyText = GameObject.Find("ScreenManager/HUD/money").GetComponent<TextMeshProUGUI>();
-        countDownText = GameObject.Find("ScreenManager/HUD/countDown").GetComponent<TextMeshProUGUI>();
-        countDownText.text = " ";
-        bulletCooldown = GameObject.Find("ScreenManager/HUD/BulletCooldown").GetComponent<Image>();
-        missleCooldown = GameObject.Find("ScreenManager/HUD/MissleCooldown").GetComponent<Image>();
-        mineCooldown = GameObject.Find("ScreenManager/HUD/MineCooldown").GetComponent<Image>();
+        countdown3 = GameObject.Find("ScreenManager/HUD/3").GetComponent<Image>();
+        countdown2 = GameObject.Find("ScreenManager/HUD/2").GetComponent<Image>();
+        countdown1 = GameObject.Find("ScreenManager/HUD/1").GetComponent<Image>();
+        countdownGO = GameObject.Find("ScreenManager/HUD/GO").GetComponent<Image>();
 
-        bulletAmmo = GameObject.Find("ScreenManager/HUD/BulletCooldown/BulletAmmo").GetComponent<TextMeshProUGUI>();
-        missleAmmo = GameObject.Find("ScreenManager/HUD/MissleCooldown/MissleAmmo").GetComponent<TextMeshProUGUI>();
-        mineAmmo = GameObject.Find("ScreenManager/HUD/MineCooldown/MineAmmo").GetComponent<TextMeshProUGUI>();
+        bulletAmmo = GameObject.Find("ScreenManager/HUD/BulletAmmo").GetComponent<Image>();
+        bulletCooldown =  GameObject.Find("ScreenManager/HUD/BulletAmmo/Reload").GetComponent<Image>();
+        missleAmmo = GameObject.Find("ScreenManager/HUD/MissleAmmo").GetComponent<Image>();
+        missleCooldown = GameObject.Find("ScreenManager/HUD/MissleAmmo/Reload").GetComponent<Image>();
+        mineAmmo = GameObject.Find("ScreenManager/HUD/MineAmmo").GetComponent<Image>();
+        mineCooldown = GameObject.Find("ScreenManager/HUD/MineAmmo/Reload").GetComponent<Image>();
 
+        countdown3.gameObject.SetActive(false);
+        countdown2.gameObject.SetActive(false);
+        countdown1.gameObject.SetActive(false);
+        countdownGO.gameObject.SetActive(false);
         // ---
 
 
@@ -379,7 +383,7 @@ public class ScreenManager : MonoBehaviour
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, customizePlayer, garageScreen, schoolScreen, armouryScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen, storyScreen, controlsScreen, raceStartScreen, cupWinnerScreen, storyEndScreen, optionsScreen };
+        screensList = new List<GameObject> { titleScreen, customizePlayer, garageScreen, schoolScreen, armouryScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen, storyScreen, controlsScreen, raceStartScreen, cupWinnerScreen, storyEndScreen, optionsScreen,  };
 
         ClearScreens();
 
@@ -497,9 +501,28 @@ public class ScreenManager : MonoBehaviour
         foreach (GameObject screen in screensList) { if(screen.activeSelf) screen.SetActive(false); }
     }
 
-    public static void CountDown(string countDown)
+    public static void CountDown(int countDown)
     {
-        countDownText.text = countDown;
+        countdown3.gameObject.SetActive(false);
+        countdown2.gameObject.SetActive(false);
+        countdown1.gameObject.SetActive(false);
+        countdownGO.gameObject.SetActive(false);
+
+        switch (countDown)
+        {
+            case 3:
+                countdown3.gameObject.SetActive(true);
+                break;
+            case 2:
+                countdown2.gameObject.SetActive(true);
+                break;
+            case 1:
+                countdown1.gameObject.SetActive(true);
+                break;
+            case 0:
+                countdownGO.gameObject.SetActive(true);
+                break;
+        }
     }
 
     void UpdateRank(int input)
@@ -917,7 +940,7 @@ public class ScreenManager : MonoBehaviour
                 if (startGold.activeSelf) startGold.SetActive(false);
                 if (startChamp.activeSelf) startChamp.SetActive(false);
 
-                startTitleText.text = "BRONZE CUP\n(Level 1)";
+                startTitleText.text = "BRONZE CUP - Level 1";
                 startDescText.text = "Win 1st place to move up to the Silver Cup!";
                 break;
 
@@ -927,7 +950,7 @@ public class ScreenManager : MonoBehaviour
                 if (startGold.activeSelf) startGold.SetActive(false);
                 if (startChamp.activeSelf) startChamp.SetActive(false);
 
-                startTitleText.text = "SILVER CUP\n(Level 2)";
+                startTitleText.text = "SILVER CUP - Level 2";
                 startDescText.text = "Win 1st place to move up to the Gold Cup!";
                 break;
 
@@ -937,7 +960,7 @@ public class ScreenManager : MonoBehaviour
                 if (!startGold.activeSelf) startGold.SetActive(true);
                 if (startChamp.activeSelf) startChamp.SetActive(false);
 
-                startTitleText.text = "GOLD CUP\n(Level 3)";
+                startTitleText.text = "GOLD CUP - Level 3";
                 startDescText.text = "Win 1st place to move up to the Championship Cup!";
                 break;
 
@@ -947,7 +970,7 @@ public class ScreenManager : MonoBehaviour
                 if (startGold.activeSelf) startGold.SetActive(false);
                 if (!startChamp.activeSelf) startChamp.SetActive(true);
 
-                startTitleText.text = "CHAMPIONSHIP CUP\n(Final Level)";
+                startTitleText.text = "CHAMPIONSHIP CUP - Final Level";
                 startDescText.text = "Win 1st place to claim the grand prize!";
 
                 break;

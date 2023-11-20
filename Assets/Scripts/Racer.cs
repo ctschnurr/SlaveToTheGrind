@@ -92,6 +92,9 @@ public class Racer : MonoBehaviour
     protected TextMeshProUGUI spriteName;
     protected Slider healthBar;
     protected Slider boostBar;
+    protected ParticleSystem dirtSpray;
+    protected ParticleSystem boostFlame;
+    protected ParticleSystem wreckedSmoke;
 
     static protected List<Racer> defeated = new();
     protected int moneyThisRound;
@@ -172,6 +175,9 @@ public class Racer : MonoBehaviour
         healthBar = transform.Find("Canvas/HealthBar").GetComponent<Slider>();
         boostBar = transform.Find("Canvas/BoostBar").GetComponent<Slider>();
         carColor = transform.Find("RacerSprite/carPaint").GetComponent<SpriteRenderer>();
+        dirtSpray = transform.Find("Dirt").GetComponent<ParticleSystem>();
+        boostFlame = transform.Find("Boost").GetComponent<ParticleSystem>();
+        wreckedSmoke = transform.Find("Smoke").GetComponent<ParticleSystem>();
 
         startPosition = transform.position;
         startRotation = transform.rotation;
@@ -182,6 +188,10 @@ public class Racer : MonoBehaviour
         turnSpeed = baseTurnSpeed;
 
         finishLine = TrackManager.GetFinishline();
+
+        // dirtSpray.transform.localPosition = new Vector2(0, -2);
+        // boostFlame.transform.localPosition = new Vector2(0, -2.1f);
+        // wreckedSmoke.transform.localPosition = new Vector2(0, -0.25f);
     }
 
     public virtual void UpdateRacer()
@@ -205,7 +215,12 @@ public class Racer : MonoBehaviour
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;
 
-        racer.transform.position = startPosition;
+        transform.position = startPosition;
+        if (wreckedSmoke.isPlaying) wreckedSmoke.Stop();
+
+        // dirtSpray.transform.localPosition = new Vector2(racer.transform.position.x, -2);
+        // boostFlame.transform.localPosition = new Vector2(racer.transform.position.x, -2.1f);
+        // wreckedSmoke.transform.localPosition = new Vector2(racer.transform.position.x, -0.25f);
     }
 
     // Update is called once per frame
@@ -226,14 +241,14 @@ public class Racer : MonoBehaviour
                     break;
 
                 case State.dead:
-                    damageBlinkTimer -= Time.deltaTime;
-                    if (damageBlinkTimer <= 0)
-                    {
-                        if (racer.activeSelf) racer.SetActive(false);
-                        else racer.SetActive(true);
-
-                        damageBlinkTimer = damageBlinkTimerReset;
-                    }
+                    // damageBlinkTimer -= Time.deltaTime;
+                    // if (damageBlinkTimer <= 0)
+                    // {
+                    //     if (racer.activeSelf) racer.SetActive(false);
+                    //     else racer.SetActive(true);
+                    // 
+                    //     damageBlinkTimer = damageBlinkTimerReset;
+                    // }
                     break;
             }
 
@@ -270,6 +285,7 @@ public class Racer : MonoBehaviour
             {
                 if (boostTimer <= 0)
                 {
+                    boostFlame.Stop();
                     boostActivated = false;
                     boost = 0;
                     boostRecharge = true;
@@ -324,6 +340,8 @@ public class Racer : MonoBehaviour
             }
 
             spriteCanvas.transform.SetPositionAndRotation(new Vector2(racer.transform.position.x, racer.transform.position.y - 1), startRotation);
+            var em = dirtSpray.emission;
+            em.rateOverTime = rb.velocity.magnitude;
         }
     }
 
@@ -414,6 +432,7 @@ public class Racer : MonoBehaviour
         {
             health = 0;
             RacerState = State.dead;
+            wreckedSmoke.Play();
             Racer defeatedBy = null;
             if (collision.gameObject.tag == "Weapon") defeatedBy = collision.gameObject.GetComponent<Weapon>().owner;
             if(defeatedBy != null)
