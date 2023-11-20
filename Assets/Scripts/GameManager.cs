@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public DataManager dataManager;
     public GarageManager garageManager;
     public ArmouryManager armouryManager;
+    public SchoolManager schoolManager;
 
     static bool paused = false;
     public static bool Paused { get { return paused; } set { paused = value; } }
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
         gameLevel = 0;
         garageManager.SetupGarage();
         armouryManager.SetupArmoury();
+        schoolManager.SetupSchool();
         screenManager.SetupScreens();
 
         // Application.Quit();

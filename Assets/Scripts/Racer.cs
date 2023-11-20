@@ -28,6 +28,7 @@ public class Racer : MonoBehaviour
     }
     
     protected RacerType type;
+    public RacerType Type { get { return type; } }
 
     public enum Weapon_Select
     {
@@ -52,7 +53,10 @@ public class Racer : MonoBehaviour
 
     protected int repairSkillLevel = 0;
     public int RepairSkillLevel { get { return repairSkillLevel; } set { repairSkillLevel = value; } }
-
+    protected int speechSkillLevel = 0;
+    public int SpeechSkillLevel { get { return speechSkillLevel; } set { speechSkillLevel = value; } }
+    protected int charmSkillLevel = 0;
+    public int CharmSkillLevel { get { return charmSkillLevel; } set { charmSkillLevel = value; } }
     protected int bulletClipLevel = 0;
     public int BulletClipLevel { get { return bulletClipLevel; } set { bulletClipLevel = value; } }
 

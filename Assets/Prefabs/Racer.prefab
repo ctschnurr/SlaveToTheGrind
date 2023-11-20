@@ -15874,7 +15874,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.4}
+  m_AnchoredPosition: {x: 0, y: -0.3}
   m_SizeDelta: {x: 600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8618154142450199796
@@ -15907,8 +15907,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: RAT NAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6c8daf70da08c454b935e84de09c57c2, type: 2}
-  m_sharedMaterial: {fileID: 2337818327325864902, guid: 6c8daf70da08c454b935e84de09c57c2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 11e20d7790804c94eaa91ab11a076064, type: 2}
+  m_sharedMaterial: {fileID: 2337818327325864902, guid: 11e20d7790804c94eaa91ab11a076064, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15932,13 +15932,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 55
+  m_fontSizeBase: 55
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535

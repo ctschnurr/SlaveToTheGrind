@@ -133,6 +133,13 @@ public class ScreenManager : MonoBehaviour
     static TextMeshProUGUI armouryUpgradeStatus;
     static GameObject armouryPurchaseButton;
 
+    static TextMeshProUGUI schoolUpgradeName;
+    static TextMeshProUGUI schoolUpgradeDescription;
+    static TextMeshProUGUI schoolUpgradePrice;
+    static TextMeshProUGUI schoolPlayerFunds;
+    static TextMeshProUGUI schoolUpgradeStatus;
+    static GameObject schoolPurchaseButton;
+
     //
 
     static Screen lastScreen = Screen.title;
@@ -160,7 +167,6 @@ public class ScreenManager : MonoBehaviour
 
     static GameObject HUD;
     static TextMeshProUGUI playerRanking;
-    static TextMeshProUGUI moneyText;
     static Image bulletAmmo;
     static Image bulletCooldown;
     static Image missleAmmo;
@@ -322,6 +328,12 @@ public class ScreenManager : MonoBehaviour
         armouryUpgradeStatus = GameObject.Find("ScreenManager/Armoury/DescriptionPanel/UpgradeStatus").GetComponent<TextMeshProUGUI>();
         armouryPurchaseButton = GameObject.Find("ScreenManager/Armoury/DescriptionPanel/PurchaseButton");
 
+        schoolUpgradeName = GameObject.Find("ScreenManager/School/DescriptionPanel/UpgradeName").GetComponent<TextMeshProUGUI>();
+        schoolUpgradeDescription = GameObject.Find("ScreenManager/School/DescriptionPanel/UpgradeDescription").GetComponent<TextMeshProUGUI>();
+        schoolUpgradePrice = GameObject.Find("ScreenManager/School/DescriptionPanel/UpgradePrice").GetComponent<TextMeshProUGUI>();
+        schoolPlayerFunds = GameObject.Find("ScreenManager/School/DescriptionPanel/PlayerFunds").GetComponent<TextMeshProUGUI>();
+        schoolUpgradeStatus = GameObject.Find("ScreenManager/School/DescriptionPanel/UpgradeStatus").GetComponent<TextMeshProUGUI>();
+        schoolPurchaseButton = GameObject.Find("ScreenManager/School/DescriptionPanel/PurchaseButton");
         // ---
 
         // Customize Player Objects
@@ -343,7 +355,6 @@ public class ScreenManager : MonoBehaviour
         HUD = GameObject.Find("ScreenManager/HUD");
         
         playerRanking = GameObject.Find("ScreenManager/HUD/playerRanking").GetComponent<TextMeshProUGUI>();
-        moneyText = GameObject.Find("ScreenManager/HUD/money").GetComponent<TextMeshProUGUI>();
         countdown3 = GameObject.Find("ScreenManager/HUD/3").GetComponent<Image>();
         countdown2 = GameObject.Find("ScreenManager/HUD/2").GetComponent<Image>();
         countdown1 = GameObject.Find("ScreenManager/HUD/1").GetComponent<Image>();
@@ -423,9 +434,9 @@ public class ScreenManager : MonoBehaviour
 
             case Screen.school:
                 if (!schoolScreen.activeSelf) schoolScreen.SetActive(true);
-                //UpdateShopIcons();
-                temp = GarageManager.GetDefaultUpgrade();
-                UpdateUpgradeClicked(temp);
+                SchoolManager.UpdateSchoolIcons();
+                temp = SchoolManager.GetDefaultUpgrade();
+                UpdateSchoolClicked(temp);
                 break;
 
             case Screen.HUD:
@@ -648,6 +659,15 @@ public class ScreenManager : MonoBehaviour
             }
         }
 
+        int speechSkill = playerController.SpeechSkillLevel;
+        float speechPay = raceEarnings * (speechSkill * 0.1f);
+
+        if (speechPay > 0)
+        {
+            earningsReport += "Speech skill bonus! +$" + (int)speechPay;
+            raceEarnings += (int)speechPay;
+        }
+
         earningsReport += "\nTotal Earnings: $" + raceEarnings;
 
         earningsText.text = earningsReport;
@@ -787,6 +807,49 @@ public class ScreenManager : MonoBehaviour
                 if (armouryPurchaseButton.activeSelf) armouryPurchaseButton.SetActive(false);
                 if (!armouryUpgradeStatus.gameObject.activeSelf) armouryUpgradeStatus.gameObject.SetActive(true);
                 armouryUpgradeStatus.text = "Locked";
+                break;
+        }
+    }
+
+    public static void UpdateSchoolClicked(Upgrade input)
+    {
+        schoolUpgradeName.text = input.name;
+        schoolUpgradeDescription.text = input.description;
+        schoolUpgradePrice.text = "Upgrade Price: $" + input.price.ToString();
+        schoolPlayerFunds.text = "Your Funds: $" + playerController.GetMoney();
+
+
+        switch (input.state)
+        {
+            case Upgrade.State.available:
+                if (playerController.GetMoney() >= input.price)
+                {
+                    if (!schoolPurchaseButton.activeSelf) schoolPurchaseButton.SetActive(true);
+                    if (schoolUpgradeStatus.gameObject.activeSelf) schoolUpgradeStatus.gameObject.SetActive(false);
+                }
+                else
+                {
+                    if (schoolPurchaseButton.activeSelf) schoolPurchaseButton.SetActive(false);
+                    if (!schoolUpgradeStatus.gameObject.activeSelf) schoolUpgradeStatus.gameObject.SetActive(true);
+                    schoolUpgradeStatus.text = "Insufficient Funds";
+                }
+                break;
+
+            case Upgrade.State.owned:
+                if (schoolPurchaseButton.activeSelf) schoolPurchaseButton.SetActive(false);
+                if (!schoolUpgradeStatus.gameObject.activeSelf) schoolUpgradeStatus.gameObject.SetActive(true);
+                schoolUpgradeStatus.text = "Owned";
+                break;
+
+            case Upgrade.State.equipped:
+                if (schoolPurchaseButton.activeSelf) schoolPurchaseButton.SetActive(false);
+                if (!schoolUpgradeStatus.gameObject.activeSelf) schoolUpgradeStatus.gameObject.SetActive(true);
+                schoolUpgradeStatus.text = "Equipped";
+                break;
+            case Upgrade.State.locked:
+                if (schoolPurchaseButton.activeSelf) schoolPurchaseButton.SetActive(false);
+                if (!schoolUpgradeStatus.gameObject.activeSelf) schoolUpgradeStatus.gameObject.SetActive(true);
+                schoolUpgradeStatus.text = "Locked";
                 break;
         }
     }

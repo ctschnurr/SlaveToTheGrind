@@ -19,9 +19,6 @@ public class PlayerController : Racer
     float horizontal;
     public Transform waypoint;
 
-    protected int speechSkillLevel = 0;
-    public int SpeechSkillLevel { get; set; }
-
     public delegate void PlayerDiedAction();
     public static event PlayerDiedAction OnPlayerDied;
     // Start is called before the first frame update
@@ -35,7 +32,29 @@ public class PlayerController : Racer
         string[] rgba = DataManager.PlayerSave.racerColor.Split(',');
         carColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
 
-        if (GameManager.GameLoaded) TotalMoney = DataManager.PlayerSave.money;
+        if (GameManager.GameLoaded)
+        {
+            TotalMoney = DataManager.PlayerSave.money;
+
+            engineUpgradeLevel = DataManager.PlayerSave.engineUpgradeLevel;
+            armourUpgradeLevel = DataManager.PlayerSave.armourUpgradeLevel;
+            boostSpeedLevel = DataManager.PlayerSave.boostSpeedLevel;
+            boostCooldownLevel = DataManager.PlayerSave.boostCooldownLevel;
+            boostRechargeLevel = DataManager.PlayerSave.boostRechargeLevel;
+            repairSkillLevel = DataManager.PlayerSave.repairSkill;
+            speechSkillLevel = DataManager.PlayerSave.speechSkill;
+            charmSkillLevel = DataManager.PlayerSave.charmSkill;
+            bulletClipLevel = DataManager.PlayerSave.bulletClipLevel;
+            missleClipLevel = DataManager.PlayerSave.missleClipLevel;
+            mineClipLevel = DataManager.PlayerSave.mineClipLevel;
+            bulletCooldownLevel = DataManager.PlayerSave.bulletCooldownLevel;
+            missleCooldownLevel = DataManager.PlayerSave.missleCooldownLevel;
+            mineCooldownLevel = DataManager.PlayerSave.mineCooldownLevel;
+
+            bulletAmmo = DataManager.PlayerSave.bulletAmmo;
+            missleAmmo = DataManager.PlayerSave.missleAmmo;
+            mineAmmo = DataManager.PlayerSave.mineAmmo;
+        }
 
         spriteName.text = racerName;
 
@@ -101,6 +120,11 @@ public class PlayerController : Racer
 
         DataManager.PlayerSave.repairSkill = repairSkillLevel;
         DataManager.PlayerSave.speechSkill = speechSkillLevel;
+        DataManager.PlayerSave.charmSkill = charmSkillLevel;
+
+        DataManager.PlayerSave.bulletAmmo = bulletAmmo;
+        DataManager.PlayerSave.missleAmmo = missleAmmo;
+        DataManager.PlayerSave.mineAmmo = mineAmmo;
     }
 
     public override void ResetRacer()

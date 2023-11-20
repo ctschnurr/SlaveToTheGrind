@@ -1167,7 +1167,8 @@ public class Upgrade
         mineClip,
         mineCooldown,
         repair,
-        speech
+        speech,
+        charm
     }
 
     public State state;

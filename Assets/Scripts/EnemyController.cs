@@ -15,6 +15,7 @@ public class EnemyController : Racer
 
     public float angle;
 
+    private PlayerController player;
     private static int enemyCounter = 0;
     public static int EnemyCounter { get { return enemyCounter; } set { enemyCounter = value; } }
 
@@ -22,6 +23,8 @@ public class EnemyController : Racer
     public override void SetupRacer()
     {
         base.SetupRacer();
+
+        player = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
 
         if (GameLoaded)
         {
@@ -166,9 +169,12 @@ public class EnemyController : Racer
                     float lookForward = Vector3.Angle(racer.transform.position - transform.position, transform.up);
                     if (lookForward < 5f && distance < 12)
                     {
-                        int fireChance = Random.Range(1, 30 - GameManager.GameLevel);
+                        int fireChance;
 
-                        if(fireChance == 1)
+                        if(racer.GetComponent<Racer>() == player) fireChance = Random.Range(1, 20 - GameManager.GameLevel + player.CharmSkillLevel);
+                        else fireChance = Random.Range(1, 20 - GameManager.GameLevel);
+
+                        if (fireChance == 1)
                         {
                             if (canBoost)
                             {
