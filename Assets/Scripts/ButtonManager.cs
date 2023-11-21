@@ -67,6 +67,15 @@ public class ButtonManager : MonoBehaviour
         else ScreenManager.SetScreen(ScreenManager.Screen.storyEnd);
     }
 
+    public void CheckGameEnd()
+    {
+        if (GameLevel != 4)
+        {
+            ScreenManager.SetScreen(ScreenManager.Screen.shop);
+        }
+        else ScreenManager.SetScreen(ScreenManager.Screen.storyEnd);
+    }
+
     public void GoToChooseSaveSlot()
     {
         ScreenManager.SetScreen(ScreenManager.Screen.saveSlot);
@@ -74,6 +83,16 @@ public class ButtonManager : MonoBehaviour
     public void GoToEarnings()
     {
         ScreenManager.SetScreen(ScreenManager.Screen.earnings);
+    }
+
+    public void CheckCupWinner()
+    {
+        if (RaceManager.PlayerPlace == 0)
+        {
+            GameLevel++;
+            ScreenManager.SetScreen(ScreenManager.Screen.cupWinner);
+        }
+        else ScreenManager.SetScreen(ScreenManager.Screen.shop);
     }
 
     public void ShowUpgradesScreen()
@@ -196,11 +215,6 @@ public class ButtonManager : MonoBehaviour
 
     public void NextRace()
     {
-        if (RaceManager.PlayerPlace == 0)
-        {
-            GameLevel++;
-            ScreenManager.SetScreen(ScreenManager.Screen.cupWinner);
-        }
-        else ShowRaceStartScreen();
+        ShowRaceStartScreen();
     }
 }

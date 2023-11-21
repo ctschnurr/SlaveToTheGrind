@@ -1109,6 +1109,7 @@ public class SchoolManager : MonoBehaviour
     public void PurchaseClicked()
     {
         player = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
+
         switch(currentUpgrade.category)
         {
             case Upgrade.Category.repair:
@@ -1127,12 +1128,9 @@ public class SchoolManager : MonoBehaviour
                 break;
         }
 
-        if(currentUpgrade.upgradeNumber < 3)
+        foreach (Upgrade nextUpgrade in upgradeList)
         {
-            foreach(Upgrade nextUpgrade in upgradeList)
-            {
-                if (nextUpgrade.category == currentUpgrade.category && nextUpgrade.upgradeNumber == currentUpgrade.upgradeNumber + 1) nextUpgrade.state = Upgrade.State.available;
-            }
+            if (nextUpgrade.category == currentUpgrade.category && nextUpgrade.upgradeNumber == currentUpgrade.upgradeNumber + 1) nextUpgrade.state = Upgrade.State.available;
         }
 
         currentUpgrade.state = Upgrade.State.owned;

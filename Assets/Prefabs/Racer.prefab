@@ -15907,15 +15907,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: RAT NAME
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 11e20d7790804c94eaa91ab11a076064, type: 2}
-  m_sharedMaterial: {fileID: 2337818327325864902, guid: 11e20d7790804c94eaa91ab11a076064, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 70ae3071453fbf642a1b2fa813da32ac, type: 2}
+  m_sharedMaterial: {fileID: 2337818327325864902, guid: 70ae3071453fbf642a1b2fa813da32ac, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280756007
-  m_fontColor: {r: 0.15294118, g: 0.15294118, b: 0.15294118, a: 1}
+    rgba: 4290360754
+  m_fontColor: {r: 0.69803923, g: 0.70980394, b: 0.7254902, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

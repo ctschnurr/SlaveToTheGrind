@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: PixelOutline
+  m_Name: PixelOutlineThick
   m_EditorClassIdentifier: 
-  hashCode: 544415080
+  hashCode: -176796907
   material: {fileID: 2337818327325864902}
-  materialHashCode: -733886776
+  materialHashCode: -1617546347
   m_Version: 1.1.0
   m_SourceFontFileGUID: acca4ad1c97098040a0a010f89a2d4f9
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: acca4ad1c97098040a0a010f89a2d4f9, type: 3}
@@ -2087,7 +2087,7 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.3
+    - _OutlineWidth: 0.4
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.9

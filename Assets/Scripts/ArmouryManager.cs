@@ -64,15 +64,21 @@ public class ArmouryManager : MonoBehaviour
     // T1 Armoury Elements:
     static GameObject bulletAmmo1Grey;
     static GameObject bulletClip1Check;
+    static GameObject bulletClip1Grey;
     static GameObject bulletCooldown1Check;
+    static GameObject bulletCooldown1Grey;
 
     static GameObject missleAmmo1Grey;
     static GameObject missleClip1Check;
+    static GameObject missleClip1Grey;
     static GameObject missleCooldown1Check;
+    static GameObject missleCooldown1Grey;
 
     static GameObject mineAmmo1Grey;
     static GameObject mineClip1Check;
+    static GameObject mineClip1Grey;
     static GameObject mineCooldown1Check;
+    static GameObject mineCooldown1Grey;
 
     // T2 Armoury Elements:
     static GameObject bulletAmmo2Grey;

@@ -60,7 +60,7 @@ public class GarageManager : MonoBehaviour
     static Upgrade boostRecharge3;
     static Upgrade boostRecharge4;
 
-    private List<Upgrade> upgradeList;
+    private static List<Upgrade> upgradeList;
 
     static Upgrade currentUpgrade;
 
@@ -73,87 +73,132 @@ public class GarageManager : MonoBehaviour
 
     // T1 Garage Elements:
     static GameObject engine1check;
+    static GameObject engine1grey;
 
     static GameObject engine2lock;
     static GameObject engine2check;
+    static GameObject engine2grey;
 
     static GameObject engine3lock;
     static GameObject engine3check;
+    static GameObject engine3grey;
 
     static GameObject armour1check;
+    static GameObject armour1grey;
 
     static GameObject armour2lock;
     static GameObject armour2check;
+    static GameObject armour2grey;
 
     static GameObject armour3lock;
     static GameObject armour3check;
+    static GameObject armour3grey;
 
     static GameObject boostSpeed1check;
+    static GameObject boostSpeed1grey;
+
     static GameObject boostCooldown1check;
+    static GameObject boostCooldown1grey;
+
     static GameObject boostRecharge1check;
+    static GameObject boostRecharge1grey;
 
     // T2 Garage Elements:
     static GameObject engine4check;
+    static GameObject engine4grey;
 
     static GameObject engine5lock;
     static GameObject engine5check;
+    static GameObject engine5grey;
 
     static GameObject engine6lock;
     static GameObject engine6check;
+    static GameObject engine6grey;
 
     static GameObject armour4check;
+    static GameObject armour4grey;
 
     static GameObject armour5lock;
     static GameObject armour5check;
+    static GameObject armour5grey;
 
     static GameObject armour6lock;
     static GameObject armour6check;
+    static GameObject armour6grey;
 
     static GameObject boostSpeed2check;
+    static GameObject boostSpeed2grey;
+
     static GameObject boostCooldown2check;
+    static GameObject boostCooldown2grey;
+
     static GameObject boostRecharge2check;
+    static GameObject boostRecharge2grey;
 
     // T3 Garage Elements
     static GameObject engine7check;
+    static GameObject engine7grey;
 
     static GameObject engine8lock;
     static GameObject engine8check;
+    static GameObject engine8grey;
 
     static GameObject engine9lock;
     static GameObject engine9check;
+    static GameObject engine9grey;
 
     static GameObject armour7check;
+    static GameObject armour7grey;
 
     static GameObject armour8lock;
     static GameObject armour8check;
+    static GameObject armour8grey;
 
     static GameObject armour9lock;
     static GameObject armour9check;
+    static GameObject armour9grey;
 
     static GameObject boostSpeed3check;
+    static GameObject boostSpeed3grey;
+
     static GameObject boostCooldown3check;
+    static GameObject boostCooldown3grey;
+
     static GameObject boostRecharge3check;
+    static GameObject boostRecharge3grey;
 
     // T4 Garage Elements
     static GameObject engine10check;
+    static GameObject engine10grey;
 
     static GameObject engine11lock;
     static GameObject engine11check;
+    static GameObject engine11grey;
 
     static GameObject engine12lock;
     static GameObject engine12check;
+    static GameObject engine12grey;
 
     static GameObject armour10check;
+    static GameObject armour10grey;
 
     static GameObject armour11lock;
     static GameObject armour11check;
+    static GameObject armour11grey;
 
     static GameObject armour12lock;
     static GameObject armour12check;
+    static GameObject armour12grey;
 
     static GameObject boostSpeed4check;
+    static GameObject boostSpeed4grey;
+
     static GameObject boostCooldown4check;
+    static GameObject boostCooldown4grey;
+
     static GameObject boostRecharge4check;
+    static GameObject boostRecharge4grey;
+
     //
     static List<GameObject> garageIconList;
 
@@ -170,94 +215,144 @@ public class GarageManager : MonoBehaviour
 
         // Garage T1 Elements
         engine1check = GameObject.Find("ScreenManager/Garage/T1/EngineUpgrades/Upgrade1/Check");
+        engine1grey = GameObject.Find("ScreenManager/Garage/T1/EngineUpgrades/Upgrade1/Grey");
 
         engine2lock = GameObject.Find("ScreenManager/Garage/T1/EngineUpgrades/Upgrade2/Lock");
         engine2check = GameObject.Find("ScreenManager/Garage/T1/EngineUpgrades/Upgrade2/Check");
+        engine2grey = GameObject.Find("ScreenManager/Garage/T1/EngineUpgrades/Upgrade2/Grey");
 
         engine3lock = GameObject.Find("ScreenManager/Garage/T1/EngineUpgrades/Upgrade3/Lock");
         engine3check = GameObject.Find("ScreenManager/Garage/T1/EngineUpgrades/Upgrade3/Check");
+        engine3grey = GameObject.Find("ScreenManager/Garage/T1/EngineUpgrades/Upgrade3/Grey");
 
         armour1check = GameObject.Find("ScreenManager/Garage/T1/ArmourUpgrades/Upgrade1/Check");
+        armour1grey = GameObject.Find("ScreenManager/Garage/T1/ArmourUpgrades/Upgrade1/Grey");
 
         armour2lock = GameObject.Find("ScreenManager/Garage/T1/ArmourUpgrades/Upgrade2/Lock");
         armour2check = GameObject.Find("ScreenManager/Garage/T1/ArmourUpgrades/Upgrade2/Check");
+        armour2grey = GameObject.Find("ScreenManager/Garage/T1/ArmourUpgrades/Upgrade2/Grey");
 
         armour3lock = GameObject.Find("ScreenManager/Garage/T1/ArmourUpgrades/Upgrade3/Lock");
         armour3check = GameObject.Find("ScreenManager/Garage/T1/ArmourUpgrades/Upgrade3/Check");
+        armour3grey = GameObject.Find("ScreenManager/Garage/T1/ArmourUpgrades/Upgrade3/Grey");
 
         boostSpeed1check = GameObject.Find("ScreenManager/Garage/T1/BoostUpgrades/Upgrade1/Check");
+        boostSpeed1grey = GameObject.Find("ScreenManager/Garage/T1/BoostUpgrades/Upgrade1/Grey");
         boostCooldown1check = GameObject.Find("ScreenManager/Garage/T1/BoostUpgrades/Upgrade2/Check");
+        boostCooldown1grey = GameObject.Find("ScreenManager/Garage/T1/BoostUpgrades/Upgrade2/Grey");
         boostRecharge1check = GameObject.Find("ScreenManager/Garage/T1/BoostUpgrades/Upgrade3/Check");
+        boostRecharge1grey = GameObject.Find("ScreenManager/Garage/T1/BoostUpgrades/Upgrade3/Grey");
 
         // Garage T2 Elements
         engine4check = GameObject.Find("ScreenManager/Garage/T2/EngineUpgrades/Upgrade1/Check");
+        engine4grey = GameObject.Find("ScreenManager/Garage/T1/BoostUpgrades/Upgrade1/Grey");
 
         engine5lock = GameObject.Find("ScreenManager/Garage/T2/EngineUpgrades/Upgrade2/Lock");
         engine5check = GameObject.Find("ScreenManager/Garage/T2/EngineUpgrades/Upgrade2/Check");
+        engine5grey = GameObject.Find("ScreenManager/Garage/T2/EngineUpgrades/Upgrade2/Grey");
 
         engine6lock = GameObject.Find("ScreenManager/Garage/T2/EngineUpgrades/Upgrade3/Lock");
         engine6check = GameObject.Find("ScreenManager/Garage/T2/EngineUpgrades/Upgrade3/Check");
+        engine6grey = GameObject.Find("ScreenManager/Garage/T2/EngineUpgrades/Upgrade3/Grey");
 
         armour4check = GameObject.Find("ScreenManager/Garage/T2/ArmourUpgrades/Upgrade1/Check");
+        armour4grey = GameObject.Find("ScreenManager/Garage/T2/ArmourUpgrades/Upgrade1/Grey");
 
         armour5lock = GameObject.Find("ScreenManager/Garage/T2/ArmourUpgrades/Upgrade2/Lock");
         armour5check = GameObject.Find("ScreenManager/Garage/T2/ArmourUpgrades/Upgrade2/Check");
+        armour5grey = GameObject.Find("ScreenManager/Garage/T2/ArmourUpgrades/Upgrade2/Grey");
 
         armour6lock = GameObject.Find("ScreenManager/Garage/T2/ArmourUpgrades/Upgrade3/Lock");
         armour6check = GameObject.Find("ScreenManager/Garage/T2/ArmourUpgrades/Upgrade3/Check");
+        armour6grey = GameObject.Find("ScreenManager/Garage/T2/ArmourUpgrades/Upgrade3/Grey");
 
         boostSpeed2check = GameObject.Find("ScreenManager/Garage/T2/BoostUpgrades/Upgrade1/Check");
+        boostSpeed2grey = GameObject.Find("ScreenManager/Garage/T2/BoostUpgrades/Upgrade1/Grey");
+
         boostCooldown2check = GameObject.Find("ScreenManager/Garage/T2/BoostUpgrades/Upgrade2/Check");
+        boostCooldown2grey = GameObject.Find("ScreenManager/Garage/T2/BoostUpgrades/Upgrade2/Grey");
+
         boostRecharge2check = GameObject.Find("ScreenManager/Garage/T2/BoostUpgrades/Upgrade3/Check");
+        boostRecharge2grey = GameObject.Find("ScreenManager/Garage/T2/BoostUpgrades/Upgrade3/Grey");
 
         // Garage T3 Elements
         engine7check = GameObject.Find("ScreenManager/Garage/T3/EngineUpgrades/Upgrade1/Check");
+        engine7grey = GameObject.Find("ScreenManager/Garage/T3/EngineUpgrades/Upgrade1/Grey");
 
         engine8lock = GameObject.Find("ScreenManager/Garage/T3/EngineUpgrades/Upgrade2/Lock");
         engine8check = GameObject.Find("ScreenManager/Garage/T3/EngineUpgrades/Upgrade2/Check");
+        engine8grey = GameObject.Find("ScreenManager/Garage/T3/EngineUpgrades/Upgrade2/Grey");
 
         engine9lock = GameObject.Find("ScreenManager/Garage/T3/EngineUpgrades/Upgrade3/Lock");
         engine9check = GameObject.Find("ScreenManager/Garage/T3/EngineUpgrades/Upgrade3/Check");
+        engine9grey = GameObject.Find("ScreenManager/Garage/T3/EngineUpgrades/Upgrade3/Grey");
 
         armour7check = GameObject.Find("ScreenManager/Garage/T3/ArmourUpgrades/Upgrade1/Check");
+        armour7grey = GameObject.Find("ScreenManager/Garage/T3/ArmourUpgrades/Upgrade1/Grey");
 
         armour8lock = GameObject.Find("ScreenManager/Garage/T3/ArmourUpgrades/Upgrade2/Lock");
         armour8check = GameObject.Find("ScreenManager/Garage/T3/ArmourUpgrades/Upgrade2/Check");
+        armour8grey = GameObject.Find("ScreenManager/Garage/T3/ArmourUpgrades/Upgrade2/Grey");
 
         armour9lock = GameObject.Find("ScreenManager/Garage/T3/ArmourUpgrades/Upgrade3/Lock");
         armour9check = GameObject.Find("ScreenManager/Garage/T3/ArmourUpgrades/Upgrade3/Check");
+        armour9grey = GameObject.Find("ScreenManager/Garage/T3/ArmourUpgrades/Upgrade3/Grey");
 
         boostSpeed3check = GameObject.Find("ScreenManager/Garage/T3/BoostUpgrades/Upgrade1/Check");
+        boostSpeed3grey = GameObject.Find("ScreenManager/Garage/T3/BoostUpgrades/Upgrade1/Grey");
+
         boostCooldown3check = GameObject.Find("ScreenManager/Garage/T3/BoostUpgrades/Upgrade2/Check");
+        boostCooldown3grey = GameObject.Find("ScreenManager/Garage/T3/BoostUpgrades/Upgrade2/Grey");
+
         boostRecharge3check = GameObject.Find("ScreenManager/Garage/T3/BoostUpgrades/Upgrade3/Check");
+        boostRecharge3grey = GameObject.Find("ScreenManager/Garage/T3/BoostUpgrades/Upgrade3/Grey");
 
         // Garage T4 Elements
         engine10check = GameObject.Find("ScreenManager/Garage/T4/EngineUpgrades/Upgrade1/Check");
+        engine10grey = GameObject.Find("ScreenManager/Garage/T4/EngineUpgrades/Upgrade1/Grey");
 
         engine11lock = GameObject.Find("ScreenManager/Garage/T4/EngineUpgrades/Upgrade2/Lock");
         engine11check = GameObject.Find("ScreenManager/Garage/T4/EngineUpgrades/Upgrade2/Check");
+        engine11grey = GameObject.Find("ScreenManager/Garage/T4/EngineUpgrades/Upgrade2/Grey");
 
         engine12lock = GameObject.Find("ScreenManager/Garage/T4/EngineUpgrades/Upgrade3/Lock");
         engine12check = GameObject.Find("ScreenManager/Garage/T4/EngineUpgrades/Upgrade3/Check");
+        engine12grey = GameObject.Find("ScreenManager/Garage/T4/EngineUpgrades/Upgrade3/Grey");
 
         armour10check = GameObject.Find("ScreenManager/Garage/T4/ArmourUpgrades/Upgrade1/Check");
+        armour10grey = GameObject.Find("ScreenManager/Garage/T4/ArmourUpgrades/Upgrade1/Grey");
 
         armour11lock = GameObject.Find("ScreenManager/Garage/T4/ArmourUpgrades/Upgrade2/Lock");
         armour11check = GameObject.Find("ScreenManager/Garage/T4/ArmourUpgrades/Upgrade2/Check");
+        armour11grey = GameObject.Find("ScreenManager/Garage/T4/ArmourUpgrades/Upgrade2/Grey");
 
         armour12lock = GameObject.Find("ScreenManager/Garage/T4/ArmourUpgrades/Upgrade3/Lock");
         armour12check = GameObject.Find("ScreenManager/Garage/T4/ArmourUpgrades/Upgrade3/Check");
+        armour12grey = GameObject.Find("ScreenManager/Garage/T4/ArmourUpgrades/Upgrade3/Grey");
 
         boostSpeed4check = GameObject.Find("ScreenManager/Garage/T4/BoostUpgrades/Upgrade1/Check");
+        boostSpeed4grey = GameObject.Find("ScreenManager/Garage/T4/BoostUpgrades/Upgrade1/Grey");
+
         boostCooldown4check = GameObject.Find("ScreenManager/Garage/T4/BoostUpgrades/Upgrade2/Check");
+        boostCooldown4grey = GameObject.Find("ScreenManager/Garage/T4/BoostUpgrades/Upgrade2/Grey");
+
         boostRecharge4check = GameObject.Find("ScreenManager/Garage/T4/BoostUpgrades/Upgrade3/Check");
+        boostRecharge4grey = GameObject.Find("ScreenManager/Garage/T4/BoostUpgrades/Upgrade3/Grey");
 
         garageIconList = new List<GameObject>
         {
-            engine1check, engine2lock, engine2check, engine3lock, engine3check, armour1check, armour2lock, armour2check, armour3lock, armour3check, boostSpeed1check, boostCooldown1check, boostRecharge1check,
-            engine4check, engine5lock, engine5check, engine6lock, engine6check, armour4check, armour5lock, armour5check, armour6lock, armour6check, boostSpeed2check, boostCooldown2check, boostRecharge2check,
-            engine7check, engine8lock, engine8check, engine9lock, engine9check, armour7check, armour8lock, armour8check, armour9lock, armour9check, boostSpeed3check, boostCooldown3check, boostRecharge3check,
-            engine10check, engine11lock, engine11check, engine12lock, engine12check, armour10check, armour11lock, armour11check, armour12lock, armour12check, boostSpeed4check, boostCooldown4check, boostRecharge4check
+            engine1check, engine1grey, engine2lock, engine2check, engine2grey, engine3lock, engine3check, engine3grey, 
+            armour1check, armour1grey, armour2lock, armour2check, armour2grey, armour3lock, armour3check, armour3grey, 
+            boostSpeed1check, boostSpeed1grey, boostCooldown1check, boostCooldown1grey, boostRecharge1check, boostRecharge1grey,
+            engine4check, engine4grey, engine5lock, engine5check, engine5grey, engine6lock, engine6check, engine6grey,
+            armour4check, armour4grey, armour5lock, armour5check, armour5grey, armour6lock, armour6check, armour6grey,
+            boostSpeed2check, boostSpeed2grey, boostCooldown2check, boostCooldown2grey, boostRecharge2check, boostRecharge2grey,
+            engine7check, engine7grey, engine8lock, engine8check, engine8grey, engine9lock, engine9check, engine9grey, 
+            armour7check, armour7grey, armour8lock, armour8check, armour8grey, armour9lock, armour9check, armour9grey,
+            boostSpeed3check, boostSpeed3grey, boostCooldown3check, boostCooldown3grey, boostRecharge3check, boostRecharge3grey,
+            engine10check, engine10grey, engine11lock, engine11check, engine11grey, engine12lock, engine12check, engine12grey,
+            armour10check, armour10grey, armour11lock, armour11check, armour11grey, armour12lock, armour12check, armour12grey,
+            boostSpeed4check, boostSpeed4grey, boostCooldown4check, boostCooldown4grey, boostRecharge4check, boostRecharge4grey
         };
     }
     public void SetupGarage()
@@ -271,7 +366,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Tune-Up",
             description = "Basic maintenance. Increases speed.",
-            price = 100
+            price = 100,
+            greyObj = engine1grey,
+            checkObj = engine1check,
+            lockObj = null
         };
 
         engine2 = new Upgrade
@@ -281,7 +379,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "New Engine",
             description = "Better than old junk. Increases speed again.",
-            price = 200
+            price = 200,
+            greyObj = engine2grey,
+            checkObj = engine2check,
+            lockObj = engine2lock
         };
 
         engine3 = new Upgrade
@@ -291,7 +392,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Modify Engine",
             description = "Performance tweaks. Further increases speed.",
-            price = 300
+            price = 300,
+            greyObj = engine3grey,
+            checkObj = engine3check,
+            lockObj = engine3lock
         };
 
         engine4 = new Upgrade
@@ -301,7 +405,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Engine Level IV",
             description = "Speed +4",
-            price = 200
+            price = 200,
+            greyObj = engine4grey,
+            checkObj = engine4check,
+            lockObj = null
         };
 
         engine5 = new Upgrade
@@ -311,7 +418,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Engine Level V",
             description = "Speed +5",
-            price = 300
+            price = 300,
+            greyObj = engine5grey,
+            checkObj = engine5check,
+            lockObj = engine5lock
         };
 
         engine6 = new Upgrade
@@ -321,7 +431,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Engine Level VI",
             description = "Speed +6",
-            price = 400
+            price = 400,
+            greyObj = engine6grey,
+            checkObj = engine6check,
+            lockObj = engine6lock
         };
 
         engine7 = new Upgrade
@@ -331,7 +444,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Engine Level VII",
             description = "Speed +7",
-            price = 300
+            price = 300,
+            greyObj = engine7grey,
+            checkObj = engine7check,
+            lockObj = null
         };
 
         engine8 = new Upgrade
@@ -341,7 +457,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Engine Level VIII",
             description = "Speed +8",
-            price = 400
+            price = 400,
+            greyObj = engine8grey,
+            checkObj = engine8check,
+            lockObj = engine8lock
         };
 
         engine9 = new Upgrade
@@ -351,7 +470,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Engine Level IX",
             description = "Speed +9",
-            price = 500
+            price = 500,
+            greyObj = engine9grey,
+            checkObj = engine9check,
+            lockObj = engine9lock
         };
 
         engine10 = new Upgrade
@@ -361,7 +483,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Engine Level X",
             description = "Speed +10",
-            price = 400
+            price = 400,
+            greyObj = engine10grey,
+            checkObj = engine11check,
+            lockObj = null
         };
 
         engine11 = new Upgrade
@@ -371,7 +496,10 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Engine Level XI",
             description = "Speed +11",
-            price = 500
+            price = 500,
+            greyObj = engine11grey,
+            checkObj = engine11check,
+            lockObj = engine11lock
         };
 
         engine12 = new Upgrade
@@ -381,200 +509,323 @@ public class GarageManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Engine Level XII",
             description = "Speed +12",
-            price = 600
+            price = 600,
+            greyObj = engine12grey,
+            checkObj = engine12check,
+            lockObj = engine12lock
         };
 
-        armour1 = new Upgrade();
-        armour1.upgradeNumber = 1;
-        armour1.category = Upgrade.Category.armour;
-        armour1.state = Upgrade.State.available;
-        armour1.name = "Fix Holes";
-        armour1.description = "Patch up your car's body. Decreases damage.";
-        armour1.price = 100;
+        armour1 = new Upgrade
+        {
+            upgradeNumber = 1,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.available,
+            name = "Fix Holes",
+            description = "Patch up your car's body. Decreases damage.",
+            price = 100,
+            greyObj = armour1grey,
+            checkObj = armour1check,
+            lockObj = null
+        };
 
-        armour2 = new Upgrade();
-        armour2.upgradeNumber = 2;
-        armour2.category = Upgrade.Category.armour;
-        armour2.state = Upgrade.State.locked;
-        armour2.name = "Added Plating";
-        armour2.description = "Extra protection. Decreases damage more.";
-        armour2.price = 200;
+        armour2 = new Upgrade
+        {
+            upgradeNumber = 2,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.locked,
+            name = "Added Plating",
+            description = "Extra protection. Decreases damage more.",
+            price = 200,
+            greyObj = armour2grey,
+            checkObj = armour2check,
+            lockObj = armour2lock
+        };
 
-        armour3 = new Upgrade();
-        armour3.upgradeNumber = 3;
-        armour3.category = Upgrade.Category.armour;
-        armour3.state = Upgrade.State.locked;
-        armour3.name = "Vehicle Armour";
-        armour3.description = "Reinforced for extra strength. Decreases damage further.";
-        armour3.price = 400;
+        armour3 = new Upgrade
+        {
+            upgradeNumber = 3,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.locked,
+            name = "Vehicle Armour",
+            description = "Reinforced for extra strength. Decreases damage further.",
+            price = 400,
+            greyObj = armour3grey,
+            checkObj = armour3check,
+            lockObj = armour3lock
+        };
 
-        armour4 = new Upgrade();
-        armour4.upgradeNumber = 4;
-        armour4.category = Upgrade.Category.armour;
-        armour4.state = Upgrade.State.available;
-        armour4.name = "Armour Level IV";
-        armour4.description = "Damage -4";
-        armour4.price = 200;
+        armour4 = new Upgrade
+        {
+            upgradeNumber = 4,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.available,
+            name = "Armour Level IV",
+            description = "Damage -4",
+            price = 200,
+            greyObj = armour4grey,
+            checkObj = armour4check,
+            lockObj = null
+        };
 
-        armour5 = new Upgrade();
-        armour5.upgradeNumber = 5;
-        armour5.category = Upgrade.Category.armour;
-        armour5.state = Upgrade.State.locked;
-        armour5.name = "Armour Level V";
-        armour5.description = "Damage -5";
-        armour5.price = 300;
+        armour5 = new Upgrade
+        {
+            upgradeNumber = 5,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.locked,
+            name = "Armour Level V",
+            description = "Damage -5",
+            price = 300,
+            greyObj = armour5grey,
+            checkObj = armour5check,
+            lockObj = armour5lock
+        };
 
-        armour6 = new Upgrade();
-        armour6.upgradeNumber = 6;
-        armour6.category = Upgrade.Category.armour;
-        armour6.state = Upgrade.State.locked;
-        armour6.name = "Armour Level VI";
-        armour6.description = "Damage -6";
-        armour6.price = 400;
+        armour6 = new Upgrade
+        {
+            upgradeNumber = 6,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.locked,
+            name = "Armour Level VI",
+            description = "Damage -6",
+            price = 400,
+            greyObj = armour6grey,
+            checkObj = armour6check,
+            lockObj = armour6lock
+        };
 
-        armour7 = new Upgrade();
-        armour7.upgradeNumber = 7;
-        armour7.category = Upgrade.Category.armour;
-        armour7.state = Upgrade.State.available;
-        armour7.name = "Armour Level VII";
-        armour7.description = "Damage -7";
-        armour7.price = 300;
+        armour7 = new Upgrade
+        {
+            upgradeNumber = 7,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.available,
+            name = "Armour Level VII",
+            description = "Damage -7",
+            price = 300,
+            greyObj = armour7grey,
+            checkObj = armour7check,
+            lockObj = null
+        };
 
-        armour8 = new Upgrade();
-        armour8.upgradeNumber = 8;
-        armour8.category = Upgrade.Category.armour;
-        armour8.state = Upgrade.State.locked;
-        armour8.name = "Armour Level VIII";
-        armour8.description = "Damage -8";
-        armour8.price = 400;
+        armour8 = new Upgrade
+        {
+            upgradeNumber = 8,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.locked,
+            name = "Armour Level VIII",
+            description = "Damage -8",
+            price = 400,
+            greyObj = armour8grey,
+            checkObj = armour8check,
+            lockObj = armour8lock
+        };
 
-        armour9 = new Upgrade();
-        armour9.upgradeNumber = 9;
-        armour9.category = Upgrade.Category.armour;
-        armour9.state = Upgrade.State.locked;
-        armour9.name = "Armour Level IX";
-        armour9.description = "Damage -9";
-        armour9.price = 500;
+        armour9 = new Upgrade
+        {
+            upgradeNumber = 9,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.locked,
+            name = "Armour Level IX",
+            description = "Damage -9",
+            price = 500,
+            greyObj = armour9grey,
+            checkObj = armour9check,
+            lockObj = armour9lock
+        };
 
-        armour10 = new Upgrade();
-        armour10.upgradeNumber = 10;
-        armour10.category = Upgrade.Category.armour;
-        armour10.state = Upgrade.State.available;
-        armour10.name = "Armour Level X";
-        armour10.description = "Damage -10";
-        armour10.price = 400;
+        armour10 = new Upgrade
+        {
+            upgradeNumber = 10,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.available,
+            name = "Armour Level X",
+            description = "Damage -10",
+            price = 400,
+            greyObj = armour10grey,
+            checkObj = armour10check,
+            lockObj = null
+        };
 
-        armour11 = new Upgrade();
-        armour11.upgradeNumber = 11;
-        armour11.category = Upgrade.Category.armour;
-        armour11.state = Upgrade.State.locked;
-        armour11.name = "Armour Level XI";
-        armour11.description = "Damage -11";
-        armour11.price = 500;
+        armour11 = new Upgrade
+        {
+            upgradeNumber = 11,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.locked,
+            name = "Armour Level XI",
+            description = "Damage -11",
+            price = 500,
+            greyObj = armour11grey,
+            checkObj = armour11check,
+            lockObj = armour11lock
+        };
 
-        armour12 = new Upgrade();
-        armour12.upgradeNumber = 12;
-        armour12.category = Upgrade.Category.armour;
-        armour12.state = Upgrade.State.locked;
-        armour12.name = "Armour Level XII";
-        armour12.description = "Damage -12";
-        armour12.price = 600;
+        armour12 = new Upgrade
+        {
+            upgradeNumber = 12,
+            category = Upgrade.Category.armour,
+            state = Upgrade.State.locked,
+            name = "Armour Level XII",
+            description = "Damage -12",
+            price = 600,
+            greyObj = armour12grey,
+            checkObj = armour12check,
+            lockObj = armour12lock
+        };
 
-        boostSpeed1 = new Upgrade();
-        boostSpeed1.upgradeNumber = 1;
-        boostSpeed1.category = Upgrade.Category.boostSpeed;
-        boostSpeed1.state = Upgrade.State.available;
-        boostSpeed1.name = "Filtered Fuel";
-        boostSpeed1.description = "Slightly cleaner burning. Increases boost speed.";
-        boostSpeed1.price = 200;
+        boostSpeed1 = new Upgrade
+        {
+            upgradeNumber = 1,
+            category = Upgrade.Category.boostSpeed,
+            state = Upgrade.State.available,
+            name = "Filtered Fuel",
+            description = "Slightly cleaner burning. Increases boost speed.",
+            price = 200,
+            greyObj = boostSpeed1grey,
+            checkObj = boostSpeed1check,
+            lockObj = null
+        };
 
-        boostSpeed2 = new Upgrade();
-        boostSpeed2.upgradeNumber = 2;
-        boostSpeed2.category = Upgrade.Category.boostSpeed;
-        boostSpeed2.state = Upgrade.State.available;
-        boostSpeed2.name = "Boost Speed II";
-        boostSpeed2.description = "Boost Speed +2";
-        boostSpeed2.price = 300;
+        boostSpeed2 = new Upgrade
+        {
+            upgradeNumber = 2,
+            category = Upgrade.Category.boostSpeed,
+            state = Upgrade.State.available,
+            name = "Boost Speed II",
+            description = "Boost Speed +2",
+            price = 300,
+            greyObj = boostSpeed2grey,
+            checkObj = boostSpeed2check,
+            lockObj = null
+        };
 
-        boostSpeed3 = new Upgrade();
-        boostSpeed3.upgradeNumber = 3;
-        boostSpeed3.category = Upgrade.Category.boostSpeed;
-        boostSpeed3.state = Upgrade.State.available;
-        boostSpeed3.name = "Boost Speed III";
-        boostSpeed3.description = "Boost Speed +3";
-        boostSpeed3.price = 400;
+        boostSpeed3 = new Upgrade
+        {
+            upgradeNumber = 3,
+            category = Upgrade.Category.boostSpeed,
+            state = Upgrade.State.available,
+            name = "Boost Speed III",
+            description = "Boost Speed +3",
+            price = 400,
+            greyObj = boostSpeed3grey,
+            checkObj = boostSpeed3check,
+            lockObj = null
+        };
 
-        boostSpeed4 = new Upgrade();
-        boostSpeed4.upgradeNumber = 4;
-        boostSpeed4.category = Upgrade.Category.boostSpeed;
-        boostSpeed4.state = Upgrade.State.available;
-        boostSpeed4.name = "Boost Speed IV";
-        boostSpeed4.description = "Boost Speed +4";
-        boostSpeed4.price = 500;
+        boostSpeed4 = new Upgrade
+        {
+            upgradeNumber = 4,
+            category = Upgrade.Category.boostSpeed,
+            state = Upgrade.State.available,
+            name = "Boost Speed IV",
+            description = "Boost Speed +4",
+            price = 500,
+            greyObj = boostSpeed4grey,
+            checkObj = boostSpeed4check,
+            lockObj = null
+        };
 
-        boostCooldown1 = new Upgrade();
-        boostCooldown1.upgradeNumber = 1;
-        boostCooldown1.category = Upgrade.Category.boostCooldown;
-        boostCooldown1.state = Upgrade.State.available;
-        boostCooldown1.name = "Calibrate Booster";
-        boostCooldown1.description = "A little fine-tuning. Decreases boost cooldown.";
-        boostCooldown1.price = 250;
+        boostCooldown1 = new Upgrade
+        {
+            upgradeNumber = 1,
+            category = Upgrade.Category.boostCooldown,
+            state = Upgrade.State.available,
+            name = "Calibrate Booster",
+            description = "A little fine-tuning. Decreases boost cooldown.",
+            price = 250,
+            greyObj = boostCooldown1grey,
+            checkObj = boostCooldown1check,
+            lockObj = null
+        };
 
-        boostCooldown2 = new Upgrade();
-        boostCooldown2.upgradeNumber = 2;
-        boostCooldown2.category = Upgrade.Category.boostCooldown;
-        boostCooldown2.state = Upgrade.State.available;
-        boostCooldown2.name = "Boost Cooldown II";
-        boostCooldown2.description = "Boost Cooldown -2";
-        boostCooldown2.price = 300;
+        boostCooldown2 = new Upgrade
+        {
+            upgradeNumber = 2,
+            category = Upgrade.Category.boostCooldown,
+            state = Upgrade.State.available,
+            name = "Boost Cooldown II",
+            description = "Boost Cooldown -2",
+            price = 300,
+            greyObj = boostCooldown2grey,
+            checkObj = boostCooldown2check,
+            lockObj = null
+        };
 
-        boostCooldown3 = new Upgrade();
-        boostCooldown3.upgradeNumber = 3;
-        boostCooldown3.category = Upgrade.Category.boostCooldown;
-        boostCooldown3.state = Upgrade.State.available;
-        boostCooldown3.name = "Boost Cooldown III";
-        boostCooldown3.description = "Boost Cooldown -3";
-        boostCooldown3.price = 400;
+        boostCooldown3 = new Upgrade
+        {
+            upgradeNumber = 3,
+            category = Upgrade.Category.boostCooldown,
+            state = Upgrade.State.available,
+            name = "Boost Cooldown III",
+            description = "Boost Cooldown -3",
+            price = 400,
+            greyObj = boostCooldown3grey,
+            checkObj = boostCooldown3check,
+            lockObj = null
+        };
 
-        boostCooldown4 = new Upgrade();
-        boostCooldown4.upgradeNumber = 4;
-        boostCooldown4.category = Upgrade.Category.boostCooldown;
-        boostCooldown4.state = Upgrade.State.available;
-        boostCooldown4.name = "Boost Cooldown IV";
-        boostCooldown4.description = "Boost Cooldown -4";
-        boostCooldown4.price = 500;
+        boostCooldown4 = new Upgrade
+        {
+            upgradeNumber = 4,
+            category = Upgrade.Category.boostCooldown,
+            state = Upgrade.State.available,
+            name = "Boost Cooldown IV",
+            description = "Boost Cooldown -4",
+            price = 500,
+            greyObj = boostCooldown4grey,
+            checkObj = boostCooldown4check,
+            lockObj = null
+        };
 
-        boostRecharge1 = new Upgrade();
-        boostRecharge1.upgradeNumber = 1;
-        boostRecharge1.category = Upgrade.Category.boostRecharge;
-        boostRecharge1.state = Upgrade.State.available;
-        boostRecharge1.name = "Second-Hand Parts";
-        boostRecharge1.description = "Better than yours. Increases boost recharge speed.";
-        boostRecharge1.price = 250;
+        boostRecharge1 = new Upgrade
+        {
+            upgradeNumber = 1,
+            category = Upgrade.Category.boostRecharge,
+            state = Upgrade.State.available,
+            name = "Second-Hand Parts",
+            description = "Better than yours. Increases boost recharge speed.",
+            price = 250,
+            greyObj = boostRecharge1grey,
+            checkObj = boostRecharge1check,
+            lockObj = null
+        };
 
-        boostRecharge2 = new Upgrade();
-        boostRecharge2.upgradeNumber = 2;
-        boostRecharge2.category = Upgrade.Category.boostRecharge;
-        boostRecharge2.state = Upgrade.State.available;
-        boostRecharge2.name = "Boost Recharge II";
-        boostRecharge2.description = "Boost Recharge +2";
-        boostRecharge2.price = 300;
+        boostRecharge2 = new Upgrade
+        {
+            upgradeNumber = 2,
+            category = Upgrade.Category.boostRecharge,
+            state = Upgrade.State.available,
+            name = "Boost Recharge II",
+            description = "Boost Recharge +2",
+            price = 300,
+            greyObj = boostRecharge2grey,
+            checkObj = boostRecharge2check,
+            lockObj = null
+        };
 
-        boostRecharge3 = new Upgrade();
-        boostRecharge3.upgradeNumber = 3;
-        boostRecharge3.category = Upgrade.Category.boostRecharge;
-        boostRecharge3.state = Upgrade.State.available;
-        boostRecharge3.name = "Boost Recharge III";
-        boostRecharge3.description = "Boost Recharge +3";
-        boostRecharge3.price = 400;
+        boostRecharge3 = new Upgrade
+        {
+            upgradeNumber = 3,
+            category = Upgrade.Category.boostRecharge,
+            state = Upgrade.State.available,
+            name = "Boost Recharge III",
+            description = "Boost Recharge +3",
+            price = 400,
+            greyObj = boostRecharge3grey,
+            checkObj = boostRecharge3check,
+            lockObj = null
+        };
 
-        boostRecharge4 = new Upgrade();
-        boostRecharge4.upgradeNumber = 4;
-        boostRecharge4.category = Upgrade.Category.boostRecharge;
-        boostRecharge4.state = Upgrade.State.available;
-        boostRecharge4.name = "Boost Recharge IV";
-        boostRecharge4.description = "Boost Recharge +4";
-        boostRecharge4.price = 500;
+        boostRecharge4 = new Upgrade
+        {
+            upgradeNumber = 4,
+            category = Upgrade.Category.boostRecharge,
+            state = Upgrade.State.available,
+            name = "Boost Recharge IV",
+            description = "Boost Recharge +4",
+            price = 500,
+            greyObj = boostRecharge4grey,
+            checkObj = boostRecharge4check,
+            lockObj = null
+        };
 
         upgradeList = new List<Upgrade>()
         {
@@ -601,6 +852,30 @@ public class GarageManager : MonoBehaviour
         foreach (GameObject icon in garageIconList)
         {
             icon.SetActive(false);
+        }
+
+        foreach(Upgrade upgrade in upgradeList)
+        {
+            switch(upgrade.state)
+            {
+                case Upgrade.State.available:
+                    if(playerController.TotalMoney < upgrade.price) upgrade.greyObj.SetActive(true);
+                    upgrade.checkObj.SetActive(false);
+                    if(upgrade.lockObj != null) upgrade.lockObj.SetActive(false);
+                    break;
+
+                case Upgrade.State.locked:
+                    upgrade.greyObj.SetActive(false);
+                    upgrade.checkObj.SetActive(false);
+                    if (upgrade.lockObj != null) upgrade.lockObj.SetActive(true);
+                    break;
+
+                case Upgrade.State.owned:
+                    upgrade.greyObj.SetActive(false);
+                    upgrade.checkObj.SetActive(true);
+                    if (upgrade.lockObj != null) upgrade.lockObj.SetActive(false);
+                    break;
+            }
         }
 
         switch (GameManager.GameLevel)
@@ -631,229 +906,6 @@ public class GarageManager : MonoBehaviour
                 garageT2.SetActive(false);
                 garageT3.SetActive(false);
                 garageT4.SetActive(true);
-                break;
-        }
-
-        switch (engineLevel)
-        {
-            case 0:
-                //engine 1 available
-                engine2lock.SetActive(true);
-                engine3lock.SetActive(true);
-                break;
-            case 1:
-                engine1check.SetActive(true);
-                //engine 2 available
-                engine3lock.SetActive(true);
-                break;
-            case 2:
-                engine1check.SetActive(true);
-                engine2check.SetActive(true);
-                //engine 3 available
-                break;
-            case 3:
-                engine1check.SetActive(true);
-                engine2check.SetActive(true);
-                engine3check.SetActive(true);
-                // engine 4 available
-                engine5lock.SetActive(true);
-                engine6lock.SetActive(true);
-                break;
-            case 4:
-                engine4check.SetActive(true);
-                //engine 5 available
-                engine6lock.SetActive(true);
-                break;
-            case 5:
-                engine4check.SetActive(true);
-                engine5check.SetActive(true);
-                //engine 6 available
-                break;
-            case 6:
-                engine4check.SetActive(true);
-                engine5check.SetActive(true);
-                engine6check.SetActive(true);
-                // engine 7 available
-                engine8lock.SetActive(true);
-                engine9lock.SetActive(true);
-                break;
-            case 7:
-                engine7check.SetActive(true);
-                //engine 8 available
-                engine9lock.SetActive(true);
-                break;
-            case 8:
-                engine7check.SetActive(true);
-                engine8check.SetActive(true);
-                //engine 9 available
-                break;
-            case 9:
-                engine7check.SetActive(true);
-                engine8check.SetActive(true);
-                engine9check.SetActive(true);
-                //engine 10 available
-                engine11lock.SetActive(true);
-                engine12lock.SetActive(true);
-                break;
-            case 10:
-                engine10check.SetActive(true);
-                //engine 11 available
-                engine12lock.SetActive(true);
-                break;
-            case 11:
-                engine10check.SetActive(true);
-                engine11check.SetActive(true);
-                //engine 12 available
-                break;
-            case 12:
-                engine10check.SetActive(true);
-                engine11check.SetActive(true);
-                engine12check.SetActive(true);
-                break;
-
-        }
-
-        switch (armourLevel)
-        {
-            case 0:
-                //armour 1 available
-                armour2lock.SetActive(true);
-                armour3lock.SetActive(true);
-                break;
-            case 1:
-                armour1check.SetActive(true);
-                //armour 2 available
-                armour3lock.SetActive(true);
-                break;
-            case 2:
-                armour1check.SetActive(true);
-                armour2check.SetActive(true);
-                //armour 3 available
-                break;
-            case 3:
-                armour1check.SetActive(true);
-                armour2check.SetActive(true);
-                armour3check.SetActive(true);
-                // armour 4 available
-                armour5lock.SetActive(true);
-                armour6lock.SetActive(true);
-                break;
-            case 4:
-                armour4check.SetActive(true);
-                //armour 5 available
-                armour6lock.SetActive(true);
-                break;
-            case 5:
-                armour4check.SetActive(true);
-                armour5check.SetActive(true);
-                //armour 6 available
-                break;
-            case 6:
-                armour4check.SetActive(true);
-                armour5check.SetActive(true);
-                armour6check.SetActive(true);
-                // armour 7 available
-                armour8lock.SetActive(true);
-                armour9lock.SetActive(true);
-                break;
-            case 7:
-                armour7check.SetActive(true);
-                //armour 8 available
-                armour9lock.SetActive(true);
-                break;
-            case 8:
-                armour7check.SetActive(true);
-                armour8check.SetActive(true);
-                //armour 9 available
-                break;
-            case 9:
-                armour7check.SetActive(true);
-                armour8check.SetActive(true);
-                armour9check.SetActive(true);
-                //armour 10 available
-                armour11lock.SetActive(true);
-                armour12lock.SetActive(true);
-                break;
-            case 10:
-                armour10check.SetActive(true);
-                //armour 11 available
-                armour12lock.SetActive(true);
-                break;
-            case 11:
-                armour10check.SetActive(true);
-                armour11check.SetActive(true);
-                //armour 12 available
-                break;
-            case 12:
-                armour10check.SetActive(true);
-                armour11check.SetActive(true);
-                armour12check.SetActive(true);
-                break;
-        }
-
-        switch (boostSpeedLevel)
-        {
-            case 1:
-                boostSpeed1check.SetActive(true);
-                break;
-            case 2:
-                boostSpeed1check.SetActive(true);
-                boostSpeed2check.SetActive(true);
-                break;
-            case 3:
-                boostSpeed1check.SetActive(true);
-                boostSpeed2check.SetActive(true);
-                boostSpeed3check.SetActive(true);
-                break;
-            case 4:
-                boostSpeed1check.SetActive(true);
-                boostSpeed2check.SetActive(true);
-                boostSpeed3check.SetActive(true);
-                boostSpeed4check.SetActive(true);
-                break;
-        }
-
-        switch (boostCooldownLevel)
-        {
-            case 1:
-                boostCooldown1check.SetActive(true);
-                break;
-            case 2:
-                boostCooldown1check.SetActive(true);
-                boostCooldown2check.SetActive(true);
-                break;
-            case 3:
-                boostCooldown1check.SetActive(true);
-                boostCooldown2check.SetActive(true);
-                boostCooldown3check.SetActive(true);
-                break;
-            case 4:
-                boostCooldown1check.SetActive(true);
-                boostCooldown2check.SetActive(true);
-                boostCooldown3check.SetActive(true);
-                boostCooldown4check.SetActive(true);
-                break;
-        }
-
-        switch (boostRechargeLevel)
-        {
-            case 1:
-                boostRecharge1check.SetActive(true);
-                break;
-            case 2:
-                boostRecharge1check.SetActive(true);
-                boostRecharge2check.SetActive(true);
-                break;
-            case 3:
-                boostCooldown1check.SetActive(true);
-                boostRecharge2check.SetActive(true);
-                boostRecharge3check.SetActive(true);
-                break;
-            case 4:
-                boostCooldown1check.SetActive(true);
-                boostRecharge2check.SetActive(true);
-                boostRecharge3check.SetActive(true);
-                boostRecharge4check.SetActive(true);
                 break;
         }
     }
@@ -1091,12 +1143,9 @@ public class GarageManager : MonoBehaviour
                 break;
         }
 
-        if(currentUpgrade.upgradeNumber < 3)
+        foreach (Upgrade nextUpgrade in upgradeList)
         {
-            foreach(Upgrade nextUpgrade in upgradeList)
-            {
-                if (nextUpgrade.category == currentUpgrade.category && nextUpgrade.upgradeNumber == currentUpgrade.upgradeNumber + 1) nextUpgrade.state = Upgrade.State.available;
-            }
+            if (nextUpgrade.category == currentUpgrade.category && nextUpgrade.upgradeNumber == currentUpgrade.upgradeNumber + 1 && nextUpgrade.state == Upgrade.State.locked) nextUpgrade.state = Upgrade.State.available;
         }
 
         currentUpgrade.state = Upgrade.State.owned;
@@ -1177,4 +1226,8 @@ public class Upgrade
     public string name;
     public string description;
     public int price;
+
+    public GameObject greyObj;
+    public GameObject checkObj;
+    public GameObject lockObj;
 }

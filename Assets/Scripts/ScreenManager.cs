@@ -260,14 +260,13 @@ public class ScreenManager : MonoBehaviour
         // Cup Winner Screen Elements
         cupWinnerScreen = GameObject.Find("ScreenManager/CupWinner");
 
-        cupButtonsPanel = GameObject.Find("ScreenManager/CupWinner/ButtonsPanel");
-        bronzeCup = GameObject.Find("ScreenManager/CupWinner/BronzeCup");
-        silverCup = GameObject.Find("ScreenManager/CupWinner/SilverCup");
-        goldCup = GameObject.Find("ScreenManager/CupWinner/GoldCup");
-        championshipCup = GameObject.Find("ScreenManager/CupWinner/ChampionshipCup");
+        bronzeCup = GameObject.Find("ScreenManager/CupWinner/Panel/BronzeCup");
+        silverCup = GameObject.Find("ScreenManager/CupWinner/Panel/SilverCup");
+        goldCup = GameObject.Find("ScreenManager/CupWinner/Panel/GoldCup");
+        championshipCup = GameObject.Find("ScreenManager/CupWinner/Panel/ChampionshipCup");
 
-        cupTitleText = GameObject.Find("ScreenManager/CupWinner/Title").GetComponent<TextMeshProUGUI>();
-        cupDescText = GameObject.Find("ScreenManager/CupWinner/Description").GetComponent<TextMeshProUGUI>();
+        cupTitleText = GameObject.Find("ScreenManager/CupWinner/Panel/Title").GetComponent<TextMeshProUGUI>();
+        cupDescText = GameObject.Find("ScreenManager/CupWinner/Panel/Description").GetComponent<TextMeshProUGUI>();
 
         // Save Screen Elements
         saveSlotScreen = GameObject.Find("ScreenManager/SaveSlotScreen");
@@ -382,7 +381,7 @@ public class ScreenManager : MonoBehaviour
         raceResultsScreen = GameObject.Find("ScreenManager/RaceResults");
         earningsScreen = GameObject.Find("ScreenManager/Earnings");
 
-        earningsText = GameObject.Find("ScreenManager/Earnings/earningsText").GetComponent<TextMeshProUGUI>();
+        earningsText = GameObject.Find("ScreenManager/Earnings/Panel/earningsText").GetComponent<TextMeshProUGUI>();
 
         rank1 = GameObject.Find("ScreenManager/RaceResults/rank1").GetComponent<TextMeshProUGUI>();
         rank2 = GameObject.Find("ScreenManager/RaceResults/rank2").GetComponent<TextMeshProUGUI>();
@@ -987,8 +986,6 @@ public class ScreenManager : MonoBehaviour
 
                 cupTitleText.text = "CONGRATULATIONS!\nYOU WON THE CHAMPIONSHIP CUP!";
                 cupDescText.text = "Time to claim your grand prize!";
-
-                if (cupButtonsPanel.activeSelf) cupButtonsPanel.SetActive(false);
                 break;
         }
     }
