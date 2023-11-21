@@ -170,6 +170,7 @@ public class PlayerController : Racer
 
             healthBar.value = health;
             boostBar.value = boostTimer;
+
         }
     }
 

@@ -72,103 +72,139 @@ public class SchoolManager : MonoBehaviour
 
     // T1 School Elements:
     static GameObject repair1check;
+    static GameObject repair1grey;
 
     static GameObject repair2lock;
     static GameObject repair2check;
+    static GameObject repair2grey;
 
     static GameObject repair3lock;
     static GameObject repair3check;
+    static GameObject repair3grey;
 
     static GameObject speech1check;
+    static GameObject speech1grey;
 
     static GameObject speech2lock;
     static GameObject speech2check;
+    static GameObject speech2grey;
 
     static GameObject speech3lock;
     static GameObject speech3check;
+    static GameObject speech3grey;
 
     static GameObject charm1check;
+    static GameObject charm1grey;
 
     static GameObject charm2lock;
     static GameObject charm2check;
+    static GameObject charm2grey;
 
     static GameObject charm3lock;
     static GameObject charm3check;
+    static GameObject charm3grey;
 
     // T2 School Elements:
     static GameObject repair4check;
+    static GameObject repair4grey;
 
     static GameObject repair5lock;
     static GameObject repair5check;
+    static GameObject repair5grey;
 
     static GameObject repair6lock;
     static GameObject repair6check;
+    static GameObject repair6grey;
 
     static GameObject speech4check;
+    static GameObject speech4grey;
 
     static GameObject speech5lock;
     static GameObject speech5check;
+    static GameObject speech5grey;
 
     static GameObject speech6lock;
     static GameObject speech6check;
+    static GameObject speech6grey;
 
     static GameObject charm4check;
-                    
+    static GameObject charm4grey;
+
     static GameObject charm5lock;
     static GameObject charm5check;
-                 
+    static GameObject charm5grey;
+
     static GameObject charm6lock;
     static GameObject charm6check;
+    static GameObject charm6grey;
 
     // T3 School Elements
     static GameObject repair7check;
+    static GameObject repair7grey;
 
     static GameObject repair8lock;
     static GameObject repair8check;
+    static GameObject repair8grey;
 
     static GameObject repair9lock;
     static GameObject repair9check;
+    static GameObject repair9grey;
 
     static GameObject speech7check;
+    static GameObject speech7grey;
 
     static GameObject speech8lock;
     static GameObject speech8check;
+    static GameObject speech8grey;
 
     static GameObject speech9lock;
     static GameObject speech9check;
+    static GameObject speech9grey;
 
     static GameObject charm7check;
+    static GameObject charm7grey;
 
     static GameObject charm8lock;
     static GameObject charm8check;
+    static GameObject charm8grey;
 
     static GameObject charm9lock;
     static GameObject charm9check;
+    static GameObject charm9grey;
 
     // T4 School Elements
     static GameObject repair10check;
+    static GameObject repair10grey;
 
     static GameObject repair11lock;
     static GameObject repair11check;
+    static GameObject repair11grey;
 
     static GameObject repair12lock;
     static GameObject repair12check;
+    static GameObject repair12grey;
 
     static GameObject speech10check;
+    static GameObject speech10grey;
 
     static GameObject speech11lock;
     static GameObject speech11check;
+    static GameObject speech11grey;
 
     static GameObject speech12lock;
     static GameObject speech12check;
+    static GameObject speech12grey;
 
     static GameObject charm10check;
+    static GameObject charm10grey;
 
     static GameObject charm11lock;
     static GameObject charm11check;
+    static GameObject charm11grey;
 
     static GameObject charm12lock;
     static GameObject charm12check;
+    static GameObject charm12grey;
     //
     static List<GameObject> schoolIconList;
 
@@ -185,110 +221,150 @@ public class SchoolManager : MonoBehaviour
 
         // School T1 Elements
         repair1check = GameObject.Find("ScreenManager/School/T1/RepairUpgrades/Upgrade1/Check");
+        repair1grey = GameObject.Find("ScreenManager/School/T1/RepairUpgrades/Upgrade1/Grey");
+
 
         repair2lock = GameObject.Find("ScreenManager/School/T1/RepairUpgrades/Upgrade2/Lock");
         repair2check = GameObject.Find("ScreenManager/School/T1/RepairUpgrades/Upgrade2/Check");
+        repair2grey = GameObject.Find("ScreenManager/School/T1/RepairUpgrades/Upgrade2/Grey");
 
         repair3lock = GameObject.Find("ScreenManager/School/T1/RepairUpgrades/Upgrade3/Lock");
         repair3check = GameObject.Find("ScreenManager/School/T1/RepairUpgrades/Upgrade3/Check");
+        repair3grey = GameObject.Find("ScreenManager/School/T1/RepairUpgrades/Upgrade3/Grey");
 
         speech1check = GameObject.Find("ScreenManager/School/T1/SpeechUpgrades/Upgrade1/Check");
+        speech1grey = GameObject.Find("ScreenManager/School/T1/SpeechUpgrades/Upgrade1/Grey");
 
         speech2lock = GameObject.Find("ScreenManager/School/T1/SpeechUpgrades/Upgrade2/Lock");
         speech2check = GameObject.Find("ScreenManager/School/T1/SpeechUpgrades/Upgrade2/Check");
+        speech2grey = GameObject.Find("ScreenManager/School/T1/SpeechUpgrades/Upgrade2/Grey");
 
         speech3lock = GameObject.Find("ScreenManager/School/T1/SpeechUpgrades/Upgrade3/Lock");
         speech3check = GameObject.Find("ScreenManager/School/T1/SpeechUpgrades/Upgrade3/Check");
+        speech3grey = GameObject.Find("ScreenManager/School/T1/SpeechUpgrades/Upgrade3/Grey");
 
         charm1check = GameObject.Find("ScreenManager/School/T1/CharmUpgrades/Upgrade1/Check");
-  
+        charm1grey = GameObject.Find("ScreenManager/School/T1/CharmUpgrades/Upgrade1/Grey");
+
         charm2lock = GameObject.Find("ScreenManager/School/T1/CharmUpgrades/Upgrade2/Lock");
         charm2check = GameObject.Find("ScreenManager/School/T1/CharmUpgrades/Upgrade2/Check");
-        
+        charm2grey = GameObject.Find("ScreenManager/School/T1/CharmUpgrades/Upgrade2/Grey");
+
         charm3lock = GameObject.Find("ScreenManager/School/T1/CharmUpgrades/Upgrade3/Lock");
         charm3check = GameObject.Find("ScreenManager/School/T1/CharmUpgrades/Upgrade3/Check");
+        charm3grey = GameObject.Find("ScreenManager/School/T1/CharmUpgrades/Upgrade3/Grey");
 
         // School T2 Elements
         repair4check = GameObject.Find("ScreenManager/School/T2/RepairUpgrades/Upgrade1/Check");
+        repair4grey = GameObject.Find("ScreenManager/School/T2/RepairUpgrades/Upgrade1/Grey");
 
         repair5lock = GameObject.Find("ScreenManager/School/T2/RepairUpgrades/Upgrade2/Lock");
         repair5check = GameObject.Find("ScreenManager/School/T2/RepairUpgrades/Upgrade2/Check");
+        repair5grey = GameObject.Find("ScreenManager/School/T2/RepairUpgrades/Upgrade2/Grey");
 
         repair6lock = GameObject.Find("ScreenManager/School/T2/RepairUpgrades/Upgrade3/Lock");
         repair6check = GameObject.Find("ScreenManager/School/T2/RepairUpgrades/Upgrade3/Check");
+        repair6grey = GameObject.Find("ScreenManager/School/T2/RepairUpgrades/Upgrade3/Grey");
 
         speech4check = GameObject.Find("ScreenManager/School/T2/SpeechUpgrades/Upgrade1/Check");
+        speech4grey = GameObject.Find("ScreenManager/School/T2/SpeechUpgrades/Upgrade1/Grey");
 
         speech5lock = GameObject.Find("ScreenManager/School/T2/SpeechUpgrades/Upgrade2/Lock");
         speech5check = GameObject.Find("ScreenManager/School/T2/SpeechUpgrades/Upgrade2/Check");
+        speech5grey = GameObject.Find("ScreenManager/School/T2/SpeechUpgrades/Upgrade2/Grey");
 
         speech6lock = GameObject.Find("ScreenManager/School/T2/SpeechUpgrades/Upgrade3/Lock");
         speech6check = GameObject.Find("ScreenManager/School/T2/SpeechUpgrades/Upgrade3/Check");
+        speech6grey = GameObject.Find("ScreenManager/School/T2/SpeechUpgrades/Upgrade3/Grey");
 
         charm4check = GameObject.Find("ScreenManager/School/T2/CharmUpgrades/Upgrade1/Check");
+        charm4grey = GameObject.Find("ScreenManager/School/T2/CharmUpgrades/Upgrade1/Grey");
 
         charm5lock = GameObject.Find("ScreenManager/School/T2/CharmUpgrades/Upgrade2/Lock");
         charm5check = GameObject.Find("ScreenManager/School/T2/CharmUpgrades/Upgrade2/Check");
+        charm5grey = GameObject.Find("ScreenManager/School/T2/CharmUpgrades/Upgrade2/Grey");
 
         charm6lock = GameObject.Find("ScreenManager/School/T2/CharmUpgrades/Upgrade3/Lock");
         charm6check = GameObject.Find("ScreenManager/School/T2/CharmUpgrades/Upgrade3/Check");
+        charm6grey = GameObject.Find("ScreenManager/School/T2/CharmUpgrades/Upgrade3/Grey");
 
         // School T3 Elements
         repair7check = GameObject.Find("ScreenManager/School/T3/RepairUpgrades/Upgrade1/Check");
+        repair7grey = GameObject.Find("ScreenManager/School/T3/RepairUpgrades/Upgrade1/Grey");
 
         repair8lock = GameObject.Find("ScreenManager/School/T3/RepairUpgrades/Upgrade2/Lock");
         repair8check = GameObject.Find("ScreenManager/School/T3/RepairUpgrades/Upgrade2/Check");
+        repair8grey = GameObject.Find("ScreenManager/School/T3/RepairUpgrades/Upgrade2/Grey");
 
         repair9lock = GameObject.Find("ScreenManager/School/T3/RepairUpgrades/Upgrade3/Lock");
         repair9check = GameObject.Find("ScreenManager/School/T3/RepairUpgrades/Upgrade3/Check");
+        repair9grey = GameObject.Find("ScreenManager/School/T3/RepairUpgrades/Upgrade3/Grey");
 
         speech7check = GameObject.Find("ScreenManager/School/T3/SpeechUpgrades/Upgrade1/Check");
+        speech7grey = GameObject.Find("ScreenManager/School/T3/SpeechUpgrades/Upgrade1/Grey");
 
         speech8lock = GameObject.Find("ScreenManager/School/T3/SpeechUpgrades/Upgrade2/Lock");
         speech8check = GameObject.Find("ScreenManager/School/T3/SpeechUpgrades/Upgrade2/Check");
+        speech8grey = GameObject.Find("ScreenManager/School/T3/SpeechUpgrades/Upgrade2/Grey");
 
         speech9lock = GameObject.Find("ScreenManager/School/T3/SpeechUpgrades/Upgrade3/Lock");
         speech9check = GameObject.Find("ScreenManager/School/T3/SpeechUpgrades/Upgrade3/Check");
+        speech9grey = GameObject.Find("ScreenManager/School/T3/SpeechUpgrades/Upgrade3/Grey");
 
         charm7check = GameObject.Find("ScreenManager/School/T3/CharmUpgrades/Upgrade1/Check");
+        charm7grey = GameObject.Find("ScreenManager/School/T3/CharmUpgrades/Upgrade1/Grey");
 
         charm8lock = GameObject.Find("ScreenManager/School/T3/CharmUpgrades/Upgrade2/Lock");
         charm8check = GameObject.Find("ScreenManager/School/T3/CharmUpgrades/Upgrade2/Check");
+        charm8grey = GameObject.Find("ScreenManager/School/T3/CharmUpgrades/Upgrade2/Grey");
 
         charm9lock = GameObject.Find("ScreenManager/School/T3/CharmUpgrades/Upgrade3/Lock");
         charm9check = GameObject.Find("ScreenManager/School/T3/CharmUpgrades/Upgrade3/Check");
+        charm9grey = GameObject.Find("ScreenManager/School/T3/CharmUpgrades/Upgrade3/Grey");
 
         // School T4 Elements
         repair10check = GameObject.Find("ScreenManager/School/T4/RepairUpgrades/Upgrade1/Check");
+        repair10grey = GameObject.Find("ScreenManager/School/T4/RepairUpgrades/Upgrade1/Grey");
 
         repair11lock = GameObject.Find("ScreenManager/School/T4/RepairUpgrades/Upgrade2/Lock");
         repair11check = GameObject.Find("ScreenManager/School/T4/RepairUpgrades/Upgrade2/Check");
+        repair11grey = GameObject.Find("ScreenManager/School/T4/RepairUpgrades/Upgrade2/Grey");
 
         repair12lock = GameObject.Find("ScreenManager/School/T4/RepairUpgrades/Upgrade3/Lock");
         repair12check = GameObject.Find("ScreenManager/School/T4/RepairUpgrades/Upgrade3/Check");
+        repair12grey = GameObject.Find("ScreenManager/School/T4/RepairUpgrades/Upgrade3/Grey");
 
         speech10check = GameObject.Find("ScreenManager/School/T4/SpeechUpgrades/Upgrade1/Check");
+        speech10grey = GameObject.Find("ScreenManager/School/T4/SpeechUpgrades/Upgrade1/Grey");
 
         speech11lock = GameObject.Find("ScreenManager/School/T4/SpeechUpgrades/Upgrade2/Lock");
         speech11check = GameObject.Find("ScreenManager/School/T4/SpeechUpgrades/Upgrade2/Check");
+        speech11grey = GameObject.Find("ScreenManager/School/T4/SpeechUpgrades/Upgrade2/Grey");
 
         speech12lock = GameObject.Find("ScreenManager/School/T4/SpeechUpgrades/Upgrade3/Lock");
         speech12check = GameObject.Find("ScreenManager/School/T4/SpeechUpgrades/Upgrade3/Check");
+        speech12grey = GameObject.Find("ScreenManager/School/T4/SpeechUpgrades/Upgrade3/Grey");
 
         charm10check = GameObject.Find("ScreenManager/School/T4/CharmUpgrades/Upgrade1/Check");
+        charm10grey = GameObject.Find("ScreenManager/School/T4/CharmUpgrades/Upgrade1/Grey");
 
         charm11lock = GameObject.Find("ScreenManager/School/T4/CharmUpgrades/Upgrade2/Lock");
         charm11check = GameObject.Find("ScreenManager/School/T4/CharmUpgrades/Upgrade2/Check");
+        charm11grey = GameObject.Find("ScreenManager/School/T4/CharmUpgrades/Upgrade2/Grey");
 
         charm12lock = GameObject.Find("ScreenManager/School/T4/CharmUpgrades/Upgrade3/Lock");
         charm12check = GameObject.Find("ScreenManager/School/T4/CharmUpgrades/Upgrade3/Check");
+        charm12grey = GameObject.Find("ScreenManager/School/T4/CharmUpgrades/Upgrade3/Grey");
 
         schoolIconList = new List<GameObject>
         {
             repair1check, repair2lock, repair2check, repair3lock, repair3check, speech1check, speech2lock, speech2check, speech3lock, speech3check, charm1check, charm2lock, charm2check, charm3lock, charm3check,
             repair4check, repair5lock, repair5check, repair6lock, repair6check, speech4check, speech5lock, speech5check, speech6lock, speech6check, charm4check, charm5lock, charm5check, charm6lock, charm6check,
             repair7check, repair8lock, repair8check, repair9lock, repair9check, speech7check, speech8lock, speech8check, speech9lock, speech9check, charm7check, charm8lock, charm8check, charm9lock, charm9check,
-            repair10check, repair11lock, repair11check, repair12lock, repair12check, speech10check, speech11lock, speech11check, speech12lock, speech12check, charm10check, charm11lock, charm11check, charm12lock, charm12check
+            repair10check, repair11lock, repair11check, repair12lock, repair12check, speech10check, speech11lock, speech11check, speech12lock, speech12check, charm10check, charm11lock, charm11check, charm12lock, charm12check,
+            repair1grey, repair2grey, repair3grey, repair4grey, repair5grey, repair6grey, repair7grey, repair8grey, repair9grey, repair10grey, repair11grey, repair12grey,
+            speech1grey, speech2grey, speech3grey, speech4grey, speech5grey, speech6grey, speech7grey, speech8grey, speech9grey, speech10grey, speech11grey, speech12grey,
+            charm1grey, charm2grey, charm3grey, charm4grey, charm5grey, charm6grey, charm7grey, charm8grey, charm9grey, charm10grey, charm11grey, charm12grey
         };
     }
     public void SetupSchool()
@@ -300,8 +376,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 1,
             category = Upgrade.Category.repair,
             state = Upgrade.State.available,
-            name = "Tune-Up",
-            description = "Basic maintenance. Increases speed.",
+            name = "Repair Skill I",
+            description = "Increases health gained from repair kits.",
             price = 100
         };
 
@@ -310,8 +386,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 2,
             category = Upgrade.Category.repair,
             state = Upgrade.State.locked,
-            name = "New Repair",
-            description = "Better than old junk. Increases speed again.",
+            name = "Repair Skill II",
+            description = "Increases health gained from repair kits.",
             price = 200
         };
 
@@ -320,8 +396,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 3,
             category = Upgrade.Category.repair,
             state = Upgrade.State.locked,
-            name = "Modify Repair",
-            description = "Performance tweaks. Further increases speed.",
+            name = "Repair Skill III",
+            description = "Increases health gained from repair kits.",
             price = 300
         };
 
@@ -330,8 +406,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 4,
             category = Upgrade.Category.repair,
             state = Upgrade.State.available,
-            name = "Engine Level IV",
-            description = "Speed +4",
+            name = "Repair Skill IV",
+            description = "Increases health gained from repair kits.",
             price = 200
         };
 
@@ -340,8 +416,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 5,
             category = Upgrade.Category.repair,
             state = Upgrade.State.locked,
-            name = "Engine Level V",
-            description = "Speed +5",
+            name = "Repair Skill V",
+            description = "Increases health gained from repair kits.",
             price = 300
         };
 
@@ -350,8 +426,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 6,
             category = Upgrade.Category.repair,
             state = Upgrade.State.locked,
-            name = "Engine Level VI",
-            description = "Speed +6",
+            name = "Repair Skill VI",
+            description = "Increases health gained from repair kits.",
             price = 400
         };
 
@@ -360,8 +436,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 7,
             category = Upgrade.Category.repair,
             state = Upgrade.State.available,
-            name = "Engine Level VII",
-            description = "Speed +7",
+            name = "Repair Skill VII",
+            description = "Increases health gained from repair kits.",
             price = 300
         };
 
@@ -370,8 +446,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 8,
             category = Upgrade.Category.repair,
             state = Upgrade.State.locked,
-            name = "Engine Level VIII",
-            description = "Speed +8",
+            name = "Repair Skill VIII",
+            description = "Increases health gained from repair kits.",
             price = 400
         };
 
@@ -380,8 +456,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 9,
             category = Upgrade.Category.repair,
             state = Upgrade.State.locked,
-            name = "Engine Level IX",
-            description = "Speed +9",
+            name = "Repair Skill IX",
+            description = "Increases health gained from repair kits.",
             price = 500
         };
 
@@ -390,8 +466,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 10,
             category = Upgrade.Category.repair,
             state = Upgrade.State.available,
-            name = "Engine Level X",
-            description = "Speed +10",
+            name = "Repair Skill X",
+            description = "Increases health gained from repair kits.",
             price = 400
         };
 
@@ -400,8 +476,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 11,
             category = Upgrade.Category.repair,
             state = Upgrade.State.locked,
-            name = "Engine Level XI",
-            description = "Speed +11",
+            name = "Repair Skill XI",
+            description = "Increases health gained from repair kits.",
             price = 500
         };
 
@@ -410,114 +486,138 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 12,
             category = Upgrade.Category.repair,
             state = Upgrade.State.locked,
-            name = "Engine Level XII",
-            description = "Speed +12",
+            name = "Repair Skill XII",
+            description = "Increases health gained from repair kits.",
             price = 600
         };
 
-        speech1 = new Upgrade();
-        speech1.upgradeNumber = 1;
-        speech1.category = Upgrade.Category.speech;
-        speech1.state = Upgrade.State.available;
-        speech1.name = "Fix Holes";
-        speech1.description = "Patch up your car's body. Decreases damage.";
-        speech1.price = 100;
+        speech1 = new Upgrade
+        {
+            upgradeNumber = 1,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.available,
+            name = "Rat Speech I",
+            description = "Negotiate for more money earned after races.",
+            price = 100
+        };
 
-        speech2 = new Upgrade();
-        speech2.upgradeNumber = 2;
-        speech2.category = Upgrade.Category.speech;
-        speech2.state = Upgrade.State.locked;
-        speech2.name = "Added Plating";
-        speech2.description = "Extra protection. Decreases damage more.";
-        speech2.price = 200;
+        speech2 = new Upgrade
+        {
+            upgradeNumber = 2,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.locked,
+            name = "Rat Speech II",
+            description = "Negotiate for more money earned after races.",
+            price = 200
+        };
 
-        speech3 = new Upgrade();
-        speech3.upgradeNumber = 3;
-        speech3.category = Upgrade.Category.speech;
-        speech3.state = Upgrade.State.locked;
-        speech3.name = "Vehicle Armour";
-        speech3.description = "Reinforced for extra strength. Decreases damage further.";
-        speech3.price = 400;
+        speech3 = new Upgrade
+        {
+            upgradeNumber = 3,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.locked,
+            name = "Rat Speech III",
+            description = "Negotiate for more money earned after races.",
+            price = 400
+        };
 
-        speech4 = new Upgrade();
-        speech4.upgradeNumber = 4;
-        speech4.category = Upgrade.Category.speech;
-        speech4.state = Upgrade.State.available;
-        speech4.name = "Armour Level IV";
-        speech4.description = "Damage -4";
-        speech4.price = 200;
+        speech4 = new Upgrade
+        {
+            upgradeNumber = 4,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.available,
+            name = "Rat Speech IV",
+            description = "Negotiate for more money earned after races.",
+            price = 200
+        };
 
-        speech5 = new Upgrade();
-        speech5.upgradeNumber = 5;
-        speech5.category = Upgrade.Category.speech;
-        speech5.state = Upgrade.State.locked;
-        speech5.name = "Armour Level V";
-        speech5.description = "Damage -5";
-        speech5.price = 300;
+        speech5 = new Upgrade
+        {
+            upgradeNumber = 5,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.locked,
+            name = "Rat Speech V",
+            description = "Negotiate for more money earned after races.",
+            price = 300
+        };
 
-        speech6 = new Upgrade();
-        speech6.upgradeNumber = 6;
-        speech6.category = Upgrade.Category.speech;
-        speech6.state = Upgrade.State.locked;
-        speech6.name = "Armour Level VI";
-        speech6.description = "Damage -6";
-        speech6.price = 400;
+        speech6 = new Upgrade
+        {
+            upgradeNumber = 6,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.locked,
+            name = "Rat Speech VI",
+            description = "Negotiate for more money earned after races.",
+            price = 400
+        };
 
-        speech7 = new Upgrade();
-        speech7.upgradeNumber = 7;
-        speech7.category = Upgrade.Category.speech;
-        speech7.state = Upgrade.State.available;
-        speech7.name = "Armour Level VII";
-        speech7.description = "Damage -7";
-        speech7.price = 300;
+        speech7 = new Upgrade
+        {
+            upgradeNumber = 7,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.available,
+            name = "Rat Speech VII",
+            description = "Negotiate for more money earned after races.",
+            price = 300
+        };
 
-        speech8 = new Upgrade();
-        speech8.upgradeNumber = 8;
-        speech8.category = Upgrade.Category.speech;
-        speech8.state = Upgrade.State.locked;
-        speech8.name = "Armour Level VIII";
-        speech8.description = "Damage -8";
-        speech8.price = 400;
+        speech8 = new Upgrade
+        {
+            upgradeNumber = 8,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.locked,
+            name = "Rat Speech VIII",
+            description = "Negotiate for more money earned after races.",
+            price = 400
+        };
 
-        speech9 = new Upgrade();
-        speech9.upgradeNumber = 9;
-        speech9.category = Upgrade.Category.speech;
-        speech9.state = Upgrade.State.locked;
-        speech9.name = "Armour Level IX";
-        speech9.description = "Damage -9";
-        speech9.price = 500;
+        speech9 = new Upgrade
+        {
+            upgradeNumber = 9,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.locked,
+            name = "Rat Speech IX",
+            description = "Negotiate for more money earned after races.",
+            price = 500
+        };
 
-        speech10 = new Upgrade();
-        speech10.upgradeNumber = 10;
-        speech10.category = Upgrade.Category.speech;
-        speech10.state = Upgrade.State.available;
-        speech10.name = "Armour Level X";
-        speech10.description = "Damage -10";
-        speech10.price = 400;
+        speech10 = new Upgrade
+        {
+            upgradeNumber = 10,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.available,
+            name = "Rat Speech X",
+            description = "Negotiate for more money earned after races.",
+            price = 400
+        };
 
-        speech11 = new Upgrade();
-        speech11.upgradeNumber = 11;
-        speech11.category = Upgrade.Category.speech;
-        speech11.state = Upgrade.State.locked;
-        speech11.name = "Armour Level XI";
-        speech11.description = "Damage -11";
-        speech11.price = 500;
+        speech11 = new Upgrade
+        {
+            upgradeNumber = 11,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.locked,
+            name = "Rat Speech XI",
+            description = "Negotiate for more money earned after races.",
+            price = 500
+        };
 
-        speech12 = new Upgrade();
-        speech12.upgradeNumber = 12;
-        speech12.category = Upgrade.Category.speech;
-        speech12.state = Upgrade.State.locked;
-        speech12.name = "Armour Level XII";
-        speech12.description = "Damage -12";
-        speech12.price = 600;
+        speech12 = new Upgrade
+        {
+            upgradeNumber = 12,
+            category = Upgrade.Category.speech,
+            state = Upgrade.State.locked,
+            name = "Rat Speech XII",
+            description = "Negotiate for more money earned after races.",
+            price = 600
+        };
 
         charm1 = new Upgrade
         {
             upgradeNumber = 1,
             category = Upgrade.Category.charm,
             state = Upgrade.State.available,
-            name = "Tune-Up",
-            description = "Basic maintenance. Increases speed.",
+            name = "Charm Skill I",
+            description = "Decreases chances of opponents firing at you.",
             price = 100
         };
 
@@ -526,8 +626,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 2,
             category = Upgrade.Category.charm,
             state = Upgrade.State.locked,
-            name = "New Repair",
-            description = "Better than old junk. Increases speed again.",
+            name = "Charm Skill II",
+            description = "Decreases chances of opponents firing at you.",
             price = 200
         };
 
@@ -536,8 +636,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 3,
             category = Upgrade.Category.charm,
             state = Upgrade.State.locked,
-            name = "Modify Repair",
-            description = "Performance tweaks. Further increases speed.",
+            name = "Charm Skill III",
+            description = "Decreases chances of opponents firing at you.",
             price = 300
         };
 
@@ -546,8 +646,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 4,
             category = Upgrade.Category.charm,
             state = Upgrade.State.available,
-            name = "Engine Level IV",
-            description = "Speed +4",
+            name = "Charm Skill IV",
+            description = "Decreases chances of opponents firing at you.",
             price = 200
         };
 
@@ -556,8 +656,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 5,
             category = Upgrade.Category.charm,
             state = Upgrade.State.locked,
-            name = "Engine Level V",
-            description = "Speed +5",
+            name = "Charm Skill V",
+            description = "Decreases chances of opponents firing at you.",
             price = 300
         };
 
@@ -566,8 +666,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 6,
             category = Upgrade.Category.charm,
             state = Upgrade.State.locked,
-            name = "Engine Level VI",
-            description = "Speed +6",
+            name = "Charm Skill IV",
+            description = "Decreases chances of opponents firing at you.",
             price = 400
         };
 
@@ -576,8 +676,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 7,
             category = Upgrade.Category.charm,
             state = Upgrade.State.available,
-            name = "Engine Level VII",
-            description = "Speed +7",
+            name = "Charm Skill VII",
+            description = "Decreases chances of opponents firing at you.",
             price = 300
         };
 
@@ -586,8 +686,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 8,
             category = Upgrade.Category.charm,
             state = Upgrade.State.locked,
-            name = "Engine Level VIII",
-            description = "Speed +8",
+            name = "Charm Skill VIII",
+            description = "Decreases chances of opponents firing at you.",
             price = 400
         };
 
@@ -596,8 +696,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 9,
             category = Upgrade.Category.charm,
             state = Upgrade.State.locked,
-            name = "Engine Level IX",
-            description = "Speed +9",
+            name = "Charm Skill IX",
+            description = "Decreases chances of opponents firing at you.",
             price = 500
         };
 
@@ -606,8 +706,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 10,
             category = Upgrade.Category.charm,
             state = Upgrade.State.available,
-            name = "Engine Level X",
-            description = "Speed +10",
+            name = "Charm Skill X",
+            description = "Decreases chances of opponents firing at you.",
             price = 400
         };
 
@@ -616,8 +716,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 11,
             category = Upgrade.Category.charm,
             state = Upgrade.State.locked,
-            name = "Engine Level XI",
-            description = "Speed +11",
+            name = "Charm Skill XI",
+            description = "Decreases chances of opponents firing at you.",
             price = 500
         };
 
@@ -626,8 +726,8 @@ public class SchoolManager : MonoBehaviour
             upgradeNumber = 12,
             category = Upgrade.Category.charm,
             state = Upgrade.State.locked,
-            name = "Engine Level XII",
-            description = "Speed +12",
+            name = "Charm Skill XII",
+            description = "Decreases chances of opponents firing at you.",
             price = 600
         };
 
