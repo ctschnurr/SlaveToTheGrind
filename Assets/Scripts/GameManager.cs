@@ -70,6 +70,8 @@ public class GameManager : MonoBehaviour
             state = GameState.active;
 
             ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
+
+            if (paused) Pause();
         }
         if (scene.name == "TitleScene")
         {
@@ -77,6 +79,22 @@ public class GameManager : MonoBehaviour
             gameLevel = 0;
 
             ScreenManager.SetScreen(ScreenManager.Screen.title);
+        }
+    }
+
+    public static void Pause()
+    {
+        if (!paused)
+        {
+            Time.timeScale = 0;
+            ScreenManager.SetScreen(ScreenManager.Screen.pause);
+            paused = true;
+        }
+        else if (paused)
+        {
+            Time.timeScale = 1;
+            ScreenManager.SetScreen(ScreenManager.Screen.HUD);
+            paused = false;
         }
     }
 }

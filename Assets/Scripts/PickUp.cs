@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    // Start is called before the first frame update
+    protected AudioSource pickupSound;
+    protected bool pickedUp = false;
+    public SpriteRenderer sprite;
     void Start()
     {
         
@@ -20,8 +22,16 @@ public class PickUp : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (pickedUp) if (!pickupSound.isPlaying) Destroy(gameObject);
+    }
+
     public virtual void PickMeUp(GameObject car)
     {
-
+        transform.GetComponent<CircleCollider2D>().enabled = false;
+        sprite.enabled = false;
+        pickupSound.Play();
+        pickedUp = true;
     }
 }

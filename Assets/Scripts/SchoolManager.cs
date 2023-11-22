@@ -59,7 +59,7 @@ public class SchoolManager : MonoBehaviour
     static Upgrade charm12;
 
 
-    private List<Upgrade> upgradeList;
+    private static List<Upgrade> upgradeList;
 
     static Upgrade currentUpgrade;
 
@@ -378,7 +378,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Repair Skill I",
             description = "Increases health gained from repair kits.",
-            price = 100
+            price = 100,
+            greyObj = repair1grey,
+            checkObj = repair1check,
+            lockObj = null
         };
 
         repair2 = new Upgrade
@@ -388,7 +391,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Repair Skill II",
             description = "Increases health gained from repair kits.",
-            price = 200
+            price = 200,
+            greyObj = repair2grey,
+            checkObj = repair2check,
+            lockObj = repair2lock
         };
 
         repair3 = new Upgrade
@@ -398,7 +404,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Repair Skill III",
             description = "Increases health gained from repair kits.",
-            price = 300
+            price = 300,
+            greyObj = repair3grey,
+            checkObj = repair3check,
+            lockObj = repair3lock
         };
 
         repair4 = new Upgrade
@@ -408,7 +417,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Repair Skill IV",
             description = "Increases health gained from repair kits.",
-            price = 200
+            price = 200,
+            greyObj = repair4grey,
+            checkObj = repair4check,
+            lockObj = null
         };
 
         repair5 = new Upgrade
@@ -418,7 +430,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Repair Skill V",
             description = "Increases health gained from repair kits.",
-            price = 300
+            price = 300,
+            greyObj = repair5grey,
+            checkObj = repair5check,
+            lockObj = repair5lock
         };
 
         repair6 = new Upgrade
@@ -428,7 +443,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Repair Skill VI",
             description = "Increases health gained from repair kits.",
-            price = 400
+            price = 400,
+            greyObj = repair6grey,
+            checkObj = repair6check,
+            lockObj = repair6lock
         };
 
         repair7 = new Upgrade
@@ -438,7 +456,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Repair Skill VII",
             description = "Increases health gained from repair kits.",
-            price = 300
+            price = 300,
+            greyObj = repair7grey,
+            checkObj = repair7check,
+            lockObj = null
         };
 
         repair8 = new Upgrade
@@ -448,7 +469,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Repair Skill VIII",
             description = "Increases health gained from repair kits.",
-            price = 400
+            price = 400,
+            greyObj = repair8grey,
+            checkObj = repair8check,
+            lockObj = repair8lock
         };
 
         repair9 = new Upgrade
@@ -458,7 +482,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Repair Skill IX",
             description = "Increases health gained from repair kits.",
-            price = 500
+            price = 500,
+            greyObj = repair9grey,
+            checkObj = repair9check,
+            lockObj = repair9lock
         };
 
         repair10 = new Upgrade
@@ -468,7 +495,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Repair Skill X",
             description = "Increases health gained from repair kits.",
-            price = 400
+            price = 400,
+            greyObj = repair10grey,
+            checkObj = repair10check,
+            lockObj = null
         };
 
         repair11 = new Upgrade
@@ -478,7 +508,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Repair Skill XI",
             description = "Increases health gained from repair kits.",
-            price = 500
+            price = 500,
+            greyObj = repair11grey,
+            checkObj = repair11check,
+            lockObj = repair11lock
         };
 
         repair12 = new Upgrade
@@ -488,7 +521,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Repair Skill XII",
             description = "Increases health gained from repair kits.",
-            price = 600
+            price = 600,
+            greyObj = repair12grey,
+            checkObj = repair12check,
+            lockObj = repair12lock
         };
 
         speech1 = new Upgrade
@@ -498,7 +534,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Rat Speech I",
             description = "Negotiate for more money earned after races.",
-            price = 100
+            price = 100,
+            greyObj = speech1grey,
+            checkObj = speech1check,
+            lockObj = null
         };
 
         speech2 = new Upgrade
@@ -508,7 +547,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Rat Speech II",
             description = "Negotiate for more money earned after races.",
-            price = 200
+            price = 200,
+            greyObj = speech2grey,
+            checkObj = speech2check,
+            lockObj = speech2lock
         };
 
         speech3 = new Upgrade
@@ -518,7 +560,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Rat Speech III",
             description = "Negotiate for more money earned after races.",
-            price = 400
+            price = 400,
+            greyObj = speech3grey,
+            checkObj = speech3check,
+            lockObj = speech3lock
         };
 
         speech4 = new Upgrade
@@ -528,7 +573,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Rat Speech IV",
             description = "Negotiate for more money earned after races.",
-            price = 200
+            price = 200,
+            greyObj = speech4grey,
+            checkObj = speech4check,
+            lockObj = null
         };
 
         speech5 = new Upgrade
@@ -538,7 +586,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Rat Speech V",
             description = "Negotiate for more money earned after races.",
-            price = 300
+            price = 300,
+            greyObj = speech5grey,
+            checkObj = speech5check,
+            lockObj = speech5lock
         };
 
         speech6 = new Upgrade
@@ -548,7 +599,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Rat Speech VI",
             description = "Negotiate for more money earned after races.",
-            price = 400
+            price = 400,
+            greyObj = speech6grey,
+            checkObj = speech6check,
+            lockObj = speech6lock
         };
 
         speech7 = new Upgrade
@@ -558,7 +612,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Rat Speech VII",
             description = "Negotiate for more money earned after races.",
-            price = 300
+            price = 300,
+            greyObj = speech7grey,
+            checkObj = speech7check,
+            lockObj = null
         };
 
         speech8 = new Upgrade
@@ -568,7 +625,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Rat Speech VIII",
             description = "Negotiate for more money earned after races.",
-            price = 400
+            price = 400,
+            greyObj = speech8grey,
+            checkObj = speech8check,
+            lockObj = speech8lock
         };
 
         speech9 = new Upgrade
@@ -578,7 +638,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Rat Speech IX",
             description = "Negotiate for more money earned after races.",
-            price = 500
+            price = 500,
+            greyObj = speech9grey,
+            checkObj = speech9check,
+            lockObj = speech9lock
         };
 
         speech10 = new Upgrade
@@ -588,7 +651,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Rat Speech X",
             description = "Negotiate for more money earned after races.",
-            price = 400
+            price = 400,
+            greyObj = speech10grey,
+            checkObj = speech10check,
+            lockObj = null
         };
 
         speech11 = new Upgrade
@@ -598,7 +664,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Rat Speech XI",
             description = "Negotiate for more money earned after races.",
-            price = 500
+            price = 500,
+            greyObj = speech11grey,
+            checkObj = speech11check,
+            lockObj = speech11lock
         };
 
         speech12 = new Upgrade
@@ -608,7 +677,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Rat Speech XII",
             description = "Negotiate for more money earned after races.",
-            price = 600
+            price = 600,
+            greyObj = speech12grey,
+            checkObj = speech12check,
+            lockObj = speech12lock
         };
 
         charm1 = new Upgrade
@@ -618,7 +690,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Charm Skill I",
             description = "Decreases chances of opponents firing at you.",
-            price = 100
+            price = 100,
+            greyObj = charm1grey,
+            checkObj = charm1check,
+            lockObj = null
         };
 
         charm2 = new Upgrade
@@ -628,7 +703,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Charm Skill II",
             description = "Decreases chances of opponents firing at you.",
-            price = 200
+            price = 200,
+            greyObj = charm2grey,
+            checkObj = charm2check,
+            lockObj = charm2lock
         };
 
         charm3 = new Upgrade
@@ -638,7 +716,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Charm Skill III",
             description = "Decreases chances of opponents firing at you.",
-            price = 300
+            price = 300,
+            greyObj = charm3grey,
+            checkObj = charm3check,
+            lockObj = charm3lock
         };
 
         charm4 = new Upgrade
@@ -648,7 +729,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Charm Skill IV",
             description = "Decreases chances of opponents firing at you.",
-            price = 200
+            price = 200,
+            greyObj = charm4grey,
+            checkObj = charm4check,
+            lockObj = null
         };
 
         charm5 = new Upgrade
@@ -658,7 +742,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Charm Skill V",
             description = "Decreases chances of opponents firing at you.",
-            price = 300
+            price = 300,
+            greyObj = charm5grey,
+            checkObj = charm5check,
+            lockObj = charm5lock
         };
 
         charm6 = new Upgrade
@@ -668,7 +755,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Charm Skill IV",
             description = "Decreases chances of opponents firing at you.",
-            price = 400
+            price = 400,
+            greyObj = charm6grey,
+            checkObj = charm6check,
+            lockObj = charm6lock
         };
 
         charm7 = new Upgrade
@@ -678,7 +768,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Charm Skill VII",
             description = "Decreases chances of opponents firing at you.",
-            price = 300
+            price = 300,
+            greyObj = charm7grey,
+            checkObj = charm7check,
+            lockObj = null
         };
 
         charm8 = new Upgrade
@@ -688,7 +781,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Charm Skill VIII",
             description = "Decreases chances of opponents firing at you.",
-            price = 400
+            price = 400,
+            greyObj = charm8grey,
+            checkObj = charm8check,
+            lockObj = charm8lock
         };
 
         charm9 = new Upgrade
@@ -698,7 +794,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Charm Skill IX",
             description = "Decreases chances of opponents firing at you.",
-            price = 500
+            price = 500,
+            greyObj = charm9grey,
+            checkObj = charm9check,
+            lockObj = charm9lock
         };
 
         charm10 = new Upgrade
@@ -708,7 +807,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Charm Skill X",
             description = "Decreases chances of opponents firing at you.",
-            price = 400
+            price = 400,
+            greyObj = charm10grey,
+            checkObj = charm10check,
+            lockObj = null
         };
 
         charm11 = new Upgrade
@@ -718,7 +820,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Charm Skill XI",
             description = "Decreases chances of opponents firing at you.",
-            price = 500
+            price = 500,
+            greyObj = charm11grey,
+            checkObj = charm11check,
+            lockObj = charm11lock
         };
 
         charm12 = new Upgrade
@@ -728,7 +833,10 @@ public class SchoolManager : MonoBehaviour
             state = Upgrade.State.locked,
             name = "Charm Skill XII",
             description = "Decreases chances of opponents firing at you.",
-            price = 600
+            price = 600,
+            greyObj = charm12grey,
+            checkObj = charm12check,
+            lockObj = charm12lock
         };
 
         upgradeList = new List<Upgrade>()
@@ -752,6 +860,30 @@ public class SchoolManager : MonoBehaviour
         foreach (GameObject icon in schoolIconList)
         {
             icon.SetActive(false);
+        }
+
+        foreach (Upgrade upgrade in upgradeList)
+        {
+            switch (upgrade.state)
+            {
+                case Upgrade.State.available:
+                    if (playerController.TotalMoney < upgrade.price) upgrade.greyObj.SetActive(true);
+                    upgrade.checkObj.SetActive(false);
+                    if (upgrade.lockObj != null) upgrade.lockObj.SetActive(false);
+                    break;
+
+                case Upgrade.State.locked:
+                    upgrade.greyObj.SetActive(false);
+                    upgrade.checkObj.SetActive(false);
+                    if (upgrade.lockObj != null) upgrade.lockObj.SetActive(true);
+                    break;
+
+                case Upgrade.State.owned:
+                    upgrade.greyObj.SetActive(false);
+                    upgrade.checkObj.SetActive(true);
+                    if (upgrade.lockObj != null) upgrade.lockObj.SetActive(false);
+                    break;
+            }
         }
 
         switch (GameManager.GameLevel)
@@ -782,241 +914,6 @@ public class SchoolManager : MonoBehaviour
                 schoolT2.SetActive(false);
                 schoolT3.SetActive(false);
                 schoolT4.SetActive(true);
-                break;
-        }
-
-        switch (repairLevel)
-        {
-            case 0:
-                //repair 1 available
-                repair2lock.SetActive(true);
-                repair3lock.SetActive(true);
-                break;
-            case 1:
-                repair1check.SetActive(true);
-                //repair 2 available
-                repair3lock.SetActive(true);
-                break;
-            case 2:
-                repair1check.SetActive(true);
-                repair2check.SetActive(true);
-                //repair 3 available
-                break;
-            case 3:
-                repair1check.SetActive(true);
-                repair2check.SetActive(true);
-                repair3check.SetActive(true);
-                // repair 4 available
-                repair5lock.SetActive(true);
-                repair6lock.SetActive(true);
-                break;
-            case 4:
-                repair4check.SetActive(true);
-                //repair 5 available
-                repair6lock.SetActive(true);
-                break;
-            case 5:
-                repair4check.SetActive(true);
-                repair5check.SetActive(true);
-                //repair 6 available
-                break;
-            case 6:
-                repair4check.SetActive(true);
-                repair5check.SetActive(true);
-                repair6check.SetActive(true);
-                // repair 7 available
-                repair8lock.SetActive(true);
-                repair9lock.SetActive(true);
-                break;
-            case 7:
-                repair7check.SetActive(true);
-                //repair 8 available
-                repair9lock.SetActive(true);
-                break;
-            case 8:
-                repair7check.SetActive(true);
-                repair8check.SetActive(true);
-                //repair 9 available
-                break;
-            case 9:
-                repair7check.SetActive(true);
-                repair8check.SetActive(true);
-                repair9check.SetActive(true);
-                //repair 10 available
-                repair11lock.SetActive(true);
-                repair12lock.SetActive(true);
-                break;
-            case 10:
-                repair10check.SetActive(true);
-                //repair 11 available
-                repair12lock.SetActive(true);
-                break;
-            case 11:
-                repair10check.SetActive(true);
-                repair11check.SetActive(true);
-                //repair 12 available
-                break;
-            case 12:
-                repair10check.SetActive(true);
-                repair11check.SetActive(true);
-                repair12check.SetActive(true);
-                break;
-
-        }
-
-        switch (speechLevel)
-        {
-            case 0:
-                //speech 1 available
-                speech2lock.SetActive(true);
-                speech3lock.SetActive(true);
-                break;
-            case 1:
-                speech1check.SetActive(true);
-                //speech 2 available
-                speech3lock.SetActive(true);
-                break;
-            case 2:
-                speech1check.SetActive(true);
-                speech2check.SetActive(true);
-                //speech 3 available
-                break;
-            case 3:
-                speech1check.SetActive(true);
-                speech2check.SetActive(true);
-                speech3check.SetActive(true);
-                // speech 4 available
-                speech5lock.SetActive(true);
-                speech6lock.SetActive(true);
-                break;
-            case 4:
-                speech4check.SetActive(true);
-                //speech 5 available
-                speech6lock.SetActive(true);
-                break;
-            case 5:
-                speech4check.SetActive(true);
-                speech5check.SetActive(true);
-                //speech 6 available
-                break;
-            case 6:
-                speech4check.SetActive(true);
-                speech5check.SetActive(true);
-                speech6check.SetActive(true);
-                // speech 7 available
-                speech8lock.SetActive(true);
-                speech9lock.SetActive(true);
-                break;
-            case 7:
-                speech7check.SetActive(true);
-                //speech 8 available
-                speech9lock.SetActive(true);
-                break;
-            case 8:
-                speech7check.SetActive(true);
-                speech8check.SetActive(true);
-                //speech 9 available
-                break;
-            case 9:
-                speech7check.SetActive(true);
-                speech8check.SetActive(true);
-                speech9check.SetActive(true);
-                //speech 10 available
-                speech11lock.SetActive(true);
-                speech12lock.SetActive(true);
-                break;
-            case 10:
-                speech10check.SetActive(true);
-                //speech 11 available
-                speech12lock.SetActive(true);
-                break;
-            case 11:
-                speech10check.SetActive(true);
-                speech11check.SetActive(true);
-                //speech 12 available
-                break;
-            case 12:
-                speech10check.SetActive(true);
-                speech11check.SetActive(true);
-                speech12check.SetActive(true);
-                break;
-        }
-
-        switch (charmLevel)
-        {
-            case 0:
-                //charm 1 available
-                charm2lock.SetActive(true);
-                charm3lock.SetActive(true);
-                break;
-            case 1:
-                charm1check.SetActive(true);
-                //charm 2 available
-                charm3lock.SetActive(true);
-                break;
-            case 2:
-                charm1check.SetActive(true);
-                charm2check.SetActive(true);
-                //charm 3 available
-                break;
-            case 3:
-                charm1check.SetActive(true);
-                charm2check.SetActive(true);
-                charm3check.SetActive(true);
-                // charm 4 available
-                charm5lock.SetActive(true);
-                charm6lock.SetActive(true);
-                break;
-            case 4:
-                charm4check.SetActive(true);
-                //charm 5 available
-                charm6lock.SetActive(true);
-                break;
-            case 5:
-                charm4check.SetActive(true);
-                charm5check.SetActive(true);
-                //charm 6 available
-                break;
-            case 6:
-                charm4check.SetActive(true);
-                charm5check.SetActive(true);
-                charm6check.SetActive(true);
-                // charm 7 available
-                charm8lock.SetActive(true);
-                charm9lock.SetActive(true);
-                break;
-            case 7:
-                charm7check.SetActive(true);
-                //charm 8 available
-                charm9lock.SetActive(true);
-                break;
-            case 8:
-                charm7check.SetActive(true);
-                charm8check.SetActive(true);
-                //charm 9 available
-                break;
-            case 9:
-                charm7check.SetActive(true);
-                charm8check.SetActive(true);
-                charm9check.SetActive(true);
-                //charm 10 available
-                charm11lock.SetActive(true);
-                charm12lock.SetActive(true);
-                break;
-            case 10:
-                charm10check.SetActive(true);
-                //charm 11 available
-                charm12lock.SetActive(true);
-                break;
-            case 11:
-                charm10check.SetActive(true);
-                charm11check.SetActive(true);
-                //charm 12 available
-                break;
-            case 12:
-                charm10check.SetActive(true);
-                charm11check.SetActive(true);
-                charm12check.SetActive(true);
                 break;
         }
     }

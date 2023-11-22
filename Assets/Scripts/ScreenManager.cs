@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Windows;
+using static GameManager;
 using static Globals;
 using static Unity.Burst.Intrinsics.X86.Avx;
 
@@ -39,6 +41,22 @@ public class ScreenManager : MonoBehaviour
         racer,
         ammo
     }
+
+    static AudioSource menuSound;
+    static AudioClip startNote1;
+    static AudioClip startNote2;
+    static AudioClip finishSound;
+    static AudioClip wreckSound;
+
+    static AudioSource gameMusic;
+    static AudioClip titleMusic;
+    static AudioClip gameplayMusic;
+
+    private static float soundVolume = 1;
+    public static float SoundVolume { get { return soundVolume; } set { soundVolume = value; } }
+
+    private static float musicVolume = 1;
+    public static float MusicVolume {  get { return musicVolume; } set { musicVolume = value; } }
 
     static GameObject titleScreen;
     static GameObject garageScreen;
@@ -235,6 +253,18 @@ public class ScreenManager : MonoBehaviour
     }
     public void SetupScreens()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        menuSound = transform.GetComponent<AudioSource>();
+        startNote1 = Resources.Load<AudioClip>("startNote1");
+        startNote2 = Resources.Load<AudioClip>("startNote2");
+        finishSound = Resources.Load<AudioClip>("finish");
+        wreckSound = Resources.Load<AudioClip>("wreck");
+
+        gameMusic = transform.Find("MusicSource").GetComponent<AudioSource>();
+        titleMusic = Resources.Load<AudioClip>("titleMusic");
+        gameplayMusic = Resources.Load<AudioClip>("gameplayMusic");
+
         titleScreen = GameObject.Find("ScreenManager/titleScreen");
 
         armouryScreen = GameObject.Find("ScreenManager/Armoury");
@@ -402,6 +432,30 @@ public class ScreenManager : MonoBehaviour
         ready = true;
     }
 
+    public void UpdateMusicVolume()
+    {
+        gameMusic.volume = musicVolume / 8;
+    }
+
+    public void UpdateSoundVolume()
+    {
+        menuSound.volume = soundVolume;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "GameplayScene")
+        {
+            gameMusic.clip = gameplayMusic;
+            gameMusic.Play();
+        }
+        if (scene.name == "TitleScene")
+        {
+            gameMusic.clip = titleMusic;
+            gameMusic.Play();
+        }
+    }
+
     public static void SetScreen(Screen screen)
     {
         ClearScreens();
@@ -445,6 +499,8 @@ public class ScreenManager : MonoBehaviour
             case Screen.finish:
                 if (!finishScreen.activeSelf) finishScreen.SetActive(true);
                 nextScreen = Screen.endRace;
+                menuSound.clip = finishSound;
+                menuSound.Play();
                 timer = 3;
                 timerOn = true;
                 break;
@@ -452,6 +508,8 @@ public class ScreenManager : MonoBehaviour
             case Screen.defeat:
                 if (!defeatScreen.activeSelf) defeatScreen.SetActive(true);
                 nextScreen = Screen.endRace;
+                menuSound.clip = wreckSound;
+                menuSound.Play();
                 timer = 3;
                 timerOn = true;
                 break;
@@ -522,15 +580,23 @@ public class ScreenManager : MonoBehaviour
         {
             case 3:
                 countdown3.gameObject.SetActive(true);
+                menuSound.clip = startNote1;
+                menuSound.Play();
                 break;
             case 2:
                 countdown2.gameObject.SetActive(true);
+                menuSound.clip = startNote1;
+                menuSound.Play();
                 break;
             case 1:
                 countdown1.gameObject.SetActive(true);
+                menuSound.clip = startNote1;
+                menuSound.Play();
                 break;
             case 0:
                 countdownGO.gameObject.SetActive(true);
+                menuSound.clip = startNote2;
+                menuSound.Play();
                 break;
         }
     }

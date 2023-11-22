@@ -149,22 +149,6 @@ public class ButtonManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public static void Pause()
-    {
-        if (!GameManager.Paused)
-        {
-            Time.timeScale = 0;
-            ScreenManager.SetScreen(ScreenManager.Screen.pause);
-            GameManager.Paused = true;
-        }
-        else if (GameManager.Paused)
-        {
-            Time.timeScale = 1;
-            ScreenManager.SetScreen(ScreenManager.Screen.HUD);
-            GameManager.Paused = false;
-        }
-    }
-
     public void ToggleFullscreen()
     {
         Screen.fullScreen = !Screen.fullScreen;

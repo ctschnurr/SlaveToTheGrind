@@ -11,9 +11,10 @@ public class RepairKit : PickUp
     // Start is called before the first frame update
     void Awake()
     {
+        pickupSound = transform.GetComponent<AudioSource>();
         player = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
 
-        value = 25;
+        value = 5;
         value += 1 * player.RepairSkillLevel;
 
         gameObject.name = "RepairKit";
@@ -24,8 +25,8 @@ public class RepairKit : PickUp
 
     public override void PickMeUp(GameObject car)
     {
+        base.PickMeUp(car);
         Racer racer = car.GetComponent<Racer>();
         racer.AddHealth(value);
-        Destroy(gameObject);
     }
 }

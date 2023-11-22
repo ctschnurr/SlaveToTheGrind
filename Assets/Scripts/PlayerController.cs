@@ -148,6 +148,7 @@ public class PlayerController : Racer
             {
                 if (Input.GetKeyDown(KeyCode.LeftShift) && canBoost)
                 {
+                    boostAudio.Play();
                     canBoost = false;
                     boostActivated = true;
                     boost = boostMax;
@@ -164,7 +165,7 @@ public class PlayerController : Racer
             {
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    ButtonManager.Pause();
+                    GameManager.Pause();
                 }
             }
 
@@ -185,6 +186,9 @@ public class PlayerController : Racer
     {
         RaceManager.State raceState = RaceManager.GetState();
         pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.1f);
+
+        float pitch = Mathf.Clamp(rb.velocity.magnitude, 2, 50);
+        engineAudio.pitch = pitch / 2;
 
         if (raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
         {

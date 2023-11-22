@@ -36,6 +36,11 @@ public class Racer : MonoBehaviour
         missle,
         mine
     }
+
+    protected AudioSource engineAudio;
+    protected AudioSource boostAudio;
+    protected AudioSource bulletAudio;
+    protected AudioSource damageAudio;
     // Upgradables
 
     protected int engineUpgradeLevel = 0;
@@ -174,6 +179,10 @@ public class Racer : MonoBehaviour
 
     public virtual void SetupRacer()
     {
+        engineAudio = transform.Find("RacerAudio").GetComponent<AudioSource>();
+        boostAudio = transform.Find("BoostAudio").GetComponent<AudioSource>();
+        bulletAudio = bulletFirePos.GetComponent<AudioSource>();
+        damageAudio = transform.Find("DamageAudio").GetComponent<AudioSource>();
         spriteCanvas = transform.Find("Canvas").gameObject;
         spriteName = transform.Find("Canvas/SpriteName").GetComponent<TextMeshProUGUI>();
         healthBar = transform.Find("Canvas/HealthBar").GetComponent<Slider>();
@@ -230,7 +239,7 @@ public class Racer : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        if(ready)
+        if (ready)
         {
             if (transform.position.y >= finishLine && RacerState != State.finished)
             {
@@ -349,6 +358,14 @@ public class Racer : MonoBehaviour
         }
     }
 
+    public void UpdateVolume()
+    {
+        engineAudio.volume = ScreenManager.SoundVolume;
+        boostAudio.volume = ScreenManager.SoundVolume;
+        bulletAudio.volume = ScreenManager.SoundVolume;
+        damageAudio.volume = ScreenManager.SoundVolume;
+    }
+
     protected void Fire(Weapon_Select input)
     {
         switch (input)
@@ -356,6 +373,7 @@ public class Racer : MonoBehaviour
             case Weapon_Select.bullet:
                 if (canFireBullet && bulletAmmo > 0)
                 {
+                    bulletAudio.Play();
                     Instantiate(bullet, bulletFirePos.transform.position, transform.localRotation, transform);
                     bulletAmmo--;
                     canFireBullet = false;
@@ -432,6 +450,7 @@ public class Racer : MonoBehaviour
     protected virtual void TakeHealth(int damage, Collision2D collision)
     {
         health -= damage - armourUpgradeLevel;
+        damageAudio.Play();
         if (health <= 0)
         {
             health = 0;

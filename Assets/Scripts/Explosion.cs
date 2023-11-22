@@ -7,6 +7,7 @@ public class Explosion : Weapon
     float expandSpeed = 80f;
     ParticleSystem particles;
     Vector3 scaleChange;
+    public AudioSource explosionSound;
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,7 +22,7 @@ public class Explosion : Weapon
     void Update()
     {
         if (transform.localScale.x < 10) transform.localScale += scaleChange * Time.deltaTime;
-        if (!particles.isPlaying) Destroy(gameObject);
+        if (!explosionSound.isPlaying) Destroy(gameObject);
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

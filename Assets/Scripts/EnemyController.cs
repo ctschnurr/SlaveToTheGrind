@@ -91,7 +91,7 @@ public class EnemyController : Racer
     {
         base.UpdateRacer();
 
-        speedMax = baseSpeed + (baseSpeed * ((engineUpgradeLevel + GameLevel) * 0.1f));
+        speedMax = baseSpeed + (baseSpeed * ((engineUpgradeLevel + (GameLevel * 3)) * 0.1f));
         speed = speedMax;
 
         armourUpgradeLevel = enemyCounter + 1 + GameLevel;
@@ -128,9 +128,17 @@ public class EnemyController : Racer
     void FixedUpdate()
     {
         RaceManager.State raceState = RaceManager.GetState();
+        if(RacerState == State.finished || RacerState == State.dead) engineAudio.Stop();
+        else
+        {
+            if(!engineAudio.isPlaying) engineAudio.Play();
+            float pitch = Mathf.Clamp(rb.velocity.magnitude, 2, 50);
+            engineAudio.pitch = pitch / 2;
+        }
 
         if (raceState != RaceManager.State.prep && raceState != RaceManager.State.countdown && RacerState != State.finished && RacerState != State.dead)
         {
+
             float angle = Vector3.Angle((waypoint.transform.position - transform.position), transform.up);
 
             rb.AddRelativeForce(Vector2.up * (speed + boost) * Time.deltaTime, ForceMode2D.Force);
@@ -178,6 +186,7 @@ public class EnemyController : Racer
                         {
                             if (canBoost)
                             {
+                                boostAudio.Play();
                                 boostFlame.Play();
                                 canBoost = false;
                                 boostActivated = true;
@@ -185,7 +194,7 @@ public class EnemyController : Racer
                             }
                             else
                             {
-                                if (missleAmmo > 0 && distance > 5) Fire(Weapon_Select.missle);
+                                if (missleAmmo > 0 && distance > 8) Fire(Weapon_Select.missle);
                                 else Fire(Weapon_Select.bullet);
                             }
                         }
