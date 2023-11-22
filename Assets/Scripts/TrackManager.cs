@@ -9,7 +9,11 @@ public class TrackManager : MonoBehaviour
     public static List<GameObject> enemyWaypoints;
     static GameObject waypointFolder;
 
-    static GameObject finishLine; // will have to update this as the track grows
+    static GameObject finishLine;
+
+    private static List<GameObject> pickups;
+    public static List<GameObject> Pickups { get { return pickups; } set { pickups = value; } }
+    private static GameObject[] spawners;
 
     // Start is called before the first frame update
 
@@ -21,6 +25,9 @@ public class TrackManager : MonoBehaviour
 
     public static void SetupTrack()
     {
+        spawners = GameObject.FindGameObjectsWithTag("PickupSpawner");
+        pickups = new List<GameObject>();
+
         waypointFolder = GameObject.Find("Waypoints");
 
         int numberOfWaypoints = waypointFolder.transform.childCount;
@@ -59,6 +66,8 @@ public class TrackManager : MonoBehaviour
                 }
             }
         }
+
+        SpawnPickups();
     }
 
     public static GameObject SendNextWaypoint(GameObject last)
@@ -84,5 +93,21 @@ public class TrackManager : MonoBehaviour
     public static float GetFinishline()
     {
         return finishLine.transform.position.y;
+    }
+
+    public static void SpawnPickups()
+    {
+        foreach(GameObject spawner in spawners)
+        {
+            spawner.GetComponent<PickupSpawner>().SpawnPickup();
+        }
+    }
+
+    public static void ResetTrack()
+    {
+        foreach(GameObject pickup in pickups)
+        {
+            Destroy(pickup);
+        }
     }
 }

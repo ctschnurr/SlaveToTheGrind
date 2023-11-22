@@ -18,8 +18,8 @@ public class Racer : MonoBehaviour
     }
 
     public Animator animator;
-    protected State _racerState = State.idle;
-    public State RacerState { get; set; }
+    protected State racerState = State.idle;
+    public State RacerState { get { return racerState; } set { racerState = value; } }
 
     public enum RacerType
     {
@@ -179,6 +179,8 @@ public class Racer : MonoBehaviour
 
     public virtual void SetupRacer()
     {
+        racerState = State.idle;
+
         engineAudio = transform.Find("RacerAudio").GetComponent<AudioSource>();
         boostAudio = transform.Find("BoostAudio").GetComponent<AudioSource>();
         bulletAudio = bulletFirePos.GetComponent<AudioSource>();
@@ -358,12 +360,12 @@ public class Racer : MonoBehaviour
         }
     }
 
-    public void UpdateVolume()
+    public void UpdateVolume(float volume)
     {
-        engineAudio.volume = ScreenManager.SoundVolume;
-        boostAudio.volume = ScreenManager.SoundVolume;
-        bulletAudio.volume = ScreenManager.SoundVolume;
-        damageAudio.volume = ScreenManager.SoundVolume;
+        engineAudio.volume = volume;
+        boostAudio.volume = volume;
+        bulletAudio.volume = volume;
+        damageAudio.volume = volume;
     }
 
     protected void Fire(Weapon_Select input)

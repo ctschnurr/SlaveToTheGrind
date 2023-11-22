@@ -18,6 +18,7 @@ public class Money : PickUp
 
     public override void PickMeUp(GameObject car)
     {
+        particles.Play();
         base.PickMeUp(car);
         Racer racer = car.GetComponent<Racer>();
         racer.AddMoney(value);

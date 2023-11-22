@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour
 {
@@ -102,6 +103,8 @@ public class RaceManager : MonoBehaviour
 
     public static void SetupRacers()
     {
+        state = State.prep;
+
         finishers = new List<Racer>();
 
         finishLine = TrackManager.GetFinishline();
@@ -152,6 +155,8 @@ public class RaceManager : MonoBehaviour
     {
         UpdateRacers();
 
+        TrackManager.ResetTrack();
+
         state = State.prep;
         finishers = new List<Racer>();
         ranking = new List<GameObject>(racers);
@@ -162,8 +167,21 @@ public class RaceManager : MonoBehaviour
             racer.ResetRacer();
         }
 
+        TrackManager.SpawnPickups();
+
         player1.GetComponent<Racer>().UpdateRacer();
         DataManager.SaveGame();
+    }
+
+    public static void UpdateVolume(float volume)
+    {
+        if(racers != null)
+        {
+            foreach(GameObject racer in racers)
+            {
+                racer.GetComponent<Racer>().UpdateVolume(volume);
+            }
+        }
     }
 
     public static void StartRace()

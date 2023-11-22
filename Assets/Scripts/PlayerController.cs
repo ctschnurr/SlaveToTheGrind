@@ -187,11 +187,14 @@ public class PlayerController : Racer
         RaceManager.State raceState = RaceManager.GetState();
         pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.1f);
 
+        if (RacerState == State.finished || RacerState == State.dead) engineAudio.Stop();
         float pitch = Mathf.Clamp(rb.velocity.magnitude, 2, 50);
         engineAudio.pitch = pitch / 2;
 
         if (raceState == RaceManager.State.racing && RacerState != State.finished && RacerState != State.dead)
         {
+            if (!engineAudio.isPlaying) engineAudio.Play();
+
             horizontal = Input.GetAxis("Horizontal");
 
             float vertical = Input.GetAxis("Vertical");

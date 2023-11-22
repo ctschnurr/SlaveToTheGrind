@@ -68,10 +68,9 @@ public class GameManager : MonoBehaviour
             TrackManager.SetupTrack();
             RaceManager.SetupRacers();
             state = GameState.active;
+            Time.timeScale = 1;
 
             ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
-
-            if (paused) Pause();
         }
         if (scene.name == "TitleScene")
         {
@@ -86,12 +85,14 @@ public class GameManager : MonoBehaviour
     {
         if (!paused)
         {
+            RaceManager.UpdateVolume(0);
             Time.timeScale = 0;
             ScreenManager.SetScreen(ScreenManager.Screen.pause);
             paused = true;
         }
         else if (paused)
         {
+            RaceManager.UpdateVolume(ScreenManager.SoundVolume);
             Time.timeScale = 1;
             ScreenManager.SetScreen(ScreenManager.Screen.HUD);
             paused = false;

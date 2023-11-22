@@ -131,13 +131,14 @@ public class EnemyController : Racer
         if(RacerState == State.finished || RacerState == State.dead) engineAudio.Stop();
         else
         {
-            if(!engineAudio.isPlaying) engineAudio.Play();
+            
             float pitch = Mathf.Clamp(rb.velocity.magnitude, 2, 50);
             engineAudio.pitch = pitch / 2;
         }
 
         if (raceState != RaceManager.State.prep && raceState != RaceManager.State.countdown && RacerState != State.finished && RacerState != State.dead)
         {
+            if (!engineAudio.isPlaying) engineAudio.Play();
 
             float angle = Vector3.Angle((waypoint.transform.position - transform.position), transform.up);
 

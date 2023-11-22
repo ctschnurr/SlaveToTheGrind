@@ -7,6 +7,7 @@ public class PickUp : MonoBehaviour
     protected AudioSource pickupSound;
     protected bool pickedUp = false;
     public SpriteRenderer sprite;
+    public ParticleSystem particles;
     void Start()
     {
         
@@ -24,7 +25,7 @@ public class PickUp : MonoBehaviour
 
     void Update()
     {
-        if (pickedUp) if (!pickupSound.isPlaying) Destroy(gameObject);
+        if (pickedUp) if (!particles.isPlaying) Destroy(gameObject);
     }
 
     public virtual void PickMeUp(GameObject car)

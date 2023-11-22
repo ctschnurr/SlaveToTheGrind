@@ -10,6 +10,7 @@ TagManager:
   - Explosion
   - Weapon
   - PickUp
+  - PickupSpawner
   layers:
   - Default
   - TransparentFX

@@ -262,6 +262,7 @@ public class ScreenManager : MonoBehaviour
         wreckSound = Resources.Load<AudioClip>("wreck");
 
         gameMusic = transform.Find("MusicSource").GetComponent<AudioSource>();
+        gameMusic.volume = musicVolume / 12;
         titleMusic = Resources.Load<AudioClip>("titleMusic");
         gameplayMusic = Resources.Load<AudioClip>("gameplayMusic");
 
@@ -434,12 +435,13 @@ public class ScreenManager : MonoBehaviour
 
     public void UpdateMusicVolume()
     {
-        gameMusic.volume = musicVolume / 8;
+        gameMusic.volume = musicVolume / 12;
     }
 
     public void UpdateSoundVolume()
     {
         menuSound.volume = soundVolume;
+        RaceManager.UpdateVolume(soundVolume);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
