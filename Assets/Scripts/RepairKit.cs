@@ -14,7 +14,7 @@ public class RepairKit : PickUp
         pickupSound = transform.GetComponent<AudioSource>();
         player = GameObject.Find("PlayerRacer").GetComponent<PlayerController>();
 
-        value = 5;
+        value = 15;
         value += 1 * player.RepairSkillLevel;
 
         gameObject.name = "RepairKit";

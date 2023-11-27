@@ -185,7 +185,7 @@ public class PlayerController : Racer
     void FixedUpdate()
     {
         RaceManager.State raceState = RaceManager.GetState();
-        pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.1f);
+        pCam.m_Lens.OrthographicSize = pCamFloat + (rb.velocity.magnitude * 0.2f);
 
         if (RacerState == State.finished || RacerState == State.dead) engineAudio.Stop();
         float pitch = Mathf.Clamp(rb.velocity.magnitude, 2, 50);

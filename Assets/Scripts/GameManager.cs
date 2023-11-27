@@ -45,13 +45,18 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "TitleScene")
+        {
+            gameLevel = 0;
+            garageManager.SetupGarage();
+            armouryManager.SetupArmoury();
+            schoolManager.SetupSchool();
+            screenManager.SetupScreens();
+        }
+        else SceneManager.LoadScene(0);
 
-        gameLevel = 0;
-        garageManager.SetupGarage();
-        armouryManager.SetupArmoury();
-        schoolManager.SetupSchool();
-        screenManager.SetupScreens();
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
         // Application.Quit();
     }
@@ -75,6 +80,8 @@ public class GameManager : MonoBehaviour
         if (scene.name == "TitleScene")
         {
             state = GameState.idle;
+            if (GameLoaded == true) GameLoaded = false;
+            ScreenManager.RefreshScreens();
             gameLevel = 0;
 
             ScreenManager.SetScreen(ScreenManager.Screen.title);

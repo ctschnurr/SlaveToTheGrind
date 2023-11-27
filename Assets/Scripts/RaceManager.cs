@@ -34,11 +34,18 @@ public class RaceManager : MonoBehaviour
     static float playerPlace;
     public static float PlayerPlace { get { return playerPlace; } }
 
+    static bool setup = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        Racer.OnFinished += FinishQueue;
-        PlayerController.OnPlayerDied += PlayerDead;
+        if(!setup)
+        {
+            Racer.OnFinished += FinishQueue;
+            PlayerController.OnPlayerDied += PlayerDead;
+
+            setup = true;
+        }
     }
 
     // Update is called once per frame
@@ -106,6 +113,7 @@ public class RaceManager : MonoBehaviour
         state = State.prep;
 
         finishers = new List<Racer>();
+        if (finishers != null) finishers.Clear();
 
         finishLine = TrackManager.GetFinishline();
 
@@ -123,7 +131,9 @@ public class RaceManager : MonoBehaviour
             player4
         };
 
-        ranking = new List<GameObject>(racers);
+        ranking = new List<GameObject>();
+        ranking.Clear();
+        ranking = racers;
 
         EnemyController.EnemyCounter = 0;
 
@@ -158,7 +168,8 @@ public class RaceManager : MonoBehaviour
         TrackManager.ResetTrack();
 
         state = State.prep;
-        finishers = new List<Racer>();
+        finishers.Clear();
+        ranking.Clear();
         ranking = new List<GameObject>(racers);
         playerPlace = -1;
         foreach(GameObject racerGO in racers)
@@ -166,8 +177,6 @@ public class RaceManager : MonoBehaviour
             Racer racer = racerGO.GetComponent<Racer>();
             racer.ResetRacer();
         }
-
-        TrackManager.SpawnPickups();
 
         player1.GetComponent<Racer>().UpdateRacer();
         DataManager.SaveGame();
@@ -240,7 +249,11 @@ public class RaceManager : MonoBehaviour
 
     public static void FinishQueue(Racer finisher)
     {
-        if(finisher.RacerState != Racer.State.dead) finishers.Add(finisher);
+        if (finisher.RacerState != Racer.State.dead)
+        {
+            finishers.Add(finisher);
+            Debug.Log("FinishQueue " + finishers.Count + " " + finisher.name + " " + finisher.RacerState);
+        }
 
         if (finisher.GetRacerType() == Racer.RacerType.player)
         {
@@ -263,7 +276,11 @@ public class RaceManager : MonoBehaviour
                 checkRacer.RacerState = Racer.State.finished;
                 bool finishedCheck = finishers.Contains(checkRacer);
 
-                if (!finishedCheck) finishers.Add(checkRacer);
+                if (!finishedCheck)
+                {
+                    finishers.Add(checkRacer);
+                    Debug.Log("EndRace A " + finishers.Count + " " + checkRacer.name + " " + checkRacer.RacerState);
+                }
             }
         }
 
@@ -272,7 +289,12 @@ public class RaceManager : MonoBehaviour
             Racer checkRacer = racer.GetComponent<Racer>();
             bool finishedCheck = finishers.Contains(checkRacer);
 
-            if (!finishedCheck) finishers.Add(checkRacer);
+            if (!finishedCheck)
+            {
+                finishers.Add(checkRacer);
+                Debug.Log("EndRace B " + finishers.Count + " " + checkRacer.name + " " + checkRacer.RacerState);
+            }
+
         }
 
         foreach(Racer racer in finishers)

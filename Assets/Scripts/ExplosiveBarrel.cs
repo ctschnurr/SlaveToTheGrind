@@ -7,11 +7,12 @@ public class ExplosiveBarrel : Obstacle
 {
     // Start is called before the first frame update
     public GameObject explosion;
-    Vector3 startPos;
+
     protected SpriteRenderer barrel;
 
     CircleCollider2D circleCollider;
 
+    private Vector3 startPos;
     void Start()
     {
         
@@ -36,7 +37,6 @@ public class ExplosiveBarrel : Obstacle
     {
         Vector3 direction = transform.position - car.transform.position;
         rb.AddForce(direction * 5, ForceMode2D.Impulse);
-        //car.GetComponent<Rigidbody2D>().AddForce(-direction * (force * 10), ForceMode2D.Impulse);
 
         Instantiate(explosion, startPos, transform.rotation);
         Destroy(gameObject);

@@ -153,7 +153,28 @@ public class DataManager : MonoBehaviour
 
         loadFile.Close();
     }
+
+    public static void SubmitNewPlayer()
+    {
+        ScreenManager.Colors.Remove(ScreenManager.PlayerExampleColor.color);
+
+        NewSave();
+
+        PlayerSave.money = 0;
+        string rgba = ScreenManager.PlayerExampleColor.color.r.ToString() + "," + ScreenManager.PlayerExampleColor.color.g.ToString() + "," + ScreenManager.PlayerExampleColor.color.b.ToString() + "," + ScreenManager.PlayerExampleColor.color.a.ToString();
+        PlayerSave.racerColor = rgba;
+        PlayerSave.racerName = ScreenManager.PlayerExampleName.text;
+
+        PlayerSave.gameLevel = 0;
+
+        SaveGame();
+
+        ScreenManager.PlayerNameInput.text = "Player";
+        ScreenManager.PlayerExampleName.text = "Player";
+    }
 }
+
+
 
 [Serializable]
 public class RacerData

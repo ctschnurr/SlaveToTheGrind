@@ -180,6 +180,7 @@ public class ScreenManager : MonoBehaviour
     static Color green;
     static Color yellow;
 
+    protected static List<Color> colorBlanks = new() { Color.red, Color.blue, Color.green, Color.yellow };
     protected static List<Color> colors = new() { Color.red, Color.blue, Color.green, Color.yellow};
     public static List<Color> Colors { get { return colors; } set { colors = value; } }
 
@@ -250,6 +251,11 @@ public class ScreenManager : MonoBehaviour
                 timerOn = false;
             }
         }
+    }
+    public static void RefreshScreens()
+    {
+        colors = new List<Color>(colorBlanks);
+        Racer.RenewNames();
     }
     public void SetupScreens()
     {
@@ -441,7 +447,6 @@ public class ScreenManager : MonoBehaviour
     public void UpdateSoundVolume()
     {
         menuSound.volume = soundVolume;
-        RaceManager.UpdateVolume(soundVolume);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -882,7 +887,7 @@ public class ScreenManager : MonoBehaviour
     {
         schoolUpgradeName.text = input.name;
         schoolUpgradeDescription.text = input.description;
-        schoolUpgradePrice.text = "Upgrade Price: $" + input.price.ToString();
+        schoolUpgradePrice.text = "Price: $" + input.price.ToString();
         schoolPlayerFunds.text = "Your Funds: $" + playerController.GetMoney();
 
 

@@ -18,13 +18,7 @@ public class Cone : Obstacle
     protected int flashCount = 7;
 
     protected SpriteRenderer cone;
-    // Start is called before the first frame update
-    public Cone() : base()
-    {
 
-    }
-
-    // Update is called once per frame
     void Awake()
     {
         gameObject.name = "Cone";
@@ -61,7 +55,7 @@ public class Cone : Obstacle
                         delayB = delayBreset;
                         flashCount--;
                     }
-                    
+
                     if (flashCount <= 0) Destroy(gameObject);
                 }
                 break;

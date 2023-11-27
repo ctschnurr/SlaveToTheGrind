@@ -2,11 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
-using static GameManager;
 using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
+
+    public static AudioSource buttonClick;
+
+    private void Start()
+    {
+        buttonClick = GetComponent<AudioSource>();
+    }
+    public static void ButtonClick()
+    {
+        buttonClick.Play();
+    }
     public static void DeactivateDeleteSavePanel(bool confirmed)
     {
         if (confirmed) DataManager.DeleteSave();
@@ -24,30 +34,16 @@ public class ButtonManager : MonoBehaviour
     }
     public void SubmitNewPlayer()
     {
-        if (GameLoaded == true) GameLoaded = false;
-
-        ScreenManager.Colors.Remove(ScreenManager.PlayerExampleColor.color);
-
-        DataManager.NewSave();
-
-        DataManager.PlayerSave.money = 0;
-        string rgba = ScreenManager.PlayerExampleColor.color.r.ToString() + "," + ScreenManager.PlayerExampleColor.color.g.ToString() + "," + ScreenManager.PlayerExampleColor.color.b.ToString() + "," + ScreenManager.PlayerExampleColor.color.a.ToString();
-        DataManager.PlayerSave.racerColor = rgba;
-        DataManager.PlayerSave.racerName = ScreenManager.PlayerExampleName.text;
-
-        DataManager.PlayerSave.gameLevel = 0;
-
-        DataManager.SaveGame();
-
+        DataManager.SubmitNewPlayer();
         SwitchToGameplay();
     }
 
     public void ContinueGame()
     {
-        GameLoaded = true;
+        GameManager.GameLoaded = true;
         DataManager.LoadGame();
 
-        GameLevel = DataManager.PlayerSave.gameLevel;
+        GameManager.GameLevel = DataManager.PlayerSave.gameLevel;
 
         SwitchToGameplay();
     }
@@ -59,7 +55,7 @@ public class ButtonManager : MonoBehaviour
 
     public void ShowRaceStartScreen()
     {
-        if(GameLevel != 4)
+        if(GameManager.GameLevel != 4)
         {
             RaceManager.ResetRace();
             ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
@@ -69,7 +65,7 @@ public class ButtonManager : MonoBehaviour
 
     public void CheckGameEnd()
     {
-        if (GameLevel != 4)
+        if (GameManager.GameLevel != 4)
         {
             ScreenManager.SetScreen(ScreenManager.Screen.shop);
         }
@@ -82,14 +78,18 @@ public class ButtonManager : MonoBehaviour
     }
     public void GoToEarnings()
     {
-        ScreenManager.SetScreen(ScreenManager.Screen.earnings);
+        if (GameManager.GameLevel == 3 && RaceManager.PlayerPlace == 0)
+        {
+            ScreenManager.SetScreen(ScreenManager.Screen.cupWinner);
+        }
+        else ScreenManager.SetScreen(ScreenManager.Screen.earnings);
     }
 
     public void CheckCupWinner()
     {
         if (RaceManager.PlayerPlace == 0)
         {
-            GameLevel++;
+            GameManager.GameLevel++;
             ScreenManager.SetScreen(ScreenManager.Screen.cupWinner);
         }
         else ScreenManager.SetScreen(ScreenManager.Screen.shop);
@@ -133,6 +133,7 @@ public class ButtonManager : MonoBehaviour
 
     public void QuitToTitle()
     {
+        RaceManager.ResetRace();
         ScreenManager.ClearScreens();
         SceneManager.LoadScene(0);
     }

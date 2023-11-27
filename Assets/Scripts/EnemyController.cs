@@ -19,6 +19,7 @@ public class EnemyController : Racer
     private static int enemyCounter = 0;
     public static int EnemyCounter { get { return enemyCounter; } set { enemyCounter = value; } }
 
+
     // Start is called before the first frame update
     public override void SetupRacer()
     {
@@ -106,6 +107,10 @@ public class EnemyController : Racer
 
         boostBar.maxValue = boostTimerReset;
         boostBar.value = boostTimerReset;
+
+        bulletAmmo = bulletAmmoMax;
+        missleAmmo = missleAmmoMax;
+        mineAmmo = MineAmmoMax;
 
         RacerData[] enemySaves = DataManager.EnemySaves;
 
@@ -195,7 +200,7 @@ public class EnemyController : Racer
                             }
                             else
                             {
-                                if (missleAmmo > 0 && distance > 8) Fire(Weapon_Select.missle);
+                                if (missleAmmo > 0 && distance > 8 && fireChance > 10) Fire(Weapon_Select.missle);
                                 else Fire(Weapon_Select.bullet);
                             }
                         }

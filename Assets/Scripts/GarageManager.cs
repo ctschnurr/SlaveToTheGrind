@@ -364,8 +364,8 @@ public class GarageManager : MonoBehaviour
             upgradeNumber = 1,
             category = Upgrade.Category.engine,
             state = Upgrade.State.available,
-            name = "Tune-Up",
-            description = "Basic maintenance. Increases speed.",
+            name = "Engine Level I",
+            description = "Speed +1",
             price = 100,
             greyObj = engine1grey,
             checkObj = engine1check,
@@ -377,8 +377,8 @@ public class GarageManager : MonoBehaviour
             upgradeNumber = 2,
             category = Upgrade.Category.engine,
             state = Upgrade.State.locked,
-            name = "New Engine",
-            description = "Better than old junk. Increases speed again.",
+            name = "Engine Level II",
+            description = "Speed +2",
             price = 200,
             greyObj = engine2grey,
             checkObj = engine2check,
@@ -390,8 +390,8 @@ public class GarageManager : MonoBehaviour
             upgradeNumber = 3,
             category = Upgrade.Category.engine,
             state = Upgrade.State.locked,
-            name = "Modify Engine",
-            description = "Performance tweaks. Further increases speed.",
+            name = "Engine Level III",
+            description = "Speed +3",
             price = 300,
             greyObj = engine3grey,
             checkObj = engine3check,
@@ -485,7 +485,7 @@ public class GarageManager : MonoBehaviour
             description = "Speed +10",
             price = 400,
             greyObj = engine10grey,
-            checkObj = engine11check,
+            checkObj = engine10check,
             lockObj = null
         };
 
@@ -520,8 +520,8 @@ public class GarageManager : MonoBehaviour
             upgradeNumber = 1,
             category = Upgrade.Category.armour,
             state = Upgrade.State.available,
-            name = "Fix Holes",
-            description = "Patch up your car's body. Decreases damage.",
+            name = "Armour Level I",
+            description = "Damage -1",
             price = 100,
             greyObj = armour1grey,
             checkObj = armour1check,
@@ -533,8 +533,8 @@ public class GarageManager : MonoBehaviour
             upgradeNumber = 2,
             category = Upgrade.Category.armour,
             state = Upgrade.State.locked,
-            name = "Added Plating",
-            description = "Extra protection. Decreases damage more.",
+            name = "Armour Level II",
+            description = "Damage -2",
             price = 200,
             greyObj = armour2grey,
             checkObj = armour2check,
@@ -546,9 +546,9 @@ public class GarageManager : MonoBehaviour
             upgradeNumber = 3,
             category = Upgrade.Category.armour,
             state = Upgrade.State.locked,
-            name = "Vehicle Armour",
-            description = "Reinforced for extra strength. Decreases damage further.",
-            price = 400,
+            name = "Armour Level III",
+            description = "Damage -3",
+            price = 300,
             greyObj = armour3grey,
             checkObj = armour3check,
             lockObj = armour3lock
@@ -676,8 +676,8 @@ public class GarageManager : MonoBehaviour
             upgradeNumber = 1,
             category = Upgrade.Category.boostSpeed,
             state = Upgrade.State.available,
-            name = "Filtered Fuel",
-            description = "Slightly cleaner burning. Increases boost speed.",
+            name = "Boost Speed I",
+            description = "Boost Speed +1",
             price = 200,
             greyObj = boostSpeed1grey,
             checkObj = boostSpeed1check,
@@ -728,9 +728,9 @@ public class GarageManager : MonoBehaviour
             upgradeNumber = 1,
             category = Upgrade.Category.boostCooldown,
             state = Upgrade.State.available,
-            name = "Calibrate Booster",
-            description = "A little fine-tuning. Decreases boost cooldown.",
-            price = 250,
+            name = "Boost Cooldown I",
+            description = "Boost Cooldown -1",
+            price = 200,
             greyObj = boostCooldown1grey,
             checkObj = boostCooldown1check,
             lockObj = null
@@ -780,9 +780,9 @@ public class GarageManager : MonoBehaviour
             upgradeNumber = 1,
             category = Upgrade.Category.boostRecharge,
             state = Upgrade.State.available,
-            name = "Second-Hand Parts",
-            description = "Better than yours. Increases boost recharge speed.",
-            price = 250,
+            name = "Boost Recharge I",
+            description = "Boost Recharge +1",
+            price = 200,
             greyObj = boostRecharge1grey,
             checkObj = boostRecharge1check,
             lockObj = null
@@ -912,19 +912,25 @@ public class GarageManager : MonoBehaviour
 
     public static Upgrade GetDefaultUpgrade()
     {
+
         switch (GameManager.GameLevel)
         {
             case 0:
-                return engine1;
+                currentUpgrade = engine1;
+                break;
             case 1:
-                return engine4;
+                currentUpgrade = engine4;
+                break;
             case 2:
-                return engine7;
+                currentUpgrade = engine7;
+                break;
             case 3:
-                return engine10;
-            default:
-                return engine1;
+                currentUpgrade = engine10;
+                break;
         }
+
+        UpdateSelectedIcon(currentUpgrade);
+        return currentUpgrade;
     }
 
     public void EngineUpgradeClicked(int levelButton)

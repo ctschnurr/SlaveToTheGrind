@@ -251,7 +251,7 @@ public class ArmouryManager : MonoBehaviour
             category = Upgrade.Category.bulletAmmo,
             state = Upgrade.State.available,
             name = "Bullet Ammo",
-            description = "Purchase bullet ammo, $5/bullet",
+            description = "Purchase bullet ammo",
             price = 5,
             greyObj = bulletAmmo1Grey,
             checkObj = null,
@@ -264,7 +264,7 @@ public class ArmouryManager : MonoBehaviour
             category = Upgrade.Category.bulletAmmo,
             state = Upgrade.State.available,
             name = "Bullet Ammo",
-            description = "Purchase bullet ammo, $5/bullet",
+            description = "Purchase bullet ammo",
             price = 5,
             greyObj = bulletAmmo2Grey,
             checkObj = null,
@@ -277,8 +277,8 @@ public class ArmouryManager : MonoBehaviour
             category = Upgrade.Category.bulletAmmo,
             state = Upgrade.State.available,
             name = "Bullet Ammo",
-            description = "Purchase bullet ammo, $5/bullet",
-            price = 3,
+            description = "Purchase bullet ammo",
+            price = 5,
             greyObj = bulletAmmo1Grey,
             checkObj = null,
             lockObj = null
@@ -317,7 +317,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Bullet Clip Upgrade II",
             description = "Bullet ammo capacity +40",
-            price = 150,
+            price = 200,
             greyObj = bulletClip2Grey,
             checkObj = bulletClip2Check,
             lockObj = null
@@ -330,7 +330,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Bullet Clip Upgrade III",
             description = "Bullet ammo capacity +60",
-            price = 200,
+            price = 300,
             greyObj = bulletClip3Grey,
             checkObj = bulletClip3Check,
             lockObj = null
@@ -343,7 +343,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Bullet Clip Upgrade IV",
             description = "Bullet ammo capacity +80",
-            price = 250,
+            price = 400,
             greyObj = bulletClip4Grey,
             checkObj = bulletClip4Check,
             lockObj = null
@@ -369,7 +369,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Bullet Cooldown Upgrade II",
             description = "Bullet cooldown decrease.",
-            price = 150,
+            price = 200,
             greyObj = bulletCooldown2Grey,
             checkObj = bulletCooldown2Check,
             lockObj = null
@@ -382,7 +382,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Bullet Cooldown Upgrade III",
             description = "Bullet cooldown decrease.",
-            price = 200,
+            price = 300,
             greyObj = bulletCooldown3Grey,
             checkObj = bulletCooldown3Check,
             lockObj = null
@@ -395,7 +395,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Bullet Cooldown Upgrade IV",
             description = "Bullet cooldown decrease.",
-            price = 250,
+            price = 400,
             greyObj = bulletCooldown4Grey,
             checkObj = bulletCooldown4Check,
             lockObj = null
@@ -407,8 +407,8 @@ public class ArmouryManager : MonoBehaviour
             category = Upgrade.Category.missleAmmo,
             state = Upgrade.State.available,
             name = "Missle Ammo",
-            description = "Purchase missles, $15/missle",
-            price = 5,
+            description = "Purchase missle",
+            price = 15,
             greyObj = missleAmmo1Grey,
             checkObj = null,
             lockObj = null
@@ -420,8 +420,8 @@ public class ArmouryManager : MonoBehaviour
             category = Upgrade.Category.missleAmmo,
             state = Upgrade.State.available,
             name = "Missle Ammo",
-            description = "Purchase missles, $15/missle",
-            price = 5,
+            description = "Purchase missle",
+            price = 15,
             greyObj = missleAmmo2Grey,
             checkObj = null,
             lockObj = null
@@ -433,8 +433,8 @@ public class ArmouryManager : MonoBehaviour
             category = Upgrade.Category.missleAmmo,
             state = Upgrade.State.available,
             name = "Missle Ammo",
-            description = "Purchase missles, $15/missle",
-            price = 5,
+            description = "Purchase missle",
+            price = 15,
             greyObj = missleAmmo3Grey,
             checkObj = null,
             lockObj = null
@@ -446,8 +446,8 @@ public class ArmouryManager : MonoBehaviour
             category = Upgrade.Category.missleAmmo,
             state = Upgrade.State.available,
             name = "Missle Ammo",
-            description = "Purchase missles, $15/missle",
-            price = 5,
+            description = "Purchase missle",
+            price = 15,
             greyObj = missleAmmo4Grey,
             checkObj = null,
             lockObj = null
@@ -473,7 +473,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Missle Clip Upgrade II",
             description = "Missle ammo capacity +10",
-            price = 150,
+            price = 200,
             greyObj = missleClip2Grey,
             checkObj = missleClip2Check,
             lockObj = null
@@ -486,7 +486,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Missle Clip Upgrade III",
             description = "Missle ammo capacity +15",
-            price = 200,
+            price = 300,
             greyObj = missleClip3Grey,
             checkObj = missleClip3Check,
             lockObj = null
@@ -499,7 +499,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Missle Clip Upgrade IV",
             description = "Missle ammo capacity +20",
-            price = 250,
+            price = 400,
             greyObj = missleClip4Grey,
             checkObj = missleClip4Check,
             lockObj = null
@@ -525,7 +525,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Missle Cooldown Upgrade II",
             description = "Missle cooldown decrease.",
-            price = 150,
+            price = 200,
             greyObj = missleCooldown2Grey,
             checkObj = missleCooldown2Check,
             lockObj = null
@@ -538,7 +538,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Missle Cooldown Upgrade III",
             description = "Missle cooldown decrease.",
-            price = 200,
+            price = 300,
             greyObj = missleCooldown3Grey,
             checkObj = missleCooldown3Check,
             lockObj = null
@@ -551,7 +551,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Missle Cooldown Upgrade IV",
             description = "Missle cooldown decrease.",
-            price = 250,
+            price = 400,
             greyObj = missleCooldown4Grey,
             checkObj = missleCooldown4Check,
             lockObj = null
@@ -564,7 +564,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Mine Ammo",
             description = "Purchase mines, $15/mine",
-            price = 5,
+            price = 15,
             greyObj = mineAmmo1Grey,
             checkObj = null,
             lockObj = null
@@ -576,8 +576,8 @@ public class ArmouryManager : MonoBehaviour
             category = Upgrade.Category.mineAmmo,
             state = Upgrade.State.available,
             name = "Mine Ammo",
-            description = "Purchase mines, $15/mine",
-            price = 5,
+            description = "Purchase mine",
+            price = 15,
             greyObj = mineAmmo2Grey,
             checkObj = null,
             lockObj = null
@@ -589,8 +589,8 @@ public class ArmouryManager : MonoBehaviour
             category = Upgrade.Category.mineAmmo,
             state = Upgrade.State.available,
             name = "Mine Ammo",
-            description = "Purchase mines, $15/mine",
-            price = 5,
+            description = "Purchase mine",
+            price = 15,
             greyObj = mineAmmo3Grey,
             checkObj = null,
             lockObj = null
@@ -602,8 +602,8 @@ public class ArmouryManager : MonoBehaviour
             category = Upgrade.Category.mineAmmo,
             state = Upgrade.State.available,
             name = "Mine Ammo",
-            description = "Purchase mines, $15/mine",
-            price = 5,
+            description = "Purchase mine",
+            price = 15,
             greyObj = mineAmmo4Grey,
             checkObj = null,
             lockObj = null
@@ -629,7 +629,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Mine Clip Upgrade II",
             description = "Mine ammo capacity +10",
-            price = 150,
+            price = 200,
             greyObj = mineClip2Grey,
             checkObj = mineClip2Check,
             lockObj = null
@@ -642,7 +642,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Mine Clip Upgrade III",
             description = "Mine ammo capacity +15",
-            price = 200,
+            price = 300,
             greyObj = mineClip3Grey,
             checkObj = mineClip3Check,
             lockObj = null
@@ -655,7 +655,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Mine Clip Upgrade IV",
             description = "Mine ammo capacity +20",
-            price = 250,
+            price = 400,
             greyObj = mineClip4Grey,
             checkObj = mineClip4Check,
             lockObj = null
@@ -681,7 +681,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Mine Cooldown Upgrade II",
             description = "Mine cooldown decrease.",
-            price = 150,
+            price = 200,
             greyObj = mineCooldown2Grey,
             checkObj = mineCooldown2Check,
             lockObj = null
@@ -694,7 +694,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Mine Cooldown Upgrade III",
             description = "Mine cooldown decrease.",
-            price = 200,
+            price = 300,
             greyObj = mineCooldown3Grey,
             checkObj = mineCooldown3Check,
             lockObj = null
@@ -707,7 +707,7 @@ public class ArmouryManager : MonoBehaviour
             state = Upgrade.State.available,
             name = "Mine Cooldown Upgrade IV",
             description = "Mine cooldown decrease.",
-            price = 250,
+            price = 400,
             greyObj = mineCooldown4Grey,
             checkObj = mineCooldown4Check,
             lockObj = null
@@ -1055,6 +1055,7 @@ public class ArmouryManager : MonoBehaviour
 
     public static Upgrade GetDefaultUpgrade()
     {
+        UpdateSelectedIcon(bulletAmmo1);
         return bulletAmmo1;
     }
 
@@ -1109,7 +1110,7 @@ public class ArmouryManager : MonoBehaviour
         {
             case Upgrade.Category.bulletAmmo:
                 player.SpendMoney(currentUpgrade.price);
-                player.BulletAmmo += currentUpgrade.upgradeNumber;
+                player.BulletAmmo += 1;
                 break;
 
             case Upgrade.Category.bulletClip:
@@ -1124,7 +1125,7 @@ public class ArmouryManager : MonoBehaviour
 
             case Upgrade.Category.missleAmmo:
                 player.SpendMoney(currentUpgrade.price);
-                player.MissleAmmo += currentUpgrade.upgradeNumber;
+                player.MissleAmmo += 1;
                 break;
 
             case Upgrade.Category.missleClip:
@@ -1139,7 +1140,7 @@ public class ArmouryManager : MonoBehaviour
 
             case Upgrade.Category.mineAmmo:
                 player.SpendMoney(currentUpgrade.price);
-                player.MineAmmo += currentUpgrade.upgradeNumber;
+                player.MineAmmo += 1;
                 break;
 
             case Upgrade.Category.mineClip:

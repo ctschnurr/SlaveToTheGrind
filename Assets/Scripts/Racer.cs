@@ -40,6 +40,7 @@ public class Racer : MonoBehaviour
     protected AudioSource engineAudio;
     protected AudioSource boostAudio;
     protected AudioSource bulletAudio;
+    protected AudioSource mineAudio;
     protected AudioSource damageAudio;
     // Upgradables
 
@@ -174,8 +175,10 @@ public class Racer : MonoBehaviour
 
     protected bool ready = false;
 
+    protected static List<string> enemyNameChoices = new() { "Rattigan", "Ratley", "Ratmore", "Ratty", "Ratso", "Ratsputin", "Rattitude", "Ratical" };
     protected static List<string> enemyNames = new() { "Rattigan", "Ratley", "Ratmore", "Ratty", "Ratso", "Ratsputin", "Rattitude", "Ratical"};
     // Start is called before the first frame update
+    protected static List<GameObject> unexplodedMines = new();
 
     public virtual void SetupRacer()
     {
@@ -184,6 +187,7 @@ public class Racer : MonoBehaviour
         engineAudio = transform.Find("RacerAudio").GetComponent<AudioSource>();
         boostAudio = transform.Find("BoostAudio").GetComponent<AudioSource>();
         bulletAudio = bulletFirePos.GetComponent<AudioSource>();
+        mineAudio = dropPos.GetComponent<AudioSource>();
         damageAudio = transform.Find("DamageAudio").GetComponent<AudioSource>();
         spriteCanvas = transform.Find("Canvas").gameObject;
         spriteName = transform.Find("Canvas/SpriteName").GetComponent<TextMeshProUGUI>();
@@ -207,6 +211,11 @@ public class Racer : MonoBehaviour
         // dirtSpray.transform.localPosition = new Vector2(0, -2);
         // boostFlame.transform.localPosition = new Vector2(0, -2.1f);
         // wreckedSmoke.transform.localPosition = new Vector2(0, -0.25f);
+    }
+
+    public static void RenewNames()
+    {
+        enemyNames = new List<string>(enemyNameChoices);
     }
 
     public virtual void UpdateRacer()
@@ -366,6 +375,7 @@ public class Racer : MonoBehaviour
         boostAudio.volume = volume;
         bulletAudio.volume = volume;
         damageAudio.volume = volume;
+        mineAudio.volume = volume;
     }
 
     protected void Fire(Weapon_Select input)
@@ -396,12 +406,22 @@ public class Racer : MonoBehaviour
             case Weapon_Select.mine:
                 if (canDropMine && mineAmmo > 0)
                 {
-                    Instantiate(mine, dropPos.transform.position, transform.localRotation, transform);
+                    mineAudio.Play();
+                    GameObject droppedMine = Instantiate(mine, dropPos.transform.position, transform.localRotation, transform);
+                    unexplodedMines.Add(droppedMine);
                     mineAmmo--;
                     canDropMine = false;
                     mineTimer = 0;
                 }
                 break;
+        }
+    }
+
+    public static void DestroyUnexplodedMines()
+    {
+        foreach(GameObject mine in unexplodedMines)
+        {
+            Destroy(mine);
         }
     }
 
@@ -444,7 +464,7 @@ public class Racer : MonoBehaviour
                 Vector3 direction = transform.position - collision.gameObject.transform.position;
                 rb.AddForce(direction * 20, ForceMode2D.Impulse);
                 damaged = true;
-                TakeHealth(25, collision);
+                TakeHealth(20, collision);
             }
         }
     }

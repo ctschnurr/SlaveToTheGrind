@@ -15,6 +15,10 @@ public class TrackManager : MonoBehaviour
     public static List<GameObject> Pickups { get { return pickups; } set { pickups = value; } }
     private static GameObject[] spawners;
 
+    private static List<GameObject> obstacles;
+    public static List<GameObject> Obstacles { get { return obstacles; } set { obstacles = value; } }
+    private static GameObject[] obstacleSpawners;
+
     // Start is called before the first frame update
 
     // Update is called once per frame
@@ -27,6 +31,9 @@ public class TrackManager : MonoBehaviour
     {
         spawners = GameObject.FindGameObjectsWithTag("PickupSpawner");
         pickups = new List<GameObject>();
+
+        obstacleSpawners = GameObject.FindGameObjectsWithTag("ObstacleSpawner");
+        obstacles = new List<GameObject>();
 
         waypointFolder = GameObject.Find("Waypoints");
 
@@ -68,6 +75,7 @@ public class TrackManager : MonoBehaviour
         }
 
         SpawnPickups();
+        SpawnObstacles();
     }
 
     public static GameObject SendNextWaypoint(GameObject last)
@@ -103,11 +111,29 @@ public class TrackManager : MonoBehaviour
         }
     }
 
+    public static void SpawnObstacles()
+    {
+        foreach (GameObject spawner in obstacleSpawners)
+        {
+            spawner.GetComponent<ObstacleSpawner>().SpawnObs();
+        }
+    }
+
     public static void ResetTrack()
     {
         foreach(GameObject pickup in pickups)
         {
             Destroy(pickup);
         }
+
+        Racer.DestroyUnexplodedMines();
+
+        foreach(GameObject obstacle in obstacles)
+        {
+            Destroy(obstacle);
+        }
+
+        SpawnPickups();
+        SpawnObstacles();
     }
 }
