@@ -60,6 +60,11 @@ public class GarageManager : MonoBehaviour
     static Upgrade boostRecharge3;
     static Upgrade boostRecharge4;
 
+    static Button engine1Button;
+    static Button engine4Button;
+    static Button engine7Button;
+    static Button engine10Button;
+
     private static List<Upgrade> upgradeList;
 
     static Upgrade currentUpgrade;
@@ -210,6 +215,11 @@ public class GarageManager : MonoBehaviour
         garageT2 = GameObject.Find("Garage/T2");
         garageT3 = GameObject.Find("Garage/T3");
         garageT4 = GameObject.Find("Garage/T4");
+
+        engine1Button = GameObject.Find("ScreenManager/Garage/T1/EngineUpgrades/Upgrade1").GetComponent<Button>();
+        engine4Button = GameObject.Find("ScreenManager/Garage/T2/EngineUpgrades/Upgrade1").GetComponent<Button>();
+        engine7Button = GameObject.Find("ScreenManager/Garage/T3/EngineUpgrades/Upgrade1").GetComponent<Button>();
+        engine10Button = GameObject.Find("ScreenManager/Garage/T4/EngineUpgrades/Upgrade1").GetComponent<Button>();
 
         upgradeSelect = GameObject.Find("ScreenManager/Garage/Select");
 
@@ -917,19 +927,21 @@ public class GarageManager : MonoBehaviour
         {
             case 0:
                 currentUpgrade = engine1;
+                engine1Button.Select();
                 break;
             case 1:
                 currentUpgrade = engine4;
+                engine4Button.Select();
                 break;
             case 2:
                 currentUpgrade = engine7;
+                engine7Button.Select();
                 break;
             case 3:
                 currentUpgrade = engine10;
+                engine10Button.Select();
                 break;
         }
-
-        UpdateSelectedIcon(currentUpgrade);
         return currentUpgrade;
     }
 
@@ -986,7 +998,6 @@ public class GarageManager : MonoBehaviour
                 currentUpgrade = engine12;
                 break;
         }
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void ArmourUpgradeClicked(int levelButton)
@@ -1042,7 +1053,6 @@ public class GarageManager : MonoBehaviour
                 currentUpgrade = armour12;
                 break;
         }
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void BoostSpeedUpgradeClicked(int levelButton)
@@ -1067,7 +1077,6 @@ public class GarageManager : MonoBehaviour
                 currentUpgrade = boostSpeed4;
                 break;
         }
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void BoostCooldownUpgradeClicked(int levelButton)
@@ -1091,7 +1100,6 @@ public class GarageManager : MonoBehaviour
                 currentUpgrade = boostCooldown4;
                 break;
         }
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void BoostRechargeUpgradeClicked(int levelButton)
@@ -1115,7 +1123,6 @@ public class GarageManager : MonoBehaviour
                 currentUpgrade = boostRecharge4;
                 break;
         }
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void PurchaseClicked()
@@ -1158,41 +1165,7 @@ public class GarageManager : MonoBehaviour
 
         UpdateShopIcons();
         ScreenManager.UpdateUpgradeClicked(currentUpgrade);
-        UpdateSelectedIcon(currentUpgrade);
     }
-
-    static void UpdateSelectedIcon(Upgrade input)
-    {
-        if (!upgradeSelect.activeSelf) upgradeSelect.SetActive(true);
-
-        switch (input.category)
-        {
-            case Upgrade.Category.engine:
-                if (input.upgradeNumber == 1 || input.upgradeNumber == 4 || input.upgradeNumber == 7 || input.upgradeNumber == 10) upgradeSelect.transform.position = engine1check.transform.position;
-                if (input.upgradeNumber == 2 || input.upgradeNumber == 5 || input.upgradeNumber == 8 || input.upgradeNumber == 11) upgradeSelect.transform.position = engine2check.transform.position;
-                if (input.upgradeNumber == 3 || input.upgradeNumber == 6 || input.upgradeNumber == 9 || input.upgradeNumber == 12) upgradeSelect.transform.position = engine3check.transform.position;
-                break;
-
-            case Upgrade.Category.armour:
-                if (input.upgradeNumber == 1 || input.upgradeNumber == 4 || input.upgradeNumber == 7 || input.upgradeNumber == 10) upgradeSelect.transform.position = armour1check.transform.position;
-                if (input.upgradeNumber == 2 || input.upgradeNumber == 5 || input.upgradeNumber == 8 || input.upgradeNumber == 11) upgradeSelect.transform.position = armour2lock.transform.position;
-                if (input.upgradeNumber == 3 || input.upgradeNumber == 6 || input.upgradeNumber == 9 || input.upgradeNumber == 12) upgradeSelect.transform.position = armour3lock.transform.position;
-                break;
-
-            case Upgrade.Category.boostSpeed:
-                upgradeSelect.transform.position = boostSpeed1check.transform.position;
-                break;
-
-            case Upgrade.Category.boostCooldown:
-                upgradeSelect.transform.position = boostCooldown1check.transform.position;
-                break;
-
-            case Upgrade.Category.boostRecharge:
-                upgradeSelect.transform.position = boostRecharge1check.transform.position;
-                break;
-        }
-    }
-
 }
 
 public class Upgrade

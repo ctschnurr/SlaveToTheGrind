@@ -70,6 +70,11 @@ public class SchoolManager : MonoBehaviour
     static GameObject schoolT3;
     static GameObject schoolT4;
 
+    static Button repair1Button;
+    static Button repair4Button;
+    static Button repair7Button;
+    static Button repair10Button;
+
     // T1 School Elements:
     static GameObject repair1check;
     static GameObject repair1grey;
@@ -216,6 +221,11 @@ public class SchoolManager : MonoBehaviour
         schoolT2 = GameObject.Find("School/T2");
         schoolT3 = GameObject.Find("School/T3");
         schoolT4 = GameObject.Find("School/T4");
+
+        repair1Button = GameObject.Find("ScreenManager/School/T1/RepairUpgrades/Upgrade1").GetComponent<Button>();
+        repair4Button = GameObject.Find("ScreenManager/School/T2/RepairUpgrades/Upgrade1").GetComponent<Button>();
+        repair7Button = GameObject.Find("ScreenManager/School/T3/RepairUpgrades/Upgrade1").GetComponent<Button>();
+        repair10Button = GameObject.Find("ScreenManager/School/T4/RepairUpgrades/Upgrade1").GetComponent<Button>();
 
         upgradeSelect = GameObject.Find("ScreenManager/School/Select");
 
@@ -924,19 +934,22 @@ public class SchoolManager : MonoBehaviour
         {
             case 0:
                 currentUpgrade = repair1;
+                repair1Button.Select();
                 break;
             case 1:
                 currentUpgrade = repair4;
+                repair4Button.Select();
                 break;
             case 2:
                 currentUpgrade = repair7;
+                repair7Button.Select();
                 break;
             case 3:
                 currentUpgrade = repair10;
+                repair10Button.Select();
                 break;
         }
 
-        UpdateSelectedIcon(currentUpgrade);
         return currentUpgrade;
     }
 
@@ -993,7 +1006,6 @@ public class SchoolManager : MonoBehaviour
                 currentUpgrade = repair12;
                 break;
         }
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void SpeechUpgradeClicked(int levelButton)
@@ -1049,7 +1061,6 @@ public class SchoolManager : MonoBehaviour
                 currentUpgrade = speech12;
                 break;
         }
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void CharmUpgradeClicked(int levelButton)
@@ -1105,7 +1116,6 @@ public class SchoolManager : MonoBehaviour
                 currentUpgrade = charm12;
                 break;
         }
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void PurchaseClicked()
@@ -1139,33 +1149,5 @@ public class SchoolManager : MonoBehaviour
 
         UpdateSchoolIcons();
         ScreenManager.UpdateSchoolClicked(currentUpgrade);
-        UpdateSelectedIcon(currentUpgrade);
     }
-
-    static void UpdateSelectedIcon(Upgrade input)
-    {
-        if (!upgradeSelect.activeSelf) upgradeSelect.SetActive(true);
-
-        switch (input.category)
-        {
-            case Upgrade.Category.repair:
-                if (input.upgradeNumber == 1 || input.upgradeNumber == 4 || input.upgradeNumber == 7 || input.upgradeNumber == 10) upgradeSelect.transform.position = repair1check.transform.position;
-                if (input.upgradeNumber == 2 || input.upgradeNumber == 5 || input.upgradeNumber == 8 || input.upgradeNumber == 11) upgradeSelect.transform.position = repair2check.transform.position;
-                if (input.upgradeNumber == 3 || input.upgradeNumber == 6 || input.upgradeNumber == 9 || input.upgradeNumber == 12) upgradeSelect.transform.position = repair3check.transform.position;
-                break;
-
-            case Upgrade.Category.speech:
-                if (input.upgradeNumber == 1 || input.upgradeNumber == 4 || input.upgradeNumber == 7 || input.upgradeNumber == 10) upgradeSelect.transform.position = speech1check.transform.position;
-                if (input.upgradeNumber == 2 || input.upgradeNumber == 5 || input.upgradeNumber == 8 || input.upgradeNumber == 11) upgradeSelect.transform.position = speech2lock.transform.position;
-                if (input.upgradeNumber == 3 || input.upgradeNumber == 6 || input.upgradeNumber == 9 || input.upgradeNumber == 12) upgradeSelect.transform.position = speech3lock.transform.position;
-                break;
-
-            case Upgrade.Category.charm:
-                if (input.upgradeNumber == 1 || input.upgradeNumber == 4 || input.upgradeNumber == 7 || input.upgradeNumber == 10) upgradeSelect.transform.position = charm1check.transform.position;
-                if (input.upgradeNumber == 2 || input.upgradeNumber == 5 || input.upgradeNumber == 8 || input.upgradeNumber == 11) upgradeSelect.transform.position = charm2lock.transform.position;
-                if (input.upgradeNumber == 3 || input.upgradeNumber == 6 || input.upgradeNumber == 9 || input.upgradeNumber == 12) upgradeSelect.transform.position = charm3lock.transform.position;
-                break;
-        }
-    }
-
 }

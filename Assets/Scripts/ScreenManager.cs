@@ -48,7 +48,7 @@ public class ScreenManager : MonoBehaviour
     static AudioClip finishSound;
     static AudioClip wreckSound;
 
-    static AudioSource gameMusic;
+    public static AudioSource gameMusic;
     static AudioClip titleMusic;
     static AudioClip gameplayMusic;
 
@@ -272,6 +272,8 @@ public class ScreenManager : MonoBehaviour
         titleMusic = Resources.Load<AudioClip>("titleMusic");
         gameplayMusic = Resources.Load<AudioClip>("gameplayMusic");
 
+        gameMusic.clip = titleMusic;
+
         titleScreen = GameObject.Find("ScreenManager/titleScreen");
 
         armouryScreen = GameObject.Find("ScreenManager/Armoury");
@@ -437,6 +439,13 @@ public class ScreenManager : MonoBehaviour
         titleScreen.SetActive(true);
 
         ready = true;
+    }
+
+    public static void HUDColors(Color color)
+    {
+        bulletAmmo.color = color;
+        missleAmmo.color = color;
+        mineAmmo.color = color;
     }
 
     public void UpdateMusicVolume()
@@ -754,7 +763,7 @@ public class ScreenManager : MonoBehaviour
         upgradeName.text = input.name;
         upgradeDescription.text = input.description;
         upgradePrice.text = "Upgrade Price: $" + input.price.ToString();
-        playerFunds.text = "Your Funds: $" + playerController.GetMoney();
+        playerFunds.text = "$" + playerController.GetMoney();
 
 
         switch (input.state)
@@ -797,7 +806,7 @@ public class ScreenManager : MonoBehaviour
         armouryUpgradeName.text = input.name;
         armouryUpgradeDescription.text = input.description;
         armouryUpgradePrice.text = "Upgrade Price: $" + input.price.ToString();
-        armouryPlayerFunds.text = "Your Funds: $" + playerController.GetMoney();
+        armouryPlayerFunds.text = "$" + playerController.GetMoney();
 
         int bulletAmmo = playerController.BulletAmmo;
         int bulletAmmoMax = playerController.BulletAmmoMax;
@@ -888,7 +897,7 @@ public class ScreenManager : MonoBehaviour
         schoolUpgradeName.text = input.name;
         schoolUpgradeDescription.text = input.description;
         schoolUpgradePrice.text = "Price: $" + input.price.ToString();
-        schoolPlayerFunds.text = "Your Funds: $" + playerController.GetMoney();
+        schoolPlayerFunds.text = "$" + playerController.GetMoney();
 
 
         switch (input.state)

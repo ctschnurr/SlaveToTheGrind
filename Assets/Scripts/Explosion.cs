@@ -32,7 +32,7 @@ public class Explosion : Weapon
             gameObject.GetComponent<Collider2D>().enabled = false;
             Vector3 direction = transform.position - collision.gameObject.transform.position;
             Rigidbody2D colRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (collision.gameObject.tag != "Wall") colRb.AddForce(direction, ForceMode2D.Impulse);
+            // if (collision.gameObject.tag != "Wall") colRb.AddForce(direction, ForceMode2D.Impulse);
         }
     }
 }

@@ -19,6 +19,11 @@ public class ArmouryManager : MonoBehaviour
 
     PlayerController player;
 
+    static Button bulletAmmo1Button;
+    static Button bulletAmmo2Button;
+    static Button bulletAmmo3Button;
+    static Button bulletAmmo4Button;
+
     static Upgrade bulletAmmo1;
     static Upgrade bulletAmmo2;
     static Upgrade bulletAmmo3;
@@ -159,6 +164,11 @@ public class ArmouryManager : MonoBehaviour
         armouryT4 = GameObject.Find("Armoury/T4");
 
         upgradeSelect = GameObject.Find("ScreenManager/Armoury/Select");
+
+        bulletAmmo1Button = GameObject.Find("ScreenManager/Armoury/T1/BulletUpgrades/Upgrade1").GetComponent<Button>();
+        bulletAmmo2Button = GameObject.Find("ScreenManager/Armoury/T2/BulletUpgrades/Upgrade1").GetComponent<Button>();
+        bulletAmmo3Button = GameObject.Find("ScreenManager/Armoury/T3/BulletUpgrades/Upgrade1").GetComponent<Button>();
+        bulletAmmo4Button = GameObject.Find("ScreenManager/Armoury/T4/BulletUpgrades/Upgrade1").GetComponent<Button>();
 
         bulletAmmo1Grey = GameObject.Find("ScreenManager/Armoury/T1/BulletUpgrades/Upgrade1/Grey");
         bulletClip1Check = GameObject.Find("ScreenManager/Armoury/T1/BulletUpgrades/Upgrade2/Check");
@@ -406,8 +416,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 1,
             category = Upgrade.Category.missleAmmo,
             state = Upgrade.State.available,
-            name = "Missle Ammo",
-            description = "Purchase missle",
+            name = "Missile Ammo",
+            description = "Purchase missile",
             price = 15,
             greyObj = missleAmmo1Grey,
             checkObj = null,
@@ -419,8 +429,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 2,
             category = Upgrade.Category.missleAmmo,
             state = Upgrade.State.available,
-            name = "Missle Ammo",
-            description = "Purchase missle",
+            name = "Missile Ammo",
+            description = "Purchase missile",
             price = 15,
             greyObj = missleAmmo2Grey,
             checkObj = null,
@@ -432,8 +442,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 3,
             category = Upgrade.Category.missleAmmo,
             state = Upgrade.State.available,
-            name = "Missle Ammo",
-            description = "Purchase missle",
+            name = "Missile Ammo",
+            description = "Purchase missile",
             price = 15,
             greyObj = missleAmmo3Grey,
             checkObj = null,
@@ -445,8 +455,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 4,
             category = Upgrade.Category.missleAmmo,
             state = Upgrade.State.available,
-            name = "Missle Ammo",
-            description = "Purchase missle",
+            name = "Missile Ammo",
+            description = "Purchase missile",
             price = 15,
             greyObj = missleAmmo4Grey,
             checkObj = null,
@@ -458,8 +468,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 1,
             category = Upgrade.Category.missleClip,
             state = Upgrade.State.available,
-            name = "Missle Clip Upgrade I",
-            description = "Missle ammo capacity +5",
+            name = "Missile Clip Upgrade I",
+            description = "Missile ammo capacity +5",
             price = 100,
             greyObj = missleClip1Grey,
             checkObj = missleClip1Check,
@@ -471,8 +481,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 2,
             category = Upgrade.Category.missleClip,
             state = Upgrade.State.available,
-            name = "Missle Clip Upgrade II",
-            description = "Missle ammo capacity +10",
+            name = "Missile Clip Upgrade II",
+            description = "Missile ammo capacity +10",
             price = 200,
             greyObj = missleClip2Grey,
             checkObj = missleClip2Check,
@@ -484,8 +494,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 3,
             category = Upgrade.Category.missleClip,
             state = Upgrade.State.available,
-            name = "Missle Clip Upgrade III",
-            description = "Missle ammo capacity +15",
+            name = "Missile Clip Upgrade III",
+            description = "Missile ammo capacity +15",
             price = 300,
             greyObj = missleClip3Grey,
             checkObj = missleClip3Check,
@@ -497,8 +507,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 4,
             category = Upgrade.Category.missleClip,
             state = Upgrade.State.available,
-            name = "Missle Clip Upgrade IV",
-            description = "Missle ammo capacity +20",
+            name = "Missile Clip Upgrade IV",
+            description = "Missile ammo capacity +20",
             price = 400,
             greyObj = missleClip4Grey,
             checkObj = missleClip4Check,
@@ -510,8 +520,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 1,
             category = Upgrade.Category.missleCooldown,
             state = Upgrade.State.available,
-            name = "Missle Cooldown Upgrade I",
-            description = "Missle cooldown decrease.",
+            name = "Missile Cooldown Upgrade I",
+            description = "Missile cooldown decrease.",
             price = 100,
             greyObj = missleCooldown1Grey,
             checkObj = missleCooldown1Check,
@@ -523,8 +533,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 2,
             category = Upgrade.Category.missleCooldown,
             state = Upgrade.State.available,
-            name = "Missle Cooldown Upgrade II",
-            description = "Missle cooldown decrease.",
+            name = "Missile Cooldown Upgrade II",
+            description = "Missile cooldown decrease.",
             price = 200,
             greyObj = missleCooldown2Grey,
             checkObj = missleCooldown2Check,
@@ -536,8 +546,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 3,
             category = Upgrade.Category.missleCooldown,
             state = Upgrade.State.available,
-            name = "Missle Cooldown Upgrade III",
-            description = "Missle cooldown decrease.",
+            name = "Missile Cooldown Upgrade III",
+            description = "Missile cooldown decrease.",
             price = 300,
             greyObj = missleCooldown3Grey,
             checkObj = missleCooldown3Check,
@@ -549,8 +559,8 @@ public class ArmouryManager : MonoBehaviour
             upgradeNumber = 4,
             category = Upgrade.Category.missleCooldown,
             state = Upgrade.State.available,
-            name = "Missle Cooldown Upgrade IV",
-            description = "Missle cooldown decrease.",
+            name = "Missile Cooldown Upgrade IV",
+            description = "Missile cooldown decrease.",
             price = 400,
             greyObj = missleCooldown4Grey,
             checkObj = missleCooldown4Check,
@@ -745,8 +755,6 @@ public class ArmouryManager : MonoBehaviour
                 currentUpgrade = bulletAmmo4;
                 break;
         }
-
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void BulletClipUpgradeClicked(int levelButton)
@@ -771,8 +779,6 @@ public class ArmouryManager : MonoBehaviour
                 currentUpgrade = bulletClip4;
                 break;
         }
-
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void BulletCooldownUpgradeClicked(int levelButton)
@@ -797,8 +803,6 @@ public class ArmouryManager : MonoBehaviour
                 currentUpgrade = bulletCooldown4;
                 break;
         }
-
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void MissleAmmoClicked(int levelButton)
@@ -822,8 +826,6 @@ public class ArmouryManager : MonoBehaviour
                 currentUpgrade = missleAmmo4;
                 break;
         }
-
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void MissleClipUpgradeClicked(int levelButton)
@@ -848,8 +850,6 @@ public class ArmouryManager : MonoBehaviour
                 currentUpgrade = missleClip4;
                 break;
         }
-
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void MissleCooldownUpgradeClicked(int levelButton)
@@ -874,8 +874,6 @@ public class ArmouryManager : MonoBehaviour
                 currentUpgrade = missleCooldown4;
                 break;
         }
-
-        UpdateSelectedIcon(currentUpgrade);
     }
     public void MineAmmoClicked(int levelButton)
     {
@@ -898,8 +896,6 @@ public class ArmouryManager : MonoBehaviour
                 currentUpgrade = mineAmmo4;
                 break;
         }
-
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void MineClipUpgradeClicked(int levelButton)
@@ -924,8 +920,6 @@ public class ArmouryManager : MonoBehaviour
                 currentUpgrade = mineClip4;
                 break;
         }
-
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public void MineCooldownUpgradeClicked(int levelButton)
@@ -950,8 +944,6 @@ public class ArmouryManager : MonoBehaviour
                 currentUpgrade = mineCooldown4;
                 break;
         }
-
-        UpdateSelectedIcon(currentUpgrade);
     }
 
     public static void UpdateArmouryIcons()
@@ -1055,52 +1047,27 @@ public class ArmouryManager : MonoBehaviour
 
     public static Upgrade GetDefaultUpgrade()
     {
-        UpdateSelectedIcon(bulletAmmo1);
-        return bulletAmmo1;
-    }
-
-    static void UpdateSelectedIcon(Upgrade input)
-    {
-        if (!upgradeSelect.activeSelf) upgradeSelect.SetActive(true);
-
-        switch (input.category)
+        switch (GameManager.GameLevel)
         {
-            case Upgrade.Category.bulletAmmo:
-                upgradeSelect.transform.position = bulletAmmo1Grey.transform.position;
+            case 0:
+                currentUpgrade = bulletAmmo1;
+                bulletAmmo1Button.Select();
                 break;
-
-            case Upgrade.Category.bulletClip:
-                upgradeSelect.transform.position = bulletClip1Check.transform.position;
+            case 1:
+                currentUpgrade = bulletAmmo2;
+                bulletAmmo2Button.Select();
                 break;
-
-            case Upgrade.Category.bulletCooldown:
-                upgradeSelect.transform.position = bulletCooldown1Check.transform.position;
+            case 2:
+                currentUpgrade = bulletAmmo3;
+                bulletAmmo3Button.Select();
                 break;
-
-            case Upgrade.Category.missleAmmo:
-                upgradeSelect.transform.position = missleAmmo1Grey.transform.position;
-                break;
-
-            case Upgrade.Category.missleClip:
-                upgradeSelect.transform.position = missleClip1Check.transform.position;
-                break;
-
-            case Upgrade.Category.missleCooldown:
-                upgradeSelect.transform.position = missleCooldown1Check.transform.position;
-                break;
-
-            case Upgrade.Category.mineAmmo:
-                upgradeSelect.transform.position = mineAmmo1Grey.transform.position;
-                break;
-
-            case Upgrade.Category.mineClip:
-                upgradeSelect.transform.position = mineClip1Check.transform.position;
-                break;
-
-            case Upgrade.Category.mineCooldown:
-                upgradeSelect.transform.position = mineCooldown1Check.transform.position;
+            case 3:
+                currentUpgrade = bulletAmmo4;
+                bulletAmmo4Button.Select();
                 break;
         }
+
+        return currentUpgrade;
     }
 
     public void PurchaseClicked()

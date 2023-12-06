@@ -462,7 +462,7 @@ public class Racer : MonoBehaviour
             if (collision.gameObject.tag == "Explosion")
             {
                 Vector3 direction = transform.position - collision.gameObject.transform.position;
-                rb.AddForce(direction * 20, ForceMode2D.Impulse);
+                //rb.AddForce(direction * 20, ForceMode2D.Impulse);
                 damaged = true;
                 TakeHealth(20, collision);
             }

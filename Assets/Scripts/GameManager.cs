@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
             armouryManager.SetupArmoury();
             schoolManager.SetupSchool();
             screenManager.SetupScreens();
+
+            ScreenManager.gameMusic.Play();
         }
         else SceneManager.LoadScene(0);
 

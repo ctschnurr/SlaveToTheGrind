@@ -31,6 +31,7 @@ public class PlayerController : Racer
 
         string[] rgba = DataManager.PlayerSave.racerColor.Split(',');
         carColor.color = new Color(float.Parse(rgba[0]), float.Parse(rgba[1]), float.Parse(rgba[2]), float.Parse(rgba[3]));
+        ScreenManager.HUDColors(carColor.color);
 
         if (GameManager.GameLoaded)
         {

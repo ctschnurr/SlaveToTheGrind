@@ -252,7 +252,6 @@ public class RaceManager : MonoBehaviour
         if (finisher.RacerState != Racer.State.dead)
         {
             finishers.Add(finisher);
-            Debug.Log("FinishQueue " + finishers.Count + " " + finisher.name + " " + finisher.RacerState);
         }
 
         if (finisher.GetRacerType() == Racer.RacerType.player)
@@ -279,7 +278,6 @@ public class RaceManager : MonoBehaviour
                 if (!finishedCheck)
                 {
                     finishers.Add(checkRacer);
-                    Debug.Log("EndRace A " + finishers.Count + " " + checkRacer.name + " " + checkRacer.RacerState);
                 }
             }
         }

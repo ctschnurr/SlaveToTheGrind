@@ -52,11 +52,11 @@ public class EnemyController : Racer
             ScreenManager.Colors = colors;
             carColor.color = racerColor;
 
-            engineUpgradeLevel = enemyCounter + 1;
-            armourUpgradeLevel = enemyCounter + 1;
-            boostSpeedLevel = enemyCounter + 1;
-            boostRechargeLevel = enemyCounter + 1;
-            boostCooldownLevel = enemyCounter + 1;
+            engineUpgradeLevel = enemyCounter;
+            armourUpgradeLevel = enemyCounter;
+            boostSpeedLevel = enemyCounter;
+            boostRechargeLevel = enemyCounter;
+            boostCooldownLevel = enemyCounter;
         }
 
         type = RacerType.enemy;
