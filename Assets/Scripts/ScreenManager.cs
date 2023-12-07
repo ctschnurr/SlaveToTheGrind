@@ -66,6 +66,8 @@ public class ScreenManager : MonoBehaviour
     static GameObject title_the;
     static GameObject title_grind;
 
+    static GameObject title_buttons;
+
     static GameObject titleScreen;
     static GameObject garageScreen;
     static GameObject armouryScreen;
@@ -286,6 +288,8 @@ public class ScreenManager : MonoBehaviour
         title_the = GameObject.Find("ScreenManager/titleScreen/THE");
         title_grind = GameObject.Find("ScreenManager/titleScreen/GRIND");
 
+        title_buttons = GameObject.Find("ScreenManager/titleScreen/Buttons");
+
         menuSound = transform.GetComponent<AudioSource>();
         startNote1 = Resources.Load<AudioClip>("startNote1");
         startNote2 = Resources.Load<AudioClip>("startNote2");
@@ -294,7 +298,7 @@ public class ScreenManager : MonoBehaviour
         explosion = Resources.Load<AudioClip>("explosion");
 
         gameMusic = transform.Find("MusicSource").GetComponent<AudioSource>();
-        gameMusic.volume = musicVolume / 3;
+        gameMusic.volume = musicVolume / 6;
         titleMusic = Resources.Load<AudioClip>("titleMusic");
         gameplayMusic = Resources.Load<AudioClip>("gameplayMusic");
 
@@ -505,6 +509,8 @@ public class ScreenManager : MonoBehaviour
                 break;
             case 6:
                 menuSound.Play();
+                LeanTween.moveLocal(title_buttons, new Vector3(0f, -300f, 0f), 2f).setDelay(1f).setEase(LeanTweenType.easeOutBounce);
+                RacerDroneController.activated = true;
                 titleFadeStage++;
                 break;
         }
@@ -565,7 +571,7 @@ public class ScreenManager : MonoBehaviour
 
     public void UpdateMusicVolume()
     {
-        gameMusic.volume = musicVolume / 3;
+        gameMusic.volume = musicVolume / 6;
     }
 
     public void UpdateSoundVolume()

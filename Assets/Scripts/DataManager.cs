@@ -169,8 +169,6 @@ public class DataManager : MonoBehaviour
 
         SaveGame();
 
-        ScreenManager.PlayerNameInput.text = "Player";
-        ScreenManager.PlayerExampleName.text = "Player";
     }
 }
 

@@ -82,6 +82,9 @@ public class GameManager : MonoBehaviour
         }
         if (scene.name == "TitleScene")
         {
+            ScreenManager.PlayerNameInput.text = "Player";
+            ScreenManager.PlayerExampleName.text = "Player";
+
             state = GameState.idle;
             if (GameLoaded == true) GameLoaded = false;
             ScreenManager.RefreshScreens();

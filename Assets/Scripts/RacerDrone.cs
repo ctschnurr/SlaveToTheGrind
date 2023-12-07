@@ -38,7 +38,7 @@ public class RacerDrone : Racer
         engineUpgradeLevel = enemyCounter;
         boostSpeedLevel = enemyCounter;
 
-        waypoint = GameObject.Find("Waypoint");
+        waypoint = GameObject.Find("FirstPoint");
 
         turnSpeed = baseTurnSpeed;
 
@@ -85,7 +85,11 @@ public class RacerDrone : Racer
 
         if (RacerDroneController.activated)
         {
-            if (!engineAudio.isPlaying) engineAudio.Play();
+            if (!engineAudio.isPlaying)
+            {
+                engineAudio.enabled = true;
+                engineAudio.Play();
+            }
 
             float angle = Vector3.Angle((waypoint.transform.position - transform.position), transform.up);
 
@@ -109,6 +113,9 @@ public class RacerDrone : Racer
                 transform.localRotation = Quaternion.Lerp(transform.localRotation, tempQuaternion, 3f * Time.deltaTime);
             }
 
+            if (Vector3.Distance(waypoint.transform.position, transform.position) < 10) waypoint = NextWaypoint(waypoint);
+
+
             // if (waypoint == null) effect = Effect.finished;
 
             foreach (GameObject racer in racers)
@@ -121,27 +128,36 @@ public class RacerDrone : Racer
                     if (dontCrash < 60 && distance < 3) rb.AddRelativeForce(-(transform.position - racer.transform.position) * 5 * Time.deltaTime, ForceMode2D.Force);
 
                     float lookForward = Vector3.Angle(racer.transform.position - transform.position, transform.up);
-                    if (lookForward < 5f && distance < 12)
+                    if (lookForward < 10f && distance < 15)
                     {
                         int fireChance;
 
-                        if (racer.GetComponent<Racer>() == player) fireChance = Random.Range(1, 20 - GameManager.GameLevel + player.CharmSkillLevel);
-                        else fireChance = Random.Range(1, 20 - GameManager.GameLevel);
+                        fireChance = Random.Range(1, 10);
 
                         if (fireChance == 1)
                         {
-                            if (canBoost)
+                            int choice;
+                            choice = Random.Range(1, 4);
+                            switch(choice)
                             {
-                                boostAudio.Play();
-                                boostFlame.Play();
-                                canBoost = false;
-                                boostActivated = true;
-                                boost = boostMax;
-                            }
-                            else
-                            {
-                                if (missleAmmo > 0 && distance > 8 && fireChance > 10) Fire(Weapon_Select.missle);
-                                else Fire(Weapon_Select.bullet);
+                                case 1:
+                                    if (canBoost)
+                                    {
+                                        boostAudio.Play();
+                                        boostFlame.Play();
+                                        canBoost = false;
+                                        boostActivated = true;
+                                        boost = boostMax;
+                                    }
+                                    break;
+
+                                case 2:
+                                    Fire(Weapon_Select.missle);
+                                    break;
+
+                                case 3:
+                                    Fire(Weapon_Select.bullet);
+                                    break;
                             }
                         }
                     }
@@ -156,7 +172,7 @@ public class RacerDrone : Racer
                             switch (choice)
                             {
                                 case 1:
-                                    if (mineAmmo > 0 && distance > 3) Fire(Weapon_Select.mine);
+                                    if (mineAmmo > 0 && distance > 3) ; // Fire(Weapon_Select.mine);
                                     else if (canBoost)
                                     {
                                         canBoost = false;
@@ -183,6 +199,12 @@ public class RacerDrone : Racer
         }
     }
 
+    GameObject NextWaypoint(GameObject input)
+    {
+        GameObject nextWaypoint = RacerDroneController.SendNextWaypoint(input);
+        if (nextWaypoint == null) return input;
+        else return nextWaypoint;
+    }
     public override void Update()
     {
         Vector3 targetDirection = waypoint.transform.position - transform.localPosition;

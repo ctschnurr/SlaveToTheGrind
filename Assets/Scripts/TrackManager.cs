@@ -95,7 +95,6 @@ public class TrackManager : MonoBehaviour
             else return tempObject;
         }
         else return null;
-
     }
 
     public static float GetFinishline()

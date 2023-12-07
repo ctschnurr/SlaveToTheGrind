@@ -30,5 +30,7 @@ public class Missle : Weapon
             Instantiate(explosion, transform.position, transform.rotation, owner.transform);
             Destroy(gameObject);
         }
+
+        if (transform.position.y > 600) Destroy(gameObject);
     }
 }
