@@ -127,15 +127,15 @@ public class ButtonManager : MonoBehaviour
 
     public void SwitchToGameplay()
     {
-        ScreenManager.ClearScreens();
-        SceneManager.LoadScene(1);
+        ScreenManager.FadeToGameplay();
     }
 
     public void QuitToTitle()
     {
+        RaceManager.EndRace();
         RaceManager.ResetRace();
         ScreenManager.ClearScreens();
-        SceneManager.LoadScene(0);
+        ScreenManager.FadeToTitle();
     }
     public void StartRace()
     {

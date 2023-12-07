@@ -97,6 +97,7 @@ public class Racer : MonoBehaviour
     protected Quaternion startRotation;
     protected GameObject racer;
     protected SpriteRenderer carColor;
+    public SpriteRenderer CarColor { get { return carColor; } set { carColor = value; } }
     protected Rigidbody2D rb;
     protected GameObject spriteCanvas;
     protected TextMeshProUGUI spriteName;

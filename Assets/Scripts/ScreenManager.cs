@@ -32,7 +32,8 @@ public class ScreenManager : MonoBehaviour
         cupWinner,
         storyEnd,
         options,
-        pause
+        pause,
+        schnurrGames
     }
 
     public enum UpgradeScreen
@@ -48,6 +49,8 @@ public class ScreenManager : MonoBehaviour
     static AudioClip finishSound;
     static AudioClip wreckSound;
 
+    static AudioClip explosion;
+
     public static AudioSource gameMusic;
     static AudioClip titleMusic;
     static AudioClip gameplayMusic;
@@ -58,6 +61,11 @@ public class ScreenManager : MonoBehaviour
     private static float musicVolume = 1;
     public static float MusicVolume {  get { return musicVolume; } set { musicVolume = value; } }
 
+    static GameObject title_slave;
+    static GameObject title_to;
+    static GameObject title_the;
+    static GameObject title_grind;
+
     static GameObject titleScreen;
     static GameObject garageScreen;
     static GameObject armouryScreen;
@@ -66,6 +74,7 @@ public class ScreenManager : MonoBehaviour
     static GameObject controlsScreen;
     static GameObject storyEndScreen;
     static GameObject optionsScreen;
+    static GameObject schnurrGamesScreen;
 
     // Race Start Screen Elements:
     static GameObject raceStartScreen;
@@ -214,12 +223,18 @@ public class ScreenManager : MonoBehaviour
 
     static GameObject pauseScreen;
 
+    static GameObject fadeScreenObj;
+    static GameObject fadeScreenImg;
+
     string place = " ";
 
     static bool ready = false;
 
     static bool timerOn = false;
     static float timer = 0;
+    static int titleFadeStage = 0;
+    static int gameplayFadeStage = 0;
+
     void Update()
     {
         if (ready && GameManager.state == GameManager.GameState.active)
@@ -261,14 +276,25 @@ public class ScreenManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+        fadeScreenObj = GameObject.Find("ScreenManager/BlackScreen");
+        fadeScreenImg = GameObject.Find("ScreenManager/BlackScreen/blackness");
+
+        schnurrGamesScreen = GameObject.Find("ScreenManager/SchnurrGames");
+
+        title_slave = GameObject.Find("ScreenManager/titleScreen/SLAVE");
+        title_to = GameObject.Find("ScreenManager/titleScreen/TO");
+        title_the = GameObject.Find("ScreenManager/titleScreen/THE");
+        title_grind = GameObject.Find("ScreenManager/titleScreen/GRIND");
+
         menuSound = transform.GetComponent<AudioSource>();
         startNote1 = Resources.Load<AudioClip>("startNote1");
         startNote2 = Resources.Load<AudioClip>("startNote2");
         finishSound = Resources.Load<AudioClip>("finish");
         wreckSound = Resources.Load<AudioClip>("wreck");
+        explosion = Resources.Load<AudioClip>("explosion");
 
         gameMusic = transform.Find("MusicSource").GetComponent<AudioSource>();
-        gameMusic.volume = musicVolume / 12;
+        gameMusic.volume = musicVolume / 3;
         titleMusic = Resources.Load<AudioClip>("titleMusic");
         gameplayMusic = Resources.Load<AudioClip>("gameplayMusic");
 
@@ -432,13 +458,102 @@ public class ScreenManager : MonoBehaviour
 
         pauseScreen = GameObject.Find("ScreenManager/pause");
 
-        screensList = new List<GameObject> { titleScreen, customizePlayer, garageScreen, schoolScreen, armouryScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen, storyScreen, controlsScreen, raceStartScreen, cupWinnerScreen, storyEndScreen, optionsScreen,  };
+        screensList = new List<GameObject> { schnurrGamesScreen, titleScreen, customizePlayer, garageScreen, schoolScreen, armouryScreen, HUD, finishScreen, defeatScreen, raceResultsScreen, earningsScreen, pauseScreen, saveSlotScreen, storyScreen, controlsScreen, raceStartScreen, cupWinnerScreen, storyEndScreen, optionsScreen,  };
 
         ClearScreens();
 
-        titleScreen.SetActive(true);
+        // titleScreen.SetActive(true);
 
         ready = true;
+    }
+
+    public static void TitleSequenceA()
+    {
+
+        switch (titleFadeStage)
+        {
+            case 0:
+                titleFadeStage++;
+                SetScreen(Screen.schnurrGames);
+                LeanTween.alpha(fadeScreenImg.GetComponent<RectTransform>(), 0, 1.5f).setDelay(2f).setOnComplete(TitleSequenceA);
+                break;
+            case 1:
+                titleFadeStage++;
+                LeanTween.alpha(fadeScreenImg.GetComponent<RectTransform>(), 1, 1.5f).setDelay(2f).setOnComplete(TitleSequenceA);
+                break;
+            case 2:
+                titleFadeStage++;
+                SetScreen(Screen.title);
+                LeanTween.alpha(fadeScreenImg.GetComponent<RectTransform>(), 0, 1.5f).setDelay(1.5f).setOnComplete(TitleSequenceA);
+                break;
+            case 3:
+                titleFadeStage++;
+                fadeScreenObj.SetActive(false);
+                LeanTween.moveLocal(title_slave, new Vector3(0f, 315f, 0f), 1f).setEase(LeanTweenType.easeInCirc).setOnComplete(TitleSequenceA);
+                break;
+            case 4:
+                titleFadeStage++;
+                menuSound.clip = explosion;
+                menuSound.Play();
+                LeanTween.moveLocal(title_to, new Vector3(-200f, 150f, 0f), 1f).setEase(LeanTweenType.easeInCirc);
+                LeanTween.moveLocal(title_the, new Vector3(200f, 150f, 0f), 1f).setEase(LeanTweenType.easeInCirc).setOnComplete(TitleSequenceA);
+                break;
+            case 5:
+                titleFadeStage++;
+                menuSound.Play();
+                LeanTween.moveLocal(title_grind, new Vector3(0f, -30f, 0f), 1f).setEase(LeanTweenType.easeInCirc).setOnComplete(TitleSequenceA);
+                break;
+            case 6:
+                menuSound.Play();
+                titleFadeStage++;
+                break;
+        }
+    }
+
+    public static void FadeToGameplay()
+    {
+        switch (gameplayFadeStage)
+        {
+            case 0:
+                gameplayFadeStage++;
+                fadeScreenObj.SetActive(true);
+                LeanTween.alpha(fadeScreenImg.GetComponent<RectTransform>(), 1, 1).setOnComplete(FadeToGameplay);
+                break;
+            case 1:
+                gameplayFadeStage++;
+                ClearScreens();
+                SceneManager.LoadScene(1);
+                LeanTween.alpha(fadeScreenImg.GetComponent<RectTransform>(), 0, 1).setDelay(.5f).setOnComplete(FadeToGameplay);
+                break;
+            case 2:
+                gameplayFadeStage = 0;
+                fadeScreenObj.SetActive(false);
+                SetScreen(Screen.raceStart);
+                break;
+        }
+    }
+
+    public static void FadeToTitle()
+    {
+        switch (gameplayFadeStage)
+        {
+            case 0:
+                gameplayFadeStage++;
+                fadeScreenObj.SetActive(true);
+                LeanTween.alpha(fadeScreenImg.GetComponent<RectTransform>(), 1, 1).setOnComplete(FadeToTitle).setIgnoreTimeScale(true);
+                break;
+            case 1:
+                gameplayFadeStage++;
+                ClearScreens();
+                SceneManager.LoadScene(0);
+                LeanTween.alpha(fadeScreenImg.GetComponent<RectTransform>(), 0, 1).setDelay(.5f).setOnComplete(FadeToTitle).setIgnoreTimeScale(true);
+                break;
+            case 2:
+                gameplayFadeStage = 0;
+                fadeScreenObj.SetActive(false);
+                SetScreen(Screen.title);
+                break;
+        }
     }
 
     public static void HUDColors(Color color)
@@ -450,7 +565,7 @@ public class ScreenManager : MonoBehaviour
 
     public void UpdateMusicVolume()
     {
-        gameMusic.volume = musicVolume / 12;
+        gameMusic.volume = musicVolume / 3;
     }
 
     public void UpdateSoundVolume()
@@ -573,6 +688,10 @@ public class ScreenManager : MonoBehaviour
 
             case Screen.storyEnd:
                 if (!storyEndScreen.activeSelf) storyEndScreen.SetActive(true);
+                break;
+
+            case Screen.schnurrGames:
+                if (!schnurrGamesScreen.activeSelf) schnurrGamesScreen.SetActive(true);
                 break;
         }
 

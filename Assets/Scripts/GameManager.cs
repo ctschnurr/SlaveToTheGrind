@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
             screenManager.SetupScreens();
 
             ScreenManager.gameMusic.Play();
+            ScreenManager.TitleSequenceA();
         }
         else SceneManager.LoadScene(0);
 
@@ -77,7 +78,7 @@ public class GameManager : MonoBehaviour
             state = GameState.active;
             Time.timeScale = 1;
 
-            ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
+            // ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
         }
         if (scene.name == "TitleScene")
         {
@@ -85,6 +86,7 @@ public class GameManager : MonoBehaviour
             if (GameLoaded == true) GameLoaded = false;
             ScreenManager.RefreshScreens();
             gameLevel = 0;
+            Time.timeScale = 1;
 
             ScreenManager.SetScreen(ScreenManager.Screen.title);
         }
