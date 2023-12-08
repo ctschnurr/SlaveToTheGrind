@@ -55,7 +55,7 @@ public class ButtonManager : MonoBehaviour
 
     public void ShowRaceStartScreen()
     {
-        if(GameManager.GameLevel != 4)
+        if(GameManager.GameLevel < 4)
         {
             RaceManager.ResetRace();
             ScreenManager.SetScreen(ScreenManager.Screen.raceStart);
@@ -65,7 +65,7 @@ public class ButtonManager : MonoBehaviour
 
     public void CheckGameEnd()
     {
-        if (GameManager.GameLevel != 4)
+        if (GameManager.GameLevel < 4)
         {
             ScreenManager.SetScreen(ScreenManager.Screen.shop);
         }
@@ -78,18 +78,17 @@ public class ButtonManager : MonoBehaviour
     }
     public void GoToEarnings()
     {
-        if (GameManager.GameLevel == 3 && RaceManager.PlayerPlace == 0)
-        {
-            ScreenManager.SetScreen(ScreenManager.Screen.cupWinner);
-        }
-        else ScreenManager.SetScreen(ScreenManager.Screen.earnings);
+        ScreenManager.SetScreen(ScreenManager.Screen.earnings);
     }
 
     public void CheckCupWinner()
     {
+        Debug.Log(RaceManager.PlayerPlace);
+
         if (RaceManager.PlayerPlace == 0)
         {
             GameManager.GameLevel++;
+            Debug.Log(GameManager.GameLevel);
             ScreenManager.SetScreen(ScreenManager.Screen.cupWinner);
         }
         else ScreenManager.SetScreen(ScreenManager.Screen.shop);
